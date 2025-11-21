@@ -62,7 +62,7 @@ You must reproduce the following screens/views from the screenshots you posted:
 
 Submission will be on GitHub. Please follow these steps to submit your work:
 
-1.  **Clone the Repository**: Clone/fork the provided GitHub repository (link will be shared with you).
+1.  **Clone this Repository**: Clone/fork this GitHub repository https://github.com/AJAEQ/Test-Luminary-Cyber-Command-Dashboard-Clone-.git.
 2.  **Create a Branch**: Create a new branch for your work. Use a naming convention like `feature/your-name-submission`.
 3.  **Commit History**: 
     -   Commit often with meaningful messages. We check commit history to see your development process.
