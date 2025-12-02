@@ -1,0 +1,273 @@
+{
+  "educationTypes": [
+    {
+      "id": "offensive_ops",
+      "title": "Offensive Operations",
+      "description": "Red-team track focused on hacking, exploitation, and adversary simulation.",
+      "thumbnail": "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=800&q=80",
+      "courses": [
+        {
+          "id": "kali_linux",
+          "title": "Understanding Kali Linux",
+          "progress": "25/25",
+          "difficulty": "Beginner",
+          "estimatedTime": "8h",
+          "image": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80"
+        },
+        {
+          "id": "argonaut_services",
+          "title": "Exploring Different Services – Argonaut",
+          "progress": "25/25",
+          "difficulty": "Beginner",
+          "estimatedTime": "12h",
+          "image": "https://images.unsplash.com/photo-1555949963-aa79dcee981c?auto=format&fit=crop&w=800&q=80"
+        },
+        {
+          "id": "orchard_macos",
+          "title": "macOS Security Fundamentals – The Orchard",
+          "progress": "28/28",
+          "difficulty": "Intermediate",
+          "estimatedTime": "15h",
+          "image": "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=800&q=80"
+        },
+        {
+          "id": "web_attack_fanfans",
+          "title": "Web Attack Fundamentals – Fanfans",
+          "progress": "0/9",
+          "difficulty": "Intermediate",
+          "estimatedTime": "22h",
+          "image": "https://images.unsplash.com/photo-1559526324-593bc073d938?auto=format&fit=crop&w=800&q=80"
+        },
+        {
+          "id": "wireless_magic_carpet",
+          "title": "Introduction to Wireless – Magic Carpet",
+          "progress": "7/13",
+          "difficulty": "Intermediate",
+          "estimatedTime": "18h",
+          "image": "https://images.unsplash.com/photo-1561736778-92e52a7769ef?auto=format&fit=crop&w=800&q=80"
+        },
+        {
+          "id": "ad_exploitation",
+          "title": "Active Directory Exploitation",
+          "progress": "0/20",
+          "difficulty": "Advanced",
+          "estimatedTime": "30h",
+          "image": "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=80"
+        },
+        {
+          "id": "post_exploitation",
+          "title": "Post-Exploitation & Persistence",
+          "progress": "0/15",
+          "difficulty": "Advanced",
+          "estimatedTime": "25h",
+          "image": "https://images.unsplash.com/photo-1527443224154-dfbce7670a9a?auto=format&fit=crop&w=800&q=80"
+        }
+      ]
+    },
+
+    {
+      "id": "defensive_ops",
+      "title": "Defensive Operations",
+      "description": "Blue-team track focused on detection, response, and threat defense.",
+      "thumbnail": "https://images.unsplash.com/photo-1504639725590-34d0984388bd?auto=format&fit=crop&w=800&q=80",
+      "courses": [
+        {
+          "id": "sec_essentials",
+          "title": "Security Essentials",
+          "progress": "100%",
+          "difficulty": "Beginner",
+          "estimatedTime": "10h",
+          "image": "https://images.unsplash.com/photo-1584432810601-6c7f27d2362b?auto=format&fit=crop&w=800&q=80"
+        },
+        {
+          "id": "network_defense",
+          "title": "Network Defense & Monitoring",
+          "progress": "72%",
+          "difficulty": "Intermediate",
+          "estimatedTime": "20h",
+          "image": "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=800&q=80"
+        },
+        {
+          "id": "incident_response",
+          "title": "Incident Response & Forensics",
+          "progress": "45%",
+          "difficulty": "Advanced",
+          "estimatedTime": "28h",
+          "image": "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=800&q=80"
+        },
+        {
+          "id": "malware_analysis_intro",
+          "title": "Introduction to Malware Analysis",
+          "progress": "0%",
+          "difficulty": "Intermediate",
+          "estimatedTime": "24h",
+          "image": "https://images.unsplash.com/photo-1580894908361-96719503362c?auto=format&fit=crop&w=800&q=80"
+        }
+      ]
+    },
+
+    {
+      "id": "cloud_security",
+      "title": "Cloud Security",
+      "description": "Learn to secure cloud environments and detect cloud-native threats.",
+      "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80",
+      "courses": [
+        {
+          "id": "aws_foundations",
+          "title": "AWS Security Foundations",
+          "progress": "15%",
+          "difficulty": "Beginner",
+          "estimatedTime": "10h",
+          "image": "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=800&q=80"
+        },
+        {
+          "id": "azure_defense",
+          "title": "Defending Azure Environments",
+          "progress": "0%",
+          "difficulty": "Intermediate",
+          "estimatedTime": "18h",
+          "image": "https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=800&q=80"
+        },
+        {
+          "id": "kubernetes_security",
+          "title": "Kubernetes Security Essentials",
+          "progress": "8%",
+          "difficulty": "Intermediate",
+          "estimatedTime": "22h",
+          "image": "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=80"
+        },
+        {
+          "id": "cloud_incident_response",
+          "title": "Cloud Incident Response",
+          "progress": "0%",
+          "difficulty": "Advanced",
+          "estimatedTime": "26h",
+          "image": "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=800&q=80"
+        }
+      ]
+    },
+
+    {
+      "id": "threat_intel",
+      "title": "Threat Intelligence",
+      "description": "Develop skills in adversary profiling, attack tracking, and intelligence reporting.",
+      "thumbnail": "https://images.unsplash.com/photo-1591696205602-2f950c417cb9?auto=format&fit=crop&w=800&q=80",
+      "courses": [
+        {
+          "id": "intel_basics",
+          "title": "Threat Intelligence Basics",
+          "progress": "50%",
+          "difficulty": "Beginner",
+          "estimatedTime": "9h",
+          "image": "https://images.unsplash.com/photo-1603791440384-56cd371ee9a7?auto=format&fit=crop&w=800&q=80"
+        },
+        {
+          "id": "tracking_apt_groups",
+          "title": "Tracking APT Groups",
+          "progress": "0%",
+          "difficulty": "Intermediate",
+          "estimatedTime": "18h",
+          "image": "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=800&q=80"
+        },
+        {
+          "id": "osint_ops",
+          "title": "OSINT Collection & Operations",
+          "progress": "32%",
+          "difficulty": "Intermediate",
+          "estimatedTime": "12h",
+          "image": "https://images.unsplash.com/photo-1475720402951-125aa0e22f0b?auto=format&fit=crop&w=800&q=80"
+        },
+        {
+          "id": "malware_trends_analysis",
+          "title": "Malware Trends & Campaign Analysis",
+          "progress": "0%",
+          "difficulty": "Advanced",
+          "estimatedTime": "30h",
+          "image": "https://images.unsplash.com/photo-1580894908361-96719503362c?auto=format&fit=crop&w=800&q=80"
+        }
+      ]
+    },
+
+    {
+      "id": "digital_forensics",
+      "title": "Digital Forensics",
+      "description": "Collect, preserve, and analyze digital evidence across devices and systems.",
+      "thumbnail": "https://images.unsplash.com/photo-1581093588401-22f0ef9cacf9?auto=format&fit=crop&w=800&q=80",
+      "courses": [
+        {
+          "id": "forensics_intro",
+          "title": "Introduction to Digital Forensics",
+          "progress": "80%",
+          "difficulty": "Beginner",
+          "estimatedTime": "11h",
+          "image": "https://images.unsplash.com/photo-1584433144859-1fc3ab64a957?auto=format&fit=crop&w=800&q=80"
+        },
+        {
+          "id": "mobile_device_analysis",
+          "title": "Mobile Device Analysis",
+          "progress": "0%",
+          "difficulty": "Intermediate",
+          "estimatedTime": "20h",
+          "image": "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=800&q=80"
+        },
+        {
+          "id": "memory_forensics",
+          "title": "Memory Forensics",
+          "progress": "12%",
+          "difficulty": "Advanced",
+          "estimatedTime": "28h",
+          "image": "https://images.unsplash.com/photo-1625314897518-9a2964c07d57?auto=format&fit=crop&w=800&q=80"
+        },
+        {
+          "id": "network_forensics",
+          "title": "Network Forensics",
+          "progress": "0%",
+          "difficulty": "Advanced",
+          "estimatedTime": "24h",
+          "image": "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=800&q=80"
+        }
+      ]
+    },
+
+    {
+      "id": "security_engineering",
+      "title": "Security Engineering",
+      "description": "Learn how to design, build, and maintain secure systems.",
+      "thumbnail": "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=800&q=80",
+      "courses": [
+        {
+          "id": "secure_coding",
+          "title": "Secure Coding Practices",
+          "progress": "60%",
+          "difficulty": "Beginner",
+          "estimatedTime": "14h",
+          "image": "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=800&q=80"
+        },
+        {
+          "id": "appsec_fundamentals",
+          "title": "Application Security Fundamentals",
+          "progress": "0%",
+          "difficulty": "Intermediate",
+          "estimatedTime": "18h",
+          "image": "https://images.unsplash.com/photo-1517433456452-f9633a875f6f?auto=format&fit=crop&w=800&q=80"
+        },
+        {
+          "id": "security_architecture",
+          "title": "Security Architecture & Design",
+          "progress": "20%",
+          "difficulty": "Advanced",
+          "estimatedTime": "28h",
+          "image": "https://images.unsplash.com/photo-1527430253228-e93688616381?auto=format&fit=crop&w=800&q=80"
+        },
+        {
+          "id": "devsecops_pipeline",
+          "title": "DevSecOps Pipeline Engineering",
+          "progress": "0%",
+          "difficulty": "Advanced",
+          "estimatedTime": "25h",
+          "image": "https://images.unsplash.com/photo-1535223289827-42f1e9919769?auto=format&fit=crop&w=800&q=80"
+        }
+      ]
+    }
+  ]
+}
