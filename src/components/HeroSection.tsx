@@ -1,9 +1,7 @@
-// components/Dashboard/HeroSection.tsx
 
 export const HeroSection = () => {
   return (
     <div className="relative h-[451px] rounded-xl overflow-hidden shadow-lg border border-[#2c2c3e]">
-      {/* Background Image: Note: In a real app, use the Next.js <Image> component */}
       <div
         className="absolute inset-0 bg-cover bg-center"
         style={{

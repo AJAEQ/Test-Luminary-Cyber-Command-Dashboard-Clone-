@@ -7,12 +7,11 @@ import {
   Zap,
   LayoutDashboard,
   Bell,
-  HardHat, // Using HardHat for 'Build' or a wrench icon
+  HardHat, 
 } from "lucide-react";
 
-// Define the structure for a sidebar item
 interface SidebarItemProps {
-  Icon: React.ElementType; // To pass the lucide-react component
+  Icon: React.ElementType; 
   active?: boolean;
 }
 
@@ -25,7 +24,6 @@ const SidebarItem: React.FC<SidebarItemProps> = ({ Icon, active = false }) => {
   return (
     <div className="relative group p-2 rounded-lg">
       <Icon className={`${baseClasses} ${colorClasses}`} />
-      {/* Optional: Add a subtle cyan indicator for the active item */}
       {active && (
         <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 bg-cyan-500 rounded-r-lg"></div>
       )}
@@ -42,12 +40,10 @@ export const Sidebar: React.FC = () => {
       {/* Primary Navigation Icons */}
       <div className="space-y-6">
         <SidebarItem Icon={Shield} active={true} />{" "}
-        {/* Active item matches the screenshot context */}
         <SidebarItem Icon={LayoutDashboard} />
         <SidebarItem Icon={BookOpen} />
         <SidebarItem Icon={Briefcase} />
         <SidebarItem Icon={HardHat} />{" "}
-        {/* Used for the wrench/hammer icon group */}
         <SidebarItem Icon={Bell} />
       </div>
 

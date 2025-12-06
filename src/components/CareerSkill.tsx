@@ -91,7 +91,6 @@ export const CareerSkillChart = ({
     () => calculateRadarPoints(progressionSkills),
     [progressionSkills]
   );
-  // Memoized calculated values are no longer needed since we display full gradient
 
   return (
     <div className="p-6 rounded-xl border border-[#1a253a] shadow-xl h-full flex flex-col text-gray-100">

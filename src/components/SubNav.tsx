@@ -1,6 +1,6 @@
 export const SubNav: React.FC = () => {
   const navItems = ["Overview", "Nodes", "Reviews"];
-  const activeItem = "Overview"; // Matches the screenshot
+  const activeItem = "Overview"; 
 
   return (
     <nav className="flex items-center px-6 py-3 bg-[#11111a] border-b border-[#1a1a1a]">

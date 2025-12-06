@@ -15,8 +15,8 @@ export const SkillChainProgress: React.FC<SkillChainProgressProps> = ({
   const safeProgress =
     typeof progress === "number" && !isNaN(progress) ? progress : 0;
 
-  const progressColor = "#06b6d4"; // cyan
-  const trackColor = "#1a1f2e"; // dark background track
+  const progressColor = "#06b6d4"; 
+  const trackColor = "#1a1f2e"; 
 
   return (
     <div className="flex items-center gap-4  border border-[#1c2333] rounded-xl p-4 shadow-md">

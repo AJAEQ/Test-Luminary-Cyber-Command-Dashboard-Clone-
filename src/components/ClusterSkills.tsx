@@ -1,8 +1,7 @@
 interface SkillItemProps {
   name: string;
-  progress: number; // 0-100
-  color: string; // Tailwind color class e.g., 'bg-cyan-600'
-}
+  progress: number; 
+  color: string; }
 
 const SkillItem: React.FC<SkillItemProps> = ({ name, progress, color }) => {
   return (
@@ -13,7 +12,6 @@ const SkillItem: React.FC<SkillItemProps> = ({ name, progress, color }) => {
           className={`h-2.5 rounded-full ${color}`}
           style={{ width: `${progress}%` }}
         ></div>
-        {/* Progress text inside or outside the bar as seen in the screenshot */}
       </div>
       <span className="text-sm font-medium text-gray-300 w-10 text-right">
         {progress}%
@@ -27,11 +25,9 @@ export const ClusterSkillMatrix = () => {
     { name: "Linux Administration", progress: 50, color: "bg-green-500" },
     { name: "Windows Administration", progress: 100, color: "bg-cyan-500" },
     { name: "Cryptography", progress: 25, color: "bg-yellow-500" },
-    // ... add more skills here
   ];
 
-  // Note: The screenshot shows two columns of skill bars.
-  // You would wrap two lists of SkillItem components in a grid or flex container.
+
 
   return (
     <div className="p-4 bg-[#1e1e2d] rounded-xl border border-[#2c2c3e] shadow-xl">

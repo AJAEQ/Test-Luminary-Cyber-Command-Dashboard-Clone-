@@ -1,4 +1,3 @@
-// components/Dashboard/ConsistencyChain.tsx
 
 "use client";
 
@@ -44,7 +43,6 @@ const ChainItem: React.FC<ChainItemProps> = ({
         ></div>
         <div className="absolute inset-0 flex items-center justify-between px-3 text-sm font-semibold text-white">
           <span>{progress}%</span>
-          {/* Note: The image shows the percentage slightly offset; this aligns it centrally over the gradient */}
         </div>
       </div>
     </div>

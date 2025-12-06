@@ -2,8 +2,8 @@ import React from "react";
 
 interface SkillItemProps {
   name: string;
-  progress: number; // 0-100
-  color: string; // Tailwind color class e.g., 'rgb(25, 120, 150)'
+  progress: number; 
+  color: string; 
 }
 
 // SkillItem component (Layout remains INVERTED: % | Bar | Name)
@@ -12,7 +12,6 @@ export const SkillItem: React.FC<SkillItemProps> = ({
   progress,
   
 }) => {
-  // We use a specific color for consistency with the dark blue theme
   const barFillColor = "linear-gradient(270deg, rgba(33, 185, 232, 0.2) 0%, rgba(18, 104, 130, 0.2) 100%)";
 
   return (
@@ -80,7 +79,6 @@ export const ClusterSkillMatrix = () => {
   ];
 
   return (
-    // 💥 CHANGE: Single Container Card
     <div className="p-4 bg-[linear-gradient(180deg,rgba(4,14,22,0.5)_0%,rgba(23,79,124,0.5)_395.83%)] rounded-xl border border-[#2c2c3e] shadow-xl">
       {/* Column Titles Area */}
       <div className="flex justify-between items-center mb-4  pb-3 mx-4">
@@ -92,7 +90,6 @@ export const ClusterSkillMatrix = () => {
         </h4>
       </div>
 
-      {/* 💥 CHANGE: Grid with a Vertical Divider */}
       <div className="grid grid-cols-2 gap-x-8 relative">
         {/* Vertical Divider Line */}
         <div className="absolute inset-y-0 left-1/2 w-[1px] bg-[#2c2c3e] transform -translate-x-1/2"></div>
