@@ -2,8 +2,8 @@
 
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
-import Sidebar from '../components/sidebar';
-import Header from '../components/header';
+import Sidebar from '../../components/sidebar';
+import Header from '../../components/header';
 
 type Course = {
   id: number;
@@ -16,8 +16,17 @@ type Course = {
   icon?: string;
 };
 
-export default function CyberSecurityDashboard() {
+export default function Clusters() {
   const router = useRouter();
+
+  const handleWithdraw = () => {
+    router.push('/Dashboard');
+  }
+    
+  const discoveryStats = [
+    { label: "", value: "40%" },
+  ];
+
   const courses: Course[] = [
     {
       id: 1,
@@ -77,7 +86,7 @@ export default function CyberSecurityDashboard() {
       <Header/>
 
       {/* Main Content */}
-      <main className="ml-1 p-8 w-[px] h-[960px]">
+      <main className="ml-1 p-8  pb-13">
         <div className="flex items-center gap-3 mb-8">
           <Image src="/elements1.png" alt="" width={0} height={0} className="w-[16px] h-[10px] text-gray-400 cursor-pointer hover:text-white" />
           <h1 className="text-sm font-semibold">Cyber command</h1>
@@ -105,16 +114,12 @@ export default function CyberSecurityDashboard() {
                   fill
                   className="object-cover object-top opacity-90"
                   sizes="(max-width: 1024px) 100vw, 50vw"
+                  onError={(e) => {
+                    // Fallback styling if image doesn't load
+                    e.currentTarget.style.display = 'none';
+                  }}
                 />
-                 <div className="absolute inset-0">
-                  <Image
-                    src="/half.png"
-                    alt="Neon Circuit Overlay"
-                    fill
-                    className="object-cover object-top opacity-80 mix-blend-screen w-2 h-2"
-                    sizes=""
-                  />
-                </div>
+                <div className=""></div>
               </div>
             </div>
 
@@ -138,16 +143,6 @@ export default function CyberSecurityDashboard() {
               </div>
             </div>
           </div>
-          {/* Padlock Image - Top Right Corner */}
-                <div className="absolute bottom-51 right-5 w-[235.39px] h-[235.39px] opacity-70 pointer-events-none">
-                  <Image
-                    src="/full.png"
-                    alt="Security Padlock"
-                    fill
-                    className="object-contain"
-                    sizes="200px"
-                  />
-                </div>
 
           {/* Course List */}
           <div className="relative z-10">
@@ -212,6 +207,7 @@ export default function CyberSecurityDashboard() {
 
         {/* Footer */}
         <div className="p-10 flex items-center justify-between bg-[#040E1633] border-b-2 rounded-b-md border-gray-900 border-x-2">
+            <div>
           <div className="flex items-center gap-6">
             <button className="h-[28.39px] w-[94.63px] bg-[#9900824D] text-[#990082] rounded-md font-bold font-neofolia uppercase text-sm border-2 border-[#990082]">
               Scout
@@ -221,6 +217,26 @@ export default function CyberSecurityDashboard() {
               <span className='text-[#21B9E8]'>|</span>
               <span className="text-[#21B9E8] font-neofolia">34 NODES</span>
             </div>
+          </div>
+          <div className="mt-3 space-y-4 mb-3">
+                  {discoveryStats.map((stat, index) => (
+                    <div key={stat.label}>
+                      <div className="flex items-center justify-between text-xs uppercase tracking-[0.3em] text-slate-400">
+                        <span>{stat.label}</span>
+                        
+                      </div>
+                      <div className="flex gap-2">
+                      <div className="mt-2 w-[300.93px] h-[14.55px] rounded-full bg-white/5">
+                        <div
+                          className="rounded-full bg-linear-to-r "
+                          style={{ width: `${30 + index * 15}%` }}
+                        />
+                      </div>
+                      <p className="text-[#E2E8FF] text-[12.72px] mt-1.5">{stat.value}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
           </div>
 
           <div className="flex gap-2">
@@ -240,20 +256,14 @@ export default function CyberSecurityDashboard() {
 
           <div className="flex items-center gap-6">
             <button 
-              onClick={() => router.push('/cyber/clusters')}
-              className="relative overflow-hidden w-[174px] h-[40px] bg-[#D1D1D1] text-[#6A2936] text-xs rounded-md font-semibold tracking-[0.2em] uppercase shadow-[13px_3px_24px_rgba(255,100,100,0.55)] hover:bg-[#E1E1E1] transition-colors"
-            >
-              Enroll
+            onClick={handleWithdraw}
+            className="relative overflow-hidden w-[174px] h-[40px] bg-linear-to-br from-[#F6743E] via-[#D42525] to-[#D42525] text-[#E2E8FF] text-xs rounded-md border-[#FFFFFF99] border-[1.06px] font-semibold tracking-[0.2em] uppercase shadow-[13px_3px_24px_rgba(255,100,100,0.55)]">
+              Withdraw
             </button>
           </div>
         </div>
       </main>
       </div>
-
-      {/* Help Button
-      <button className="fixed bottom-8 right-8 w-12 h-12 bg-cyan-500 rounded-full flex items-center justify-center shadow-lg shadow-cyan-500/50 hover:scale-110 transition-transform">
-        <span className="text-2xl">?</span>
-      </button> */}
     </div>
   );
 }

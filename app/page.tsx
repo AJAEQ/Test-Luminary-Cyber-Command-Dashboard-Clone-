@@ -1,116 +1,204 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import Image from "next/image";
+import { Inter } from "next/font/google";
 import ConsistencyModal from "./components/consistency-modal";
 import Sidebar from "./components/sidebar";
+import Header from "./components/header";
+import { Calendar, RotateCcw } from "lucide-react";
+
+const inter = Inter({ subsets: ["latin"] });
+
+// Type Definitions for Dynamic Data
+interface DiscoveryStat {
+  label: string;
+  value: string;
+  percentage: number;
+}
+
+interface ClusterColumn {
+  id: number;
+  value: string;
+}
+
+interface ExecuteMetric {
+  label: string;
+  value: string;
+}
+
+interface ConsistencyChainWeek {
+  label: string;
+  value: string;
+}
+
+interface SkillProgression {
+  label: string;
+  percentage: number;
+  gradient: string;
+}
+
+interface DashboardData {
+  clusterName: string;
+  clusterId: string;
+  discoveryStats: DiscoveryStat[];
+  consistencyChain: ConsistencyChainWeek[];
+  clusterColumns: ClusterColumn[];
+  executeMetrics: ExecuteMetric[];
+  skillProgression: SkillProgression[];
+  studyTimeData: {
+    date: string;
+    hours: number;
+  }[];
+  skillChainData: {
+    name: string;
+    completed: number;
+    total: number;
+  };
+}
 
 export default function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const discoveryStats = [
-    { label: "Weak", value: "12%" },
-    { label: "Mild", value: "24%" },
-    { label: "Strong", value: "30%" },
-    { label: "Ultra", value: "34%" },
-  ];
+  const [dashboardData, setDashboardData] = useState<DashboardData | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [selectedTab, setSelectedTab] = useState("Analytics");
 
-  const analytics = [
-    { label: "Cluster shift matrix", value: "09" },
-    { label: "Completed nodes", value: "40" },
-    { label: "Companion clusters", value: "28" },
-    { label: "Loss to learn", value: "06" },
-  ];
+  // Fetch data from backend
+  useEffect(() => {
+    const fetchDashboardData = async () => {
+      try {
+        setLoading(true);
+        // Replace with your actual API endpoint
+        const response = await fetch("/api/dashboard");
+        
+        if (!response.ok) {
+          throw new Error("Failed to fetch dashboard data");
+        }
+        
+        const data = await response.json();
+        setDashboardData(data);
+        setError(null);
+      } catch (err) {
+        setError(err instanceof Error ? err.message : "An error occurred");
+        setDashboardData(null);
+        // Set fallback/mock data
+        setDashboardData(getMockData());
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  const clusterColumns = [
-    {
-      title: "Cluster skill name",
-      values: ["0%", "0%", "0%", "0%", "0%"],
+    fetchDashboardData();
+  }, []);
+
+  // Mock data for development/fallback
+  const getMockData = (): DashboardData => ({
+    clusterName: "N/A",
+    clusterId: "N/A",
+    discoveryStats: [
+      { label: "", value: "N/A", percentage: 0 },
+    ],
+    consistencyChain: [
+      { label: "Week 1", value: "0%" },
+      { label: "Week 2", value: "0%" },
+      { label: "Week 3", value: "0%" },
+      { label: "Week 4", value: "0%" },
+    ],
+    clusterColumns: Array.from({ length: 16 }, (_, i) => ({
+      id: i + 1,
+      value: "0%",
+    })),
+    executeMetrics: [
+      { label: "Completed nodes", value: "0 / 9" },
+      { label: "Completed sections", value: "0 / 9" },
+      { label: "Completed lessons", value: "0 / 9" },
+      { label: "Completed exercises", value: "0 / 9" },
+    ],
+    skillProgression: [
+      { label: "N/A", percentage: 0, gradient: "linear-gradient(to bottom right, #01070D, #F5F5F5)" },
+      { label: "N/A", percentage: 0, gradient: "linear-gradient(to bottom right, #B81A1A, #800B0B)" },
+      { label: "N/A", percentage: 0, gradient: "linear-gradient(to bottom right, #F0863A, #8A4D21)" },
+      { label: "N/A", percentage: 0, gradient: "linear-gradient(to bottom right, #05131E, #176A16)" },
+      { label: "N/A", percentage: 0, gradient: "linear-gradient(to bottom right, #05131E, #1C60AC)" },
+      { label: "N/A", percentage: 0, gradient: "linear-gradient(to bottom right, #C89961, #A3227B)" },
+      { label: "N/A", percentage: 0, gradient: "linear-gradient(to bottom right, #3D6CEB, #2AE0DB)" },
+    ],
+    studyTimeData: Array.from({ length: 25 }, (_, i) => ({
+      date: `${9 + i}`,
+      hours: Math.floor(Math.random() * 5),
+    })),
+    skillChainData: {
+      name: "Offensive operations",
+      completed: 0,
+      total: 1,
     },
-    {
-      title: "Cluster nodes",
-      values: ["0%", "0%", "0%", "0%", "0%"],
-    },
-    {
-      title: "Cluster mastery",
-      values: ["0%", "0%", "0%", "0%", "0%"],
-    },
+  });
+
+  const tabs = [
+    "Cyber Command",
+    "Overview",
+    "Nodes",
+    "Reviews",
+    "Reports",
+    "Labs",
   ];
 
-  const executeMetrics = [
-    { label: "Completed nodes", value: "0 / 9" },
-    { label: "Completed sections", value: "0 / 9" },
-    { label: "Completed lessons", value: "0 / 9" },
-    { label: "Completed exercises", value: "0 / 9" },
+  const analyticsOptions = [
+    "Analytics",
+    "Completed nodes",
+    "Completed clusters",
+    "To do list",
+    "Recently added",
   ];
 
-  const legend = [
-    "N/A",
-    "On hold",
-    "In queue",
-    "Review",
-    "Active",
-    "Complete",
-  ];
+  const studyAxisLabels = Array.from({ length: 25 }, (_, i) => {
+    const dayNum = 9 + i;
+    return dayNum > 30 ? (dayNum - 30).toString() : dayNum.toString();
+  });
 
-  const studyTimeline = [
-    { day: "04", value: 18 },
-    { day: "07", value: 24 },
-    { day: "10", value: 12 },
-    { day: "13", value: 30 },
-    { day: "16", value: 15 },
-    { day: "19", value: 28 },
-    { day: "22", value: 8 },
-    { day: "25", value: 20 },
-    { day: "28", value: 26 },
-    { day: "31", value: 10 },
-  ];
+  if (loading) {
+    return (
+      <div className={`${inter.className} min-h-screen bg-[#040E16] text-white flex items-center justify-center`}>
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-cyan-500 mx-auto mb-4"></div>
+          <p className="text-gray-400">Loading dashboard...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (!dashboardData) {
+    return (
+      <div className={`${inter.className} min-h-screen bg-[#040E16] text-white flex items-center justify-center`}>
+        <div className="text-center">
+          <p className="text-red-400 mb-4">{error || "Failed to load dashboard"}</p>
+          <button
+            onClick={() => window.location.reload()}
+            className="px-4 py-2 bg-cyan-600 rounded-lg text-white hover:bg-cyan-700"
+          >
+            Retry
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <div className="flex min-h-screen justify-center bg-[#010611] px-3 py-6 font-sans text-white sm:px-6 lg:px-12">
-      <div className="flex w/full max-w-[1400px] gap-4 lg:gap-8">
-        <Sidebar />
-
-        <main className="flex-1 rounded-[40px] border border-white/10 bg-[#050f22] p-5 shadow-[0_25px_120px_rgba(1,6,20,0.9)] lg:p-10">
-          <header className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
-            <div className="space-y-1">
-              <p className="text-xs uppercase tracking-[0.4em] text-slate-400">Education</p>
-              <div className="flex items-center gap-2 text-2xl font-semibold">
-                <span className="text-white">Cyber command</span>
-                <span className="text-slate-500">/ Cyber command</span>
-              </div>
-            </div>
-            <div className="flex flex-wrap items-center gap-3">
-              <div className="flex items-center gap-2 rounded-2xl border border-white/10 bg-white/5 px-4 py-2 text-sm text-slate-300">
-                <span className="text-white/50">Search luminary</span>
-              </div>
-              <div className="flex items-center gap-3 text-lg text-slate-300">
-                <span className="rounded-2xl bg-white/5 px-3 py-2">☾</span>
-                <span className="rounded-2xl bg-white/5 px-3 py-2">🛎</span>
-                <span className="rounded-2xl bg-white/5 px-3 py-2">👤</span>
-              </div>
-              <button
-                className="rounded-2xl bg-[#fb3f5c] px-5 py-2 text-sm font-semibold text-white shadow-lg shadow-[#fb3f5c]/30"
-                onClick={() => setIsModalOpen(true)}
-              >
-                Connect to VPN
-              </button>
-            </div>
-          </header>
-
-          <nav className="mt-8 flex flex-wrap gap-3 text-sm text-slate-300">
-            {[
-              "Cyber Command",
-              "Overview",
-              "Nodes",
-              "Reviews",
-              "Reports",
-              "Labs",
-            ].map((tab, index) => (
+    <div className={`${inter.className} min-h-screen bg-[#040E16] text-white`}>
+      <Sidebar />
+      <div className="ml-16">
+        <Header />
+        <div className="px-6 py-4">
+          {/* Tab Navigation */}
+          <nav className="flex flex-wrap gap-2 text-xs ml-4">
+            {tabs.map((tab, index) => (
               <button
                 key={tab}
-                className={`rounded-2xl px-4 py-2 transition ${
+                className={`rounded-[10px] px-4 py-2 transition text-xs ${
                   index === 0
-                    ? "bg-[#1f6fff] text-white"
-                    : "bg-[#0c1a2b] text-slate-300 hover:bg-white/10"
+                    ? "bg-[#040E16] text-[#E2E8FF] border border-[#E2E8FF0D] w-[143px] h-[34px] font-semibold"
+                    : "text-[#E2E8FF99] w-[143px] h-[34px]"
                 }`}
               >
                 {tab}
@@ -118,318 +206,352 @@ export default function Home() {
             ))}
           </nav>
 
-          <section className="mt-8 grid gap-6 xl:grid-cols-[minmax(0,2.3fr)_minmax(0,1fr)]">
-            <div className="space-y-6">
-              <div className="rounded-[32px] border border-white/5 bg-linear-to-br from-[#07122e] via-[#050f22] to-[#020812] p-6">
-                <div className="flex flex-wrap items-center justify-between gap-4 text-sm text-slate-300">
-                  <div className="space-y-1">
-                    <p className="text-xs uppercase tracking-[0.4em] text-slate-500">Collection</p>
-                    <p className="text-base font-semibold text-white">Canyon relay</p>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <span className="rounded-2xl bg-white/10 px-3 py-1">Live</span>
-                    <span className="rounded-full border border-white/10 px-3 py-1">4K</span>
-                  </div>
-                </div>
+          {/* Main Content Section */}
+          <section className="mt-8 gap-6 px-5">
+            <div className="flex w-full gap-3">
+              {/* Card Section */}
+              <div className="w-1/2">
+                <Image
+                  src="/Card.png"
+                  alt="upgrade"
+                  width={0}
+                  height={0}
+                  className="w-full h-full rounded-xl"
+                />
+              </div>
 
-                <div className="relative mt-6 h-72 overflow-hidden rounded-[28px] bg-[#030b1b]">
-                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(74,189,255,0.4),transparent_55%),radial-gradient(circle_at_70%_60%,rgba(9,214,255,0.35),transparent_60%)]" />
-                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_-20%,rgba(251,63,92,0.35),transparent_60%)]" />
-                  <div className="absolute inset-0 scale-105 bg-[radial-gradient(circle_at_50%_90%,rgba(0,0,0,0.4),transparent_55%)]" />
-                  <div className="absolute inset-x-6 bottom-6 flex flex-col items-start gap-3">
-                    <button className="rounded-2xl bg-white/15 px-4 py-2 text-sm font-medium text-white shadow-[0_10px_30px_rgba(0,0,0,0.4)]">
-                      Upgrade now
+              <div className="w-1/2 flex gap-3">
+                {/* Consistency Chain Card */}
+                <div className="rounded-[14px] border border-white/5 bg-[#040E16] p-6 w-1/2">
+                  <div className="flex items-start justify-between mb-5">
+                    <div className="border border-[#E2E8FF0D] rounded-lg bg-[#211B1A80] w-[108px] h-[31px] flex items-center justify-center">
+                      <p className="text-[10px] font-semibold text-[#E18682]">
+                        Consistency chain
+                      </p>
+                    </div>
+                    <button className="rounded-xl border border-[#E2E8FF0D] w-[35px] h-[31px] flex items-center justify-center hover:bg-white/5">
+                      <Image
+                        src="/elements2.png"
+                        alt="sync"
+                        width={0}
+                        height={0}
+                        className="w-[11.25px] h-[10px]"
+                      />
                     </button>
-                    <div className="flex gap-1">
-                      {[0, 1, 2, 3].map((dot) => (
-                        <span
-                          key={dot}
-                          className={`h-1.5 w-8 rounded-full ${
-                            dot === 1 ? "bg-white" : "bg-white/30"
-                          }`}
-                        />
+                  </div>
+
+                  <div>
+                    <div className="mb-5">
+                      <p className="text-[12px] text-[#E2E8FF80]">Cluster name</p>
+                      <p className="text-[14px] text-[#E2E8FF]">
+                        {dashboardData.clusterName}
+                      </p>
+                    </div>
+                    <div>
+                      <p className="text-xs text-[#E2E8FF80] mb-2">Cluster ID</p>
+                      <p className="border border-[#E2E8FF0D] rounded-sm bg-[#211B1A80] w-[39px] h-[12px] flex items-center justify-center text-[10px] text-[#E0E4E7]">
+                        {dashboardData.clusterId}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Discovery Stats */}
+                  <div className="mt-6 space-y-4 mb-5">
+                    {dashboardData.discoveryStats.map((stat, index) => (
+                      <div key={`stat-${index}`}>
+                        <div className="flex items-center justify-between text-xs uppercase tracking-[0.3em] text-slate-400">
+                          <span>{stat.label}</span>
+                        </div>
+                        <div className="flex gap-2">
+                          <div className="mt-2 w-[153px] h-[5px] rounded-full bg-white/5">
+                            <div
+                              className="rounded-full bg-linear-to-r from-cyan-400 to-blue-600"
+                              style={{
+                                width: `${stat.percentage}%`,
+                              }}
+                            />
+                          </div>
+                          <p className="text-[#E2E8FF80] text-[8px] mt-1.5">
+                            {stat.value}
+                          </p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Consistency Chain Weeks */}
+                  <div className="mt-6">
+                    <div className="text-xs text-[#E2E8FF80] mb-5">
+                      Consistency chain
+                    </div>
+                    <div>
+                      {dashboardData.consistencyChain.map((wk, index) => (
+                        <div key={`week-${index}`} className="flex items-center justify-between">
+                          <div className="flex-col mb-4">
+                            <div className="text-[10px] text-[#E2E8FF] flex items-center justify-center mb-1">
+                              {wk.label}
+                            </div>
+                            <div className="text-[8px] text-[#D4C6C680] bg-[#C6C6C61A] w-[39px] h-[13px] rounded-xl flex items-center justify-center">
+                              -{wk.value}
+                            </div>
+                          </div>
+                          <div className="gap-2 w-1/2 -mt-2">
+                            <p className="text-[#21B9E8] text-[12px] mt-1.5 border border-[#E2E8FF0D] rounded-lg w-[47px] h-[37px] flex items-center justify-center bg-linear-to-br from-[#0C5062] to-[#21B9E8CC]">
+                              {wk.value}
+                            </p>
+                          </div>
+                        </div>
                       ))}
                     </div>
                   </div>
                 </div>
-              </div>
 
-              <div className="rounded-[32px] border border-white/5 bg-[#040c1c] p-6">
-                <div className="flex items-center justify-between">
-                  <p className="text-base font-semibold">Analytics</p>
-                  <button className="text-sm text-slate-400">See all progression</button>
-                </div>
-                <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-                  {analytics.map((item, index) => (
-                    <div
-                      key={item.label}
-                      className={`rounded-2xl border border-white/5 px-4 py-5 ${
-                        index === 0
-                          ? "bg-linear-to-br from-[#0a1c30] to-[#031327]"
-                          : "bg-[#071529]"
-                      }`}
-                    >
-                      <p className="text-xs uppercase tracking-[0.3em] text-slate-400">
-                        {item.label}
-                      </p>
-                      <p className="mt-4 text-3xl font-semibold text-white">
-                        {item.value}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
+                {/* Join Cyberspace Card */}
+                <div className="rounded-[14px] border border-white/5 bg-[#040E16] p-6 w-1/2">
+                  <p className="text-[10px] font-medium text-[#92E182] border rounded-lg w-[99px] h-[31px] border-[#E2E8FF0D] bg-[#1B211A80] text-center pt-2">
+                    Join cyberspace
+                  </p>
+                  <p className="mt-20 mb-10 text-md font-normal font-['Inter'] text-center text-[#E2E8FF80]">
+                    &quot;Join a team, learn from top minds, and grow with the
+                    cyberspace squad. Choose an existing cyberspace that aligns
+                    with your goals or build your dream team.&quot;
+                  </p>
 
-            <div className="space-y-6">
-              <div className="rounded-[32px] border border-white/5 bg-[#081530] p-6">
-                <div className="flex items-start justify-between">
-                  <div>
-                    <p className="text-sm font-semibold text-white">Discovery chain</p>
-                    <p className="text-xs uppercase tracking-[0.4em] text-slate-500">
-                      Mk II
-                    </p>
+                  <div className="flex items-center justify-center">
+                    <button className="mt-6 rounded-[10px] border border-[#E2E8FF0D] w-[83px] h-[31px] text-[10px] text-[#E2E8FFCC] bg-[#0D171F] hover:bg-[#0D171F]/80">
+                      Coming soon
+                    </button>
                   </div>
-                  <button className="rounded-2xl border border-white/10 px-4 py-1 text-xs text-slate-200">
-                    Sync
-                  </button>
                 </div>
-                <div className="mt-6 space-y-4">
-                  {discoveryStats.map((stat, index) => (
-                    <div key={stat.label}>
-                      <div className="flex items-center justify-between text-xs uppercase tracking-[0.3em] text-slate-400">
-                        <span>{stat.label}</span>
-                        <span>{stat.value}</span>
-                      </div>
-                      <div className="mt-2 h-2 w-full rounded-full bg-white/5">
-                        <div
-                          className="h-full rounded-full bg-gradient-to-r from-[#42e8ff] via-[#13b6f5] to-[#0b82ff]"
-                          style={{ width: `${30 + index * 15}%` }}
-                        />
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <div className="rounded-[32px] border border-white/5 bg-linear-to-br from-[#081828] via-[#061223] to-[#040c19] p-6">
-                <p className="text-sm font-semibold text-[#6cffd4]">Join cyberspace</p>
-                <p className="mt-4 text-lg font-medium text-white">
-                  “Join a team, learn from top minds, and grow with the cyberspace
-                  squad. Choose an existing cyberspace that aligns with your goals
-                  or build your dream team.”
-                </p>
-                <button className="mt-6 rounded-2xl border border-white/20 px-4 py-2 text-sm text-white/70">
-                  Coming soon
-                </button>
               </div>
             </div>
           </section>
 
-          <section className="mt-10 grid gap-6 xl:grid-cols-[minmax(0,2.3fr)_minmax(0,1fr)]">
-            <div className="space-y-6">
-              <div className="rounded-[32px] border border-white/5 bg-[#030b17] p-6">
+          {/* Analytics Tabs */}
+          <div className="flex flex-wrap gap-2 text-xs px-5 mt-10 border-[#E2E8FF0D]">
+            <div>
+              {analyticsOptions.map((tab, index) => (
+                <button
+                  key={tab}
+                  onClick={() => setSelectedTab(tab)}
+                  className={`rounded-xl w-[143px] h-[34px] transition text-xs mb-2 mr-6 ${
+                    selectedTab === tab || (index === 0 && selectedTab === "Analytics")
+                      ? "bg-linear-to-br from-[#040E16] via-[#040E16] to-[#174F7C] text-[#E2E8FF] border border-[#E2E8FF0D] text-semibold"
+                      : "bg-transparent text-[#E2E8FF99] hover:text-[#E2E8FF]"
+                  }`}
+                >
+                  {tab}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div className="h-px flex-1 bg-[#E2E8FF0D] mx-4" />
+
+          {/* Main Grid Section */}
+          <section className="mt-5 grid grid-cols-2 gap-16 ml-5">
+            {/* Left Column */}
+            <div className="space-y-2 w-[716px] h-[880px]">
+              {/* Cluster Skill Matrix */}
+              <div className="rounded-lg border border-[#E2E8FF0A] bg-[#030b17] py-6 bg-linear-to-br from-[#040E16] via-[#040E16] to-[#174F7C] w-[716px] h-[446px]">
                 <div className="flex flex-wrap items-center justify-between gap-4">
                   <div>
-                    <p className="text-sm font-semibold">Cluster skill matrix</p>
-                    <p className="text-xs uppercase tracking-[0.3em] text-slate-500">
-                      Analytics
+                    <p className="text-[10px] font-medium border border-[#E2E8FF0D] ml-5 bg-[#0D171F] rounded-lg w-[109px] h-[31px] flex items-center justify-center text-[#B3B3B3]">
+                      Cluster skill matrix
                     </p>
                   </div>
-                  <div className="flex flex-wrap gap-2 text-xs">
-                    {[
-                      "Analytics",
-                      "Completed nodes",
-                      "Completed clusters",
-                      "To do list",
-                      "Recently added",
-                    ].map((tab, index) => (
-                      <button
-                        key={tab}
-                        className={`rounded-2xl border border-white/10 px-3 py-1 transition ${
-                          index === 0
-                            ? "bg-[#071c39] text-white"
-                            : "bg-transparent text-slate-400 hover:bg-white/5"
-                        }`}
+                </div>
+
+                <div className="relative mt-8">
+                  <div
+                    aria-hidden
+                    className="absolute left-1/2 top-0 hidden h-full w-px -translate-x-1/2 bg-[#E2E8FF1A] md:block"
+                  />
+                  <div className="grid gap-4 md:grid-cols-2">
+                    {dashboardData.clusterColumns.map((column) => (
+                      <div
+                        key={column.id}
+                        className="border text-xs border-[#E2E8FF26] bg-linear-to-br ml-7 text-[#21B9E8] from-[#126882] via-[#126882] to-[#21B9E8] w-[37px] h-[27px] rounded-lg flex items-center justify-center"
                       >
-                        {tab}
-                      </button>
+                        {column.value}
+                      </div>
                     ))}
                   </div>
                 </div>
-
-                <div className="mt-8 grid gap-4 md:grid-cols-3">
-                  {clusterColumns.map((column, columnIndex) => (
-                    <div key={column.title} className="rounded-3xl border border-white/5 bg-[#040b18] p-4">
-                      <p className="text-sm font-medium text-white/80">{column.title}</p>
-                      <div className="mt-4 space-y-3">
-                        {column.values.map((value, index) => (
-                          <div
-                            key={`${column.title}-${index}`}
-                            className="flex items-center justify-between rounded-2xl bg-[#07152b] px-3 py-2 text-sm text-slate-300"
-                          >
-                            <span>0{index + 1}</span>
-                            <span className="text-[#49d3ff]">{value}</span>
-                          </div>
-                        ))}
-                      </div>
-                      {columnIndex === 0 && (
-                        <p className="mt-4 text-xs text-slate-500">Last synced 3 mins ago</p>
-                      )}
-                    </div>
-                  ))}
-                </div>
               </div>
 
-              <div className="rounded-[32px] border border-[#fdf3c0]/20 bg-[#120d02] p-6 text-[#fdeeb0]">
+              {/* Education Progress */}
+              <div className="rounded-lg border border-[#E2E8FF0A] p-6 text-[#fdeeb0] w-[716px] h-[294px]">
                 <div className="flex flex-wrap items-center justify-between gap-4">
                   <div>
-                    <p className="text-sm font-semibold uppercase tracking-[0.4em] text-white/70">
-                      Execute progress
+                    <p className="text-[10px] font-medium bg-[#21201A80] text-[#E1D082] border border-[#E2E8FF0D] rounded-lg w-[113px] h-[31px] flex items-center justify-center">
+                      Education progress
                     </p>
-                    <p className="text-lg font-semibold text-white">0%</p>
                   </div>
-                  <button className="rounded-2xl bg-[#fbc852]/20 px-4 py-2 text-sm font-medium text-white">
-                    Clear skill progression
-                  </button>
                 </div>
-                <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-                  {executeMetrics.map((metric) => (
-                    <div key={metric.label} className="rounded-2xl border border-white/10 bg-white/5 px-4 py-5 text-white">
-                      <p className="text-xs uppercase tracking-[0.3em] text-white/70">
-                        {metric.label}
-                      </p>
-                      <p className="mt-3 text-xl font-semibold">{metric.value}</p>
+                <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-2">
+                  {dashboardData.executeMetrics.map((metric) => (
+                    <div
+                      key={metric.label}
+                      className="px-4 py-5 text-white flex gap-3"
+                    >
+                      <div className="border rounded-full border-[#E2E8FF0D] w-[50px] h-[50px] flex items-center justify-center bg-[#101A21]">
+                        <Image
+                          src="/elements3.png"
+                          alt=""
+                          width={0}
+                          height={0}
+                          className="w-[15.83px] h-[16.67px]"
+                        />
+                      </div>
+                      <div>
+                        <p className="text-xs text-[#A7A7A7]">{metric.label}</p>
+                        <p className="mt-1 text-[10px] font-semibold border-2 border-[#E2E8FF0D] w-[42px] rounded-md h-[21px] flex items-center justify-center bg-[#101A21]">
+                          {metric.value}
+                        </p>
+                      </div>
                     </div>
                   ))}
                 </div>
               </div>
 
-              <div className="rounded-[32px] border border-white/5 bg-[#060c16] p-6">
-                <div className="flex flex-col gap-2 lg:flex-row lg:items-center lg:justify-between">
+              {/* Skill Chain */}
+              <div className="rounded-lg border border-[#E2E8FF0A] bg-[#060c16] p-6 w-[716px] h-[122px]">
+                <div className="flex flex-col gap-2 lg:flex-row lg:items-center">
                   <div>
-                    <p className="text-sm font-semibold text-white">Skill chain</p>
-                    <p className="text-xs uppercase tracking-[0.3em] text-slate-500">Offensive operations</p>
+                    <Image
+                      src="/frame.png"
+                      alt=""
+                      width={0}
+                      height={0}
+                      className="w-[50px] h-[50px]"
+                    />
                   </div>
-                  <button className="self-start rounded-2xl border border-white/15 px-4 py-2 text-sm text-white/70">
-                    Add to deck
-                  </button>
-                </div>
-                <div className="mt-4 flex flex-wrap items-center gap-4 text-sm text-slate-400">
-                  <div className="flex items-center gap-2 rounded-2xl border border-white/10 px-3 py-1">
-                    <span className="inline-block h-2 w-2 rounded-full bg-[#1dd6ff]" />
-                    Offensive
-                  </div>
-                  <div className="flex items-center gap-2 rounded-2xl border border-white/10 px-3 py-1">
-                    <span className="inline-block h-2 w-2 rounded-full bg-[#ff7bfa]" />
-                    Defensive
-                  </div>
-                  <div className="flex items-center gap-2 rounded-2xl border border-white/10 px-3 py-1">
-                    <span className="inline-block h-2 w-2 rounded-full bg-[#ffe666]" />
-                    Recon
+                  <div>
+                    <p className="text-xs font-normal text-[#E2E8FF80]">
+                      Skill chain
+                    </p>
+                    <p className="text-md font-medium text-[#E2E8FF] mb-2 mt-1">
+                      {dashboardData.skillChainData.name}
+                    </p>
+                    <div className="border border-[#E2E8FF0D] text-[10px] rounded-md w-[42px] h-[21px] flex items-center justify-center bg-[#101A21]">
+                      {dashboardData.skillChainData.completed}/
+                      {dashboardData.skillChainData.total}
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
 
-            <div className="space-y-6">
-              <div className="rounded-[32px] border border-white/5 bg-[#040817] p-6">
-                <div className="flex items-center justify-between">
-                  <p className="text-base font-semibold">Clear skill progression</p>
-                  <button className="rounded-2xl border border-white/10 p-2">⚙️</button>
+            {/* Right Column - Skill Progression */}
+            <div className="space-y-6 mr-4">
+              <div className="rounded-[14px] border border-[#FFFFFF14] bg-[#040E16] p-6 w-[615px] h-[880px]">
+                <div className="flex items-center justify-center w-[133px] h-[31px] text-[#8282E10D] border border-[#E2E8FF0D] rounded-lg bg-[#8282E10D]">
+                  <p className="text-[10px] font-medium text-[#8282E1]">
+                    Clear skill progression
+                  </p>
                 </div>
                 <div className="relative mt-6 flex min-h-[360px] items-center justify-center">
-                  <div className="relative flex h-64 w-64 items-center justify-center rounded-full bg-[conic-gradient(#00c6fb_0deg,#8e2de2_120deg,#ffe066_240deg,#00c6fb_360deg)]">
+                  <div className="relative flex h-64 w-64 items-center justify-center rounded-full bg-[conic-gradient(#1CB948_0deg,#2D47C8_50deg,#C32DC8CC_100deg,#30FFFFB2_150deg,#30FFFFB2_200deg,#C82D2F_250deg,#9D9D9D_300deg,#FF7E05CC_360deg)]">
                     <div className="absolute inset-6 rounded-full bg-[#040817]" />
                     <div className="relative z-10 text-center">
-                      <p className="text-4xl font-semibold text-white">0%</p>
-                      <p className="text-xs uppercase tracking-[0.3em] text-slate-500">N/A</p>
+                      <Image
+                        src="/ellipse.png"
+                        alt="Ellipse"
+                        width={0}
+                        height={0}
+                        className="w-[20px] h-[20px]"
+                      />
                     </div>
-                    <div className="absolute -right-4 top-1/2 w-32 -translate-y-1/2 rounded-2xl border border-white/10 bg-[#040817]/90 px-4 py-3 text-xs text-white shadow-lg">
-                      <p className="text-sm font-semibold">N/A 0%</p>
-                      <p className="text-white/70">No available data</p>
+                    <div className="absolute -right-20 top-1/2 w-[192px] h-[67px] -translate-y-1/2 rounded-2xl border border-white/10 bg-[#0D1C28] px-4 py-3 text-xs text-white shadow-lg">
+                      <p className="text-sm font-semibold">
+                        <span className="text-[#E2E8FF99] mr-1">N/A</span>
+                        <span className="text-[#C82D2F]">0%</span>
+                      </p>
+                      <p className="text-[#E2E8FF99] text-sm">No available data</p>
                     </div>
                   </div>
                 </div>
-                <ul className="mt-8 space-y-3 text-sm text-slate-300">
-                  {legend.map((item, index) => (
-                    <li key={item} className="flex items-center justify-between">
-                      <div className="flex items-center gap-3">
-                        <span
-                          className="inline-flex h-2.5 w-2.5 rounded-full"
-                          style={{
-                            background: [
-                              "#4d73ff",
-                              "#fbbf24",
-                              "#fb3f5c",
-                              "#14b8a6",
-                              "#7c3aed",
-                              "#1dd6ff",
-                            ][index],
-                          }}
-                        />
-                        {item}
+
+                {/* Legend */}
+                <ul className="mt-12 space-y-4 text-xs text-[#E2E8FFB2] flex flex-col items-center justify-center">
+                  {dashboardData.skillProgression.map((item, index) => (
+                    <li key={`skill-${index}`} className="w-[266px]">
+                      <div className="flex items-center w-full">
+                        <div className="flex items-center gap-3">
+                          <span>{item.label}</span>
+                          <span
+                            className="flex-shrink-0 inline-block h-[9px] w-[14px] rounded-full mr-1"
+                            style={{ background: item.gradient }}
+                          />
+                        </div>
+                        <span className="text-white/60 text-xs">
+                          {item.percentage}%
+                        </span>
+                        <div className="h-[2px] flex-1 bg-[#E2E8FF0D] mx-2" />
                       </div>
-                      <span className="text-white/60">0%</span>
                     </li>
                   ))}
                 </ul>
               </div>
-
-              <div className="rounded-[32px] border border-white/5 bg-[#02050d] p-6">
-                <p className="text-sm font-semibold text-white">Offensive operations</p>
-                <p className="mt-4 text-sm text-slate-400">
-                  Track offensive readiness across nodes and trigger countermeasures
-                  before incidents impact your cyberspace squad.
-                </p>
-                <button className="mt-6 w-full rounded-2xl bg-[#1f6fff] py-3 text-sm font-semibold text-white">
-                  Launch offensive ops
-                </button>
-              </div>
             </div>
           </section>
 
-          <section className="mt-10 space-y-6">
-            <div className="rounded-[32px] border border-white/5 bg-[#030915] p-6">
+          {/* Study Time Section */}
+          <section className="mt-2 space-y-6 ml-5 mr-5 mb-12">
+            <div className="rounded-[14px] border w-full h-[349px] border-[#E2E8FF0A] bg-[#051022] p-6 shadow-[0_20px_60px_rgba(3,10,22,0.45)]">
               <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-                <div>
-                  <p className="text-sm font-semibold text-white">Study time</p>
-                  <p className="text-xs uppercase tracking-[0.3em] text-slate-500">Jan 16, 2076</p>
+                <div className="flex items-center gap-2">
+                  <p className="text-[10px] font-semibold bg-[#1C2112] text-[#E1D082] border border-[#2A3220] rounded-lg w-[96px] h-[31px] flex items-center justify-center tracking-wide">
+                    Study time
+                  </p>
+                  <div className="text-[10px] text-[#E2E8FF] border border-[#182233] bg-[#0B1625] rounded-lg w-[138px] h-[31px] flex items-center justify-center gap-2 px-3">
+                    <Calendar className="w-3.5 h-3.5 text-[#E2E8FF99]" />
+                    <span>{new Date().toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}</span>
+                  </div>
                 </div>
-                <div className="flex items-center gap-3">
-                  <span className="rounded-2xl border border-white/15 px-3 py-1 text-xs text-white/70">In sync</span>
-                  <button className="rounded-2xl border border-white/15 px-4 py-2 text-sm text-white/80">
-                    Reset
-                  </button>
-                </div>
+                <button className="flex items-center gap-2 rounded-lg border border-[#151F30] bg-[#0A1525] px-4 py-2 text-[10px] font-semibold text-[#E2E8FF] shadow-[0_5px_25px_rgba(6,15,30,0.6)] hover:bg-[#0A1525]/80">
+                  <RotateCcw className="h-3.5 w-3.5 text-[#8FB9FF]" />
+                  Reset
+                </button>
               </div>
 
-              <div className="mt-8 rounded-[28px] border border-white/5 bg-[#050c18]/80 p-6">
-                <div className="flex items-center justify-between text-xs uppercase tracking-[0.3em] text-slate-500">
-                  <span>Cluster activity</span>
-                  <span>Powered by AJAEO</span>
-                </div>
-                <div className="mt-6 h-56 rounded-2xl border border-white/5 bg-[linear-gradient(transparent_92%,rgba(255,255,255,0.05)_92%),linear-gradient(90deg,rgba(255,255,255,0.03)_0,rgba(255,255,255,0.03)_50%,transparent_50%)] bg-[length:100%_25%,12%_100%] p-4">
-                  <div className="flex h-full items-end gap-3">
-                    {studyTimeline.map((entry) => (
-                      <div key={entry.day} className="flex flex-1 flex-col items-center justify-end gap-2">
-                        <div className="flex w-full items-end justify-center">
-                          <span
-                            className="inline-block w-3 rounded-full bg-linear-to-t from-[#072445] via-[#0a66ff] to-[#36fdfa] shadow-[0_10px_25px_rgba(8,102,255,0.4)]"
-                            style={{ height: `${entry.value * 2}%` }}
-                          />
-                        </div>
-                        <p className="text-xs text-slate-500">{entry.day}</p>
-                      </div>
+              <div className="relative mt-8 overflow-hidden rounded-[2px] border border-[#081427] bg-[#031022] p-5">
+                <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(16,98,195,0.2),transparent_65%)]" />
+                <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(transparent_85%,rgba(255,255,255,0.03)_85%)] opacity-70" />
+                <div className="relative z-10">
+                  <div className="relative h-44 w-full">
+                    <div className="absolute inset-0 flex items-stretch">
+                      {studyAxisLabels.map((label, index) => (
+                        <span
+                          key={`grid-${label}-${index}`}
+                          className="flex-1 border-l border-white/5 opacity-30 first:border-l last:border-r"
+                        />
+                      ))}
+                    </div>
+                    <div className="absolute inset-x-0 bottom-14 h-px bg-linear-to-r from-transparent via-[#3BC3FF] to-transparent" />
+                    <div className="absolute inset-x-8 bottom-14 h-12 bg-linear-to-b from-[#3BC3FF66] via-[#0A283F] to-transparent opacity-70 blur-[30px]" />
+                  </div>
+                  <div className="mt-6 flex items-center justify-between text-[10px] text-[#8EA3C0]">
+                    {studyAxisLabels.map((label) => (
+                      <span
+                        key={`axis-label-${label}`}
+                        className="min-w-[14px] text-center"
+                      >
+                        {label}
+                      </span>
                     ))}
                   </div>
                 </div>
               </div>
             </div>
           </section>
-        </main>
+        </div>
       </div>
-      <ConsistencyModal open={isModalOpen} onClose={() => setIsModalOpen(false)} />
+      <ConsistencyModal
+        open={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      />
     </div>
   );
 }
