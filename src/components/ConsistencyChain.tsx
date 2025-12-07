@@ -1,8 +1,7 @@
-
 "use client";
 
 import { useState } from "react";
-import { Settings2, X } from "lucide-react";
+import { Settings2, X, TrendingUp, TrendingDown } from "lucide-react";
 
 interface ChainItemProps {
   week: number;
@@ -21,27 +20,37 @@ const ChainItem: React.FC<ChainItemProps> = ({
       <div className="w-1/3 space-y-0.5">
         <span className="text-[10px] text-gray-300 block">Week {week}</span>
         <span
-          className={`text-[8px] font-medium px-2 rounded-full leading-relaxed ${
+          className={`text-[8px] font-medium px-[8px] py-[2px] rounded-full leading-relaxed inline-flex items-center gap-1 ${
             accomplished
               ? "bg-green-600/20 text-green-400"
               : "bg-red-600/20 text-red-400"
           }`}
         >
-          {accomplished ? "Accomplished" : "Unaccomplished"}
+          {accomplished ? (
+            <>
+              <TrendingUp size={10} />
+              Accomplished
+            </>
+          ) : (
+            <>
+              <TrendingDown size={10} />
+              Unaccomplished
+            </>
+          )}
         </span>
       </div>
 
       {/* Progress Bar and Percentage (Right Column) */}
       <div className="w-2/3 relative h-8 rounded-lg overflow-hidden  group hover:bg-[#1a1a25] transition-colors duration-200">
         <div
-          className="absolute inset-y-0 left-0 rounded-lg"
+          className="absolute inset-y-0 left-0 rounded-lg transition-all duration-1000 ease-out"
           style={{
             width: `${progress}%`,
             background:
               "linear-gradient(270deg, rgba(33, 185, 232, 0.8) 0%, rgba(18, 104, 130, 0) 100%)",
           }}
         ></div>
-        <div className="absolute inset-0 flex items-center justify-between px-3 text-sm font-semibold text-white">
+        <div className="absolute inset-0 flex items-center justify-between px-3 text-xs font-regular text-[#21B9E8]">
           <span>{progress}%</span>
         </div>
       </div>
@@ -214,7 +223,7 @@ export const ConsistencyChain = () => {
     >
       {/* 1. Top Bar: Title, Count, and Settings Icon */}
       <div className="flex justify-between items-center border-b border-[#2c2c3e] pb-3">
-        <div className="flex items-center space-x-2 px-3 py-1 bg-gray-700/50 rounded-full text-xs font-normal text-gray-100">
+        <div className="flex items-center space-x-2 px-[10px] py-[8px] bg-[#E2E8FF]/5 rounded-full text-[10px] font-normal text-[#E18682]">
           <span>Consistency chain</span>
         </div>
         <div className="flex items-center space-x-3">
@@ -232,14 +241,16 @@ export const ConsistencyChain = () => {
 
       {/* 2. Cluster Details */}
       <div className="space-y-2">
-        <p className="text-xs text-gray-400 font-medium">Cluster name</p>
-        <h3 className="text-sm font-bold text-gray-100">Security essentials</h3>
+        <p className="text-xs text-[#E2E8FF]/50 font-medium">Cluster name</p>
+        <h3 className="text-sm font-medium text-gray-100">
+          Security essentials
+        </h3>
 
         <div className="flex flex-col gap-2 space-x-4 pt-2">
           {/* Cluster ID Tag */}
           <div className="flex flex-col">
-            <p className="text-xs">Cluster ID</p>
-            <span className="px-1 py-1 text-xs w-[62px] font-medium bg-[#2c2c3e] rounded-md text-gray-300">
+            <p className="text-xs text-[#E2E8FF]/50">Cluster ID</p>
+            <span className="px-1 py-1 text-xs w-[62px] font-medium bg-[#2c2c3e] rounded-md text-[#E0E4E7]">
               SES-100
             </span>
           </div>
@@ -259,7 +270,7 @@ export const ConsistencyChain = () => {
 
       {/* 3. Consistency Chain Progress Header */}
       <div className="flex justify-between items-center pt-3 border-t border-[#2c2c3e]">
-        <h4 className="text-xs font-semibold text-gray-100">
+        <h4 className="text-xs font-regular text-[#E2E8FF]/50">
           Consistency chain
         </h4>
         <div className="flex items-center space-x-1 text-yellow-500">

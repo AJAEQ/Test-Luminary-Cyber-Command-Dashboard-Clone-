@@ -98,10 +98,15 @@ export default function ClusterDetailPage() {
 
       <div className="flex-1 flex flex-col">
         {/* Header */}
-        <Header />
+        <Header
+          breadcrumb={[
+            { label: "Education", href: "/" },
+            { label: "Clusters" },
+          ]}
+        />
 
         {/* Back Navigation */}
-        <div className="px-10 py-2">
+        <div className="bg-[#11111a] px-10 py-2">
           <Link
             href="/"
             className="flex items-center gap-2 text-cyan-400 hover:text-cyan-300 transition"
@@ -119,7 +124,16 @@ export default function ClusterDetailPage() {
           <div className="w-1/2 overflow-auto   px-8 py-8 relative">
             <div className="flex justify-end mb-10">
               <h2 className=" flex text-[17px] font-light items-center gap-2 text-cyan-400 tracking-wider">
-                AJAEQ <span><img src="/logo.png" alt="logo" width={"35px"} height={"35px"} /></span> LUMINARY
+                AJAEQ{" "}
+                <span>
+                  <img
+                    src="/logo.png"
+                    alt="logo"
+                    width={"35px"}
+                    height={"35px"}
+                  />
+                </span>{" "}
+                LUMINARY
               </h2>
             </div>
             <div className="space-y-4 pr-4">

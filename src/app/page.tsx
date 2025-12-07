@@ -12,7 +12,12 @@ import { StudyTimeChart } from "@/components/StudyTimeChart";
 // Main content structure container
 const MainContent = () => (
   <div className="flex-1 flex flex-col overflow-y-auto">
-    <Header />
+    <Header
+      breadcrumb={[
+        { label: "Education", href: "/" },
+        { label: "Cyber Command" },
+      ]}
+    />
 
     <SubNav />
 
@@ -28,7 +33,7 @@ const MainContent = () => (
         </div>
 
         {/*  Job Workspace  */}
-       <JobWorkspaceCard/>
+        <JobWorkspaceCard />
       </div>
 
       {/* Middle Section: Analytics */}

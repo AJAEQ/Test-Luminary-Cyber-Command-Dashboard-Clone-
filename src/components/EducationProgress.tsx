@@ -20,9 +20,9 @@ const ProgressWidget: React.FC<ProgressWidgetProps> = ({
 
       {/* Text Content */}
       <div className="flex flex-col pt-1">
-        <p className="text-sm text-gray-200 font-medium">{title}</p>
+        <p className="text-xs text-[#A7A7A7] font-regular">{title}</p>
 
-        <p className="text-sm font-semibold text-gray-400">{value}</p>
+        <p className="text-[10px] font-medium text-[#E0E4E7]">{value}</p>
       </div>
     </div>
   );
@@ -55,13 +55,13 @@ export const EducationProgress = () => {
   
 
   return (
-    <div className="p-4  rounded-xl border border-[#2c2c3e] shadow-xl">
+    <div className="p-5 rounded-xl border border-[#2c2c3e] shadow-xl">
       {/* Header: Education progress tag */}
       <span className="px-3 py-1 text-xs font-semibold text-yellow-500 bg-yellow-900/20 rounded-md self-start mb-6">
         Education progress
       </span>
 
-      <div className="grid grid-cols-2 gap-y-6 gap-x-4 mb-6">
+      <div className="grid grid-cols-2 gap-y-6 gap-x-4 mt-5 mb-6">
         {widgetData.map((widget, index) => (
           <ProgressWidget key={index} {...widget} />
         ))}

@@ -95,7 +95,9 @@ export const CareerSkillChart = ({
   return (
     <div className="p-6 rounded-xl border border-[#1a253a] shadow-xl h-full flex flex-col text-gray-100">
       {/* Title */}
-      <h4 className="text-lg font-semibold mb-4">Career Skill Progression</h4>
+      <h4 className="text-[10px] text-[#8282E1] font-medium border border-[#8282E1]/5 px-2 py-1 rounded-full w-35 mb-4">
+        Career Skill Progression
+      </h4>
 
       {/* Radar + Ring Container */}
       <div className="flex flex-col items-center justify-center py-6 relative">
@@ -165,7 +167,7 @@ export const CareerSkillChart = ({
       </div>
 
       {/* Bottom Skill Bars */}
-      <div className="mt-6 space-y-3 border-t border-[#1a253a] pt-6 w-full">
+      <div className="mt-6 space-y-3  border-t border-[#1a253a] pt-6 w-full">
         {progressionSkills.map((skill, index) => (
           <div
             key={index}
@@ -174,7 +176,7 @@ export const CareerSkillChart = ({
             onMouseLeave={() => setHoveredSkill(null)}
           >
             {/* Label */}
-            <span className="text-xs font-medium text-gray-300 w-40 truncate">
+            <span className="text-xs font-regular text-[#E2E8FF]/70 w-40 truncate">
               {skill.name}
             </span>
 

@@ -44,7 +44,6 @@ export const SkillChainProgress: React.FC<SkillChainProgressProps> = ({
         {/* Inner Text */}
         <div className="absolute inset-0 flex items-center justify-center text-center">
           <div className="flex flex-col items-center leading-tight">
-            <span className="text-[10px] text-gray-400">Skill chain</span>
             <span className="text-lg font-semibold text-cyan-400">
               {safeProgress}%
             </span>
@@ -54,9 +53,11 @@ export const SkillChainProgress: React.FC<SkillChainProgressProps> = ({
 
       {/* Text Content */}
       <div className="flex flex-col">
-        <span className="text-gray-200 text-base font-semibold">
-          {chainName}
+        <span className="text-xs text-[#E2E8FF]/50 font-regular">
+          Skill chain
         </span>
+
+        <span className="text-[#E2E8FF] text-sm font-medium">{chainName}</span>
 
         <span className="inline-block mt-2 px-3 py-1 text-sm text-gray-400 bg-[#1c2333] rounded-md w-fit">
           {completedTasks}
