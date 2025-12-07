@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 
 interface SkillItemProps {
   name: string;
@@ -6,7 +7,6 @@ interface SkillItemProps {
   color: string; 
 }
 
-// SkillItem component (Layout remains INVERTED: % | Bar | Name)
 export const SkillItem: React.FC<SkillItemProps> = ({
   name,
   progress,
@@ -85,9 +85,11 @@ export const ClusterSkillMatrix = () => {
         <h4 className="text-sm font-semibold text-gray-300">
           Cluster skill matrix
         </h4>
-        <h4 className="text-sm font-semibold text-cyan-500">
-          Security essentials
-        </h4>
+        <Link href="/cluster" passHref>
+          <h4 className="text-sm font-semibold text-cyan-500 cursor-pointer hover:text-cyan-300 transition-colors">
+            Security essentials
+          </h4>
+        </Link>
       </div>
 
       <div className="grid grid-cols-2 gap-x-8 relative">
