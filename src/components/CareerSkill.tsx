@@ -102,55 +102,59 @@ export const CareerSkillChart = ({
       {/* Radar + Ring Container */}
       <div className="flex flex-col items-center justify-center py-6 relative">
         {/* Radar + Ring SVG */}
-        <svg width="300" height="300" viewBox="0 0 300 300">
-          {/* Gradient ring - using actual skill colors */}
-          <defs>
-            <linearGradient
-              id="ringGradient"
-              x1="0%"
-              y1="0%"
-              x2="100%"
-              y2="100%"
-            >
-              {progressionSkills.map((skill, index) => (
-                <stop
-                  key={index}
-                  offset={`${(index / (progressionSkills.length - 1)) * 100}%`}
-                  stopColor={skill.color}
-                />
-              ))}
-            </linearGradient>
-          </defs>
+        <div className="transform scale-75 sm:scale-90 md:scale-100">
+          <svg width="300" height="300" viewBox="0 0 300 300">
+            {/* Gradient ring - using actual skill colors */}
+            <defs>
+              <linearGradient
+                id="ringGradient"
+                x1="0%"
+                y1="0%"
+                x2="100%"
+                y2="100%"
+              >
+                {progressionSkills.map((skill, index) => (
+                  <stop
+                    key={index}
+                    offset={`${
+                      (index / (progressionSkills.length - 1)) * 100
+                    }%`}
+                    stopColor={skill.color}
+                  />
+                ))}
+              </linearGradient>
+            </defs>
 
-          {/* Background ring */}
-          <circle
-            cx="150"
-            cy="150"
-            r="115"
-            stroke="#1f2a3c"
-            strokeWidth="18"
-            fill="none"
-          />
+            {/* Background ring */}
+            <circle
+              cx="150"
+              cy="150"
+              r="115"
+              stroke="#1f2a3c"
+              strokeWidth="18"
+              fill="none"
+            />
 
-          {/* Active gradient ring - full circle showing all skill colors */}
-          <circle
-            cx="150"
-            cy="150"
-            r="115"
-            stroke="url(#ringGradient)"
-            strokeWidth="18"
-            fill="none"
-            strokeLinecap="round"
-          />
+            {/* Active gradient ring - full circle showing all skill colors */}
+            <circle
+              cx="150"
+              cy="150"
+              r="115"
+              stroke="url(#ringGradient)"
+              strokeWidth="18"
+              fill="none"
+              strokeLinecap="round"
+            />
 
-          {/* Radar polygon - dynamically calculated from skill data */}
-          <polygon
-            points={radarPoints}
-            fill="rgba(6,182,212,0.10)"
-            stroke="#06b6d4"
-            strokeWidth="2"
-          />
-        </svg>
+            {/* Radar polygon - dynamically calculated from skill data */}
+            <polygon
+              points={radarPoints}
+              fill="rgba(6,182,212,0.10)"
+              stroke="#06b6d4"
+              strokeWidth="2"
+            />
+          </svg>
+        </div>
 
         {/* Floating Tooltip - shows hovered skill details */}
         {hoveredSkill && (
@@ -171,7 +175,7 @@ export const CareerSkillChart = ({
         {progressionSkills.map((skill, index) => (
           <div
             key={index}
-            className="flex items-center gap-4 cursor-pointer transition-opacity duration-200 hover:opacity-80"
+            className="flex flex-wrap md:flex-nowrap items-center gap-4 cursor-pointer transition-opacity duration-200 hover:opacity-80"
             onMouseEnter={() => setHoveredSkill(skill)}
             onMouseLeave={() => setHoveredSkill(null)}
           >

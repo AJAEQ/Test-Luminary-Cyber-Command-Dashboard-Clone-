@@ -4,7 +4,7 @@ import { CareerSkillChart } from "./CareerSkill";
 import { EducationProgress } from "./EducationProgress";
 import { SkillChainProgress } from "./SkillChain";
 
-// Placeholder Tabs/Navigation
+// Responsive Tabs
 const AnalyticsTabs = () => {
   const tabs = [
     "Completed nodes",
@@ -14,23 +14,26 @@ const AnalyticsTabs = () => {
   ];
   const activeTab = "Completed nodes";
 
-  
-
   return (
-    <div className="flex space-x-6 border-b border-[#2c2c3e] pb-3 mb-6">
-      <h3 className="text-lg font-semibold text-gray-100 mr-4">Analytics</h3>
-      {tabs.map((tab) => (
-        <span
-          key={tab}
-          className={`text-sm font-medium cursor-pointer transition-colors ${
-            tab === activeTab
-              ? "text-cyan-500 border-b-2 border-cyan-500 -mb-3 pt-3" // Active tab style
-              : "text-gray-400 hover:text-white"
-          }`}
-        >
-          {tab}
-        </span>
-      ))}
+    <div className="flex flex-wrap items-center gap-4 border-b border-[#2c2c3e] pb-3 mb-6">
+      <h3 className="text-lg font-semibold text-gray-100 w-full sm:w-auto">
+        Analytics
+      </h3>
+
+      <div className="flex gap-4 overflow-x-auto scrollbar-hide">
+        {tabs.map((tab) => (
+          <span
+            key={tab}
+            className={`text-sm whitespace-nowrap font-medium cursor-pointer transition-colors ${
+              tab === activeTab
+                ? "text-cyan-500 border-b-2 border-cyan-500 pb-1"
+                : "text-gray-400 hover:text-white"
+            }`}
+          >
+            {tab}
+          </span>
+        ))}
+      </div>
     </div>
   );
 };
@@ -38,18 +41,17 @@ const AnalyticsTabs = () => {
 export const AnalyticsSection = () => {
   return (
     <section className="bg-transparent pt-4">
-      {/* Tabbed Navigation */}
+      {/* Tabs */}
       <AnalyticsTabs />
 
-      {/* Main Grid: Skills and Charts (Two-column layout) */}
+      {/* Responsive Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* LEFT COLUMN: Skill Matrix and Education Progress */}
+        {/* LEFT COLUMN */}
         <div className="space-y-6">
-          {/* Cluster Skill Matrix (Top half) */}
           <ClusterSkillMatrix />
 
-          {/* Education Progress Widgets (Bottom half) */}
           <EducationProgress />
+
           <SkillChainProgress
             progress={45}
             chainName="Offensive operations"
@@ -57,7 +59,7 @@ export const AnalyticsSection = () => {
           />
         </div>
 
-        {/* RIGHT COLUMN: Career Skill Progression Chart */}
+        {/* RIGHT COLUMN */}
         <div className="space-y-6">
           <CareerSkillChart />
         </div>

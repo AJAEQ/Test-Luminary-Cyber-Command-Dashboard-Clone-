@@ -5,7 +5,9 @@ export const SubNav: React.FC = () => {
   return (
     <nav className="flex items-center px-6 py-3 bg-[#11111a] border-b border-[#1a1a1a]">
       {/* Main Title (Cyber Command) */}
-      <h1 className="text-xl font-bold text-gray-100 mr-8">Cyber Command</h1>
+      <h1 className="hidden md:block text-xl font-bold text-gray-100 mr-8">
+        Cyber Command
+      </h1>
 
       {/* Navigation Tabs */}
       <div className="flex space-x-6">

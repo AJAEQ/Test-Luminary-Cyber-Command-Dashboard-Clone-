@@ -15,12 +15,12 @@ const ChainItem: React.FC<ChainItemProps> = ({
   accomplished,
 }) => {
   return (
-    <div className="flex items-center space-x-2 py-1">
-      {/* Week Number and Status (Left Column) */}
-      <div className="w-1/3 space-y-0.5">
+    <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-1 sm:space-y-0 sm:space-x-2 py-1">
+      {/* Week Number and Status */}
+      <div className="w-full sm:w-1/3 space-y-0.5">
         <span className="text-[10px] text-gray-300 block">Week {week}</span>
         <span
-          className={`text-[8px] font-medium px-[8px] py-[2px] rounded-full leading-relaxed inline-flex items-center gap-1 ${
+          className={`text-[8px] font-medium px-[8px] py-[2px] rounded-full inline-flex items-center gap-1 ${
             accomplished
               ? "bg-green-600/20 text-green-400"
               : "bg-red-600/20 text-red-400"
@@ -28,20 +28,18 @@ const ChainItem: React.FC<ChainItemProps> = ({
         >
           {accomplished ? (
             <>
-              <TrendingUp size={10} />
-              Accomplished
+              <TrendingUp size={10} /> Accomplished
             </>
           ) : (
             <>
-              <TrendingDown size={10} />
-              Unaccomplished
+              <TrendingDown size={10} /> Unaccomplished
             </>
           )}
         </span>
       </div>
 
-      {/* Progress Bar and Percentage (Right Column) */}
-      <div className="w-2/3 relative h-8 rounded-lg overflow-hidden  group hover:bg-[#1a1a25] transition-colors duration-200">
+      {/* Progress Bar */}
+      <div className="w-full sm:w-2/3 relative h-6 sm:h-8 rounded-lg overflow-hidden group hover:bg-[#1a1a25] transition-colors duration-200">
         <div
           className="absolute inset-y-0 left-0 rounded-lg transition-all duration-1000 ease-out"
           style={{
@@ -69,8 +67,8 @@ const ConsistencyChainModal: React.FC<{
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-      <div className="bg-gradient-to-b from-[#0a1420] to-[#0f1b2e] border border-[#2c3e50] rounded-lg p-6  shadow-2xl">
+    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4 sm:p-6 overflow-auto">
+      <div className="w-full max-w-md bg-gradient-to-b from-[#0a1420] to-[#0f1b2e] border border-[#2c3e50] rounded-lg p-6 shadow-2xl">
         {/* Header */}
         <div className="flex justify-between items-center mb-6">
           <div>
@@ -90,7 +88,7 @@ const ConsistencyChainModal: React.FC<{
         </div>
 
         {/* Content */}
-        <div className=" space-y-6">
+        <div className="space-y-6">
           {/* Enroll Section */}
           <div className="space-y-2">
             <p className="text-sm font-semibold text-gray-100">
@@ -115,9 +113,9 @@ const ConsistencyChainModal: React.FC<{
               </p>
             </div>
 
-            <div className="flex gap-3 items-center">
+            <div className="flex flex-col sm:flex-row gap-3 items-start sm:items-center">
               {/* Dropdown */}
-              <div className="flex-1">
+              <div className="flex-1 w-full sm:w-auto">
                 <label className="text-xs text-gray-400 block mb-1">
                   Education type
                 </label>
@@ -133,7 +131,7 @@ const ConsistencyChainModal: React.FC<{
               </div>
 
               {/* +/- Controls */}
-              <div className="flex  gap-1 pt-6">
+              <div className="flex gap-1">
                 <button
                   onClick={() => setWeeklyCount(Math.max(1, weeklyCount + 1))}
                   className="bg-[#1a2f45] hover:bg-[#2a3f55] border border-[#3a5a7a] rounded px-2 py-1 text-gray-300 text-sm transition"
@@ -158,24 +156,17 @@ const ConsistencyChainModal: React.FC<{
             </div>
           </div>
 
-          {/* Select Date Section */}
+          {/* Date Section */}
           <div className="space-y-2">
-            <div className="flex justify-between items-center gap-4">
-              <div>
-                <label className="text-sm font-semibold text-gray-100 block">
-                  Select date
-                </label>
-                <p className="text-xs text-gray-400">
-                  Pick a date you want to start
-                </p>
-              </div>
-              <input
-                type="date"
-                value={startDate}
-                onChange={(e) => setStartDate(e.target.value)}
-                className="bg-[#1a2f45] border border-[#3a5a7a] rounded-md px-3 py-2 text-sm text-gray-200 focus:outline-none focus:border-cyan-400 flex-shrink-0"
-              />
-            </div>
+            <label className="text-sm font-semibold text-gray-100 block">
+              Select date
+            </label>
+            <input
+              type="date"
+              value={startDate}
+              onChange={(e) => setStartDate(e.target.value)}
+              className="w-full sm:w-auto bg-[#1a2f45] border border-[#3a5a7a] rounded-md px-3 py-2 text-sm text-gray-200 focus:outline-none focus:border-cyan-400"
+            />
           </div>
 
           {/* Estimated Time */}
@@ -188,17 +179,14 @@ const ConsistencyChainModal: React.FC<{
         </div>
 
         {/* Footer */}
-        <div className="flex justify-end gap-3 mt-8 pt-6 border-t border-[#2c3e50]">
+        <div className="flex flex-col sm:flex-row justify-end gap-3 mt-6 pt-4 border-t border-[#2c3e50]">
           <button
             onClick={onClose}
             className="px-4 py-2 text-sm text-gray-400 hover:text-gray-200 transition"
           >
             Cancel
           </button>
-          <button
-            onClick={onClose}
-            className="px-6 py-2 bg-[#2a3f55] hover:bg-[#3a5f75] border border-[#3a5a7a] rounded-md text-sm font-medium text-gray-200 transition"
-          >
+          <button className="px-6 py-2 bg-[#2a3f55] hover:bg-[#3a5f75] border border-[#3a5a7a] rounded-md text-sm font-medium text-gray-200 transition">
             CONFIRM
           </button>
         </div>
@@ -217,13 +205,10 @@ export const ConsistencyChain = () => {
   ];
 
   return (
-    <div
-      className="w-[320px] h-[451px] flex flex-col bg-[linear-gradient(180deg,rgba(4,14,22,0.5)_0%,rgba(23,79,124,0.5)_395.83%)]
- rounded-xl border border-[#2c2c3e] shadow-xl p-4 space-y-2"
-    >
-      {/* 1. Top Bar: Title, Count, and Settings Icon */}
+    <div className="w-full sm:w-[320px] h-full sm:h-[451px] flex flex-col bg-[linear-gradient(180deg,rgba(4,14,22,0.5)_0%,rgba(23,79,124,0.5)_395.83%)] rounded-xl border border-[#2c2c3e] shadow-xl p-4 space-y-2">
+      {/* Top Bar */}
       <div className="flex justify-between items-center border-b border-[#2c2c3e] pb-3">
-        <div className="flex items-center space-x-2 px-[10px] py-[8px] bg-[#E2E8FF]/5 rounded-full text-[10px] font-normal text-[#E18682]">
+        <div className="flex items-center space-x-2 px-3 py-2 bg-[#E2E8FF]/5 rounded-full text-[10px] font-normal text-[#E18682]">
           <span>Consistency chain</span>
         </div>
         <div className="flex items-center space-x-3">
@@ -239,15 +224,15 @@ export const ConsistencyChain = () => {
         </div>
       </div>
 
-      {/* 2. Cluster Details */}
+      {/* Cluster Details */}
       <div className="space-y-2">
         <p className="text-xs text-[#E2E8FF]/50 font-medium">Cluster name</p>
         <h3 className="text-sm font-medium text-gray-100">
           Security essentials
         </h3>
 
-        <div className="flex flex-col gap-2 space-x-4 pt-2">
-          {/* Cluster ID Tag */}
+        <div className="flex flex-col sm:flex-row gap-2 pt-2 items-start sm:items-center">
+          {/* Cluster ID */}
           <div className="flex flex-col">
             <p className="text-xs text-[#E2E8FF]/50">Cluster ID</p>
             <span className="px-1 py-1 text-xs w-[62px] font-medium bg-[#2c2c3e] rounded-md text-[#E0E4E7]">
@@ -255,9 +240,9 @@ export const ConsistencyChain = () => {
             </span>
           </div>
 
-          {/* Duration Progress Bar (Static mock-up) */}
-          <div className="flex-1 flex items-center space-x-2">
-            <div className="w-full bg-[#1a1a25] rounded-full h-1.5 relative">
+          {/* Duration Progress */}
+          <div className="flex-1 flex items-center space-x-2 w-full sm:w-auto">
+            <div className="w-full bg-[#1a1a25] rounded-full h-1.5 relative flex-1">
               <div
                 className="h-full rounded-full w-[40%]"
                 style={{ background: "#00BCD4" }}
@@ -268,7 +253,7 @@ export const ConsistencyChain = () => {
         </div>
       </div>
 
-      {/* 3. Consistency Chain Progress Header */}
+      {/* Progress Header */}
       <div className="flex justify-between items-center pt-3 border-t border-[#2c2c3e]">
         <h4 className="text-xs font-regular text-[#E2E8FF]/50">
           Consistency chain
@@ -279,8 +264,8 @@ export const ConsistencyChain = () => {
         </div>
       </div>
 
-      {/* 4. Weekly Progress Bars */}
-      <div className="flex-1 ">
+      {/* Weekly Progress Bars */}
+      <div className="flex-1 overflow-y-auto">
         {chainData.map((item) => (
           <ChainItem key={item.week} {...item} />
         ))}

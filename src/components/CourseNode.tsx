@@ -11,14 +11,13 @@ interface Props {
 }
 
 const CourseNodeCard: React.FC<Props> = ({ node }) => {
-  // Conditional classes based on the node state
   const stateClasses: Record<NodeState, string> = {
     COMPLETED: "bg-cyan-500/20 border-cyan-500 text-cyan-400",
     CONTINUE: "bg-red-600/20 border-red-500 text-red-400",
-    START: "bg-gray-600/20 border-gray-500 text-gray-400 opacity-60 pointer-events-none",
+    START:
+      "bg-gray-600/20 border-gray-500 text-gray-400 opacity-60 pointer-events-none",
   };
 
-  // Icon based on state
   const StateIcon =
     node.state === "COMPLETED"
       ? CheckCircleIcon
@@ -28,10 +27,17 @@ const CourseNodeCard: React.FC<Props> = ({ node }) => {
 
   return (
     <div
-      className={`flex items-center gap-4 p-4 rounded-lg border-l-4 transition-all ${stateClasses[node.state]}`}
+      className={`flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 p-4 rounded-lg border-l-4 transition-all ${
+        stateClasses[node.state]
+      }`}
     >
       {/* Icon with state background */}
-      <div className={`p-3 rounded-lg flex-shrink-0 ${stateClasses[node.state].split(" ").slice(0, 2).join(" ")}`}>
+      <div
+        className={`p-3 rounded-lg flex-shrink-0 ${stateClasses[node.state]
+          .split(" ")
+          .slice(0, 2)
+          .join(" ")}`}
+      >
         <StateIcon className="w-5 h-5" />
       </div>
 
@@ -44,16 +50,22 @@ const CourseNodeCard: React.FC<Props> = ({ node }) => {
       </div>
 
       {/* Progress */}
-      <span className="text-xs font-medium text-gray-400 flex-shrink-0">
+      <span className="text-xs font-medium text-gray-400 flex-shrink-0 mt-2 sm:mt-0">
         {node.progress}/{node.total}
       </span>
 
       {/* Action Button */}
       <button
-        className={`px-4 py-1 text-xs font-bold uppercase rounded-full flex-shrink-0 transition-all ${stateClasses[node.state]}`}
+        className={`px-4 py-1 text-xs font-bold uppercase rounded-full flex-shrink-0 mt-2 sm:mt-0 transition-all ${
+          stateClasses[node.state]
+        }`}
         disabled={node.state === "START"}
       >
-        {node.state === "COMPLETED" ? "COMPLETED" : node.state === "CONTINUE" ? "CONTINUE" : "START"}
+        {node.state === "COMPLETED"
+          ? "COMPLETED"
+          : node.state === "CONTINUE"
+          ? "CONTINUE"
+          : "START"}
       </button>
     </div>
   );

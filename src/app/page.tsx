@@ -1,8 +1,8 @@
 // app/page.tsx (Final Structure)
 
 import { Sidebar } from "@/components/SideBar";
-import { Header } from "@/components/Header"; // <-- New
-import { SubNav } from "@/components/SubNav"; // <-- New
+import { Header } from "@/components/Header"; 
+import { SubNav } from "@/components/SubNav"; 
 import { HeroSection } from "@/components/HeroSection";
 import { ConsistencyChain } from "@/components/ConsistencyChain";
 import { JobWorkspaceCard } from "@/components/JobWorkspaceCard";
@@ -22,24 +22,20 @@ const MainContent = () => (
     <SubNav />
 
     <div className="p-6 space-y-6 overflow-y-auto">
-      <div className="flex gap-2 justify-start items-start">
-        <div className="w-[632px] flex-shrink-0">
+      <div className="flex flex-col lg:flex-row gap-2 justify-start items-start">
+        <div className=" w-full md:w-[632px] flex-shrink-0">
           <HeroSection />
         </div>
 
-        {/*  ConsistencyChain  */}
-        <div className="w-[320px]  flex-shrink-0">
+        <div className="w-full md:w-[320px]  flex-shrink-0">
           <ConsistencyChain />
         </div>
 
-        {/*  Job Workspace  */}
         <JobWorkspaceCard />
       </div>
 
-      {/* Middle Section: Analytics */}
       <AnalyticsSection />
 
-      {/* Bottom Section: Study Timeline */}
       <StudyTimeChart />
     </div>
   </div>
