@@ -1,6 +1,6 @@
 "use client";
 // BarChart.tsx
-import React, { useRef, useEffect } from "react";
+import React, { useRef } from "react";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -9,6 +9,9 @@ import {
   Title,
   Tooltip,
   Legend,
+  ChartOptions,
+  ChartData,
+  ScriptableContext,
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
 
@@ -22,7 +25,8 @@ ChartJS.register(
 );
 
 const BarChart = () => {
-  const chartRef = useRef<any>(null);
+  // Use ChartJS type for the ref
+  const chartRef = useRef<ChartJS<"bar", number[], string> | null>(null);
 
   const labels = [
     "9",
@@ -52,7 +56,7 @@ const BarChart = () => {
     "3",
   ];
 
-  const data = {
+  const data: ChartData<"bar", number[], string> = {
     labels,
     datasets: [
       {
@@ -61,12 +65,15 @@ const BarChart = () => {
           2, 3, 2.5, 4, 3.5, 2, 5, 3, 4, 2.5, 3, 4, 2, 3.5, 4, 2, 3, 2.5, 3, 2,
           3, 4, 2.5, 3, 2,
         ],
-        backgroundColor: function (context: any) {
+        // Use ScriptableContext to type the function argument
+        backgroundColor: function (
+          context: ScriptableContext<"bar">
+        ): CanvasGradient | string | undefined {
           const chart = context.chart;
           const { ctx, chartArea } = chart;
 
           if (!chartArea) {
-            return null;
+            return undefined; // <-- use undefined instead of null
           }
 
           const gradient = ctx.createLinearGradient(
@@ -79,13 +86,11 @@ const BarChart = () => {
           gradient.addColorStop(1, "rgba(33,185,232,0.8)"); // bright top
           return gradient;
         },
-        borderRadius: 4,
-        barPercentage: 0.6,
       },
     ],
   };
 
-  const options = {
+  const options: ChartOptions<"bar"> = {
     responsive: true,
     plugins: {
       legend: {
@@ -98,21 +103,15 @@ const BarChart = () => {
       },
     },
     scales: {
-      x: {
-        grid: {
-          display: false,
-        },
-        ticks: {
-          color: "#94a3b8", // label color
-        },
-      },
       y: {
         grid: {
-          drawBorder: false,
+          // Remove the old 'drawBorder' property completely
           color: "rgba(255,255,255,0.1)",
+          drawTicks: false, // hide tick marks
+          drawOnChartArea: true, // leave the grid lines
         },
         ticks: {
-          display: false,
+          display: false, // hide tick labels
         },
       },
     },
