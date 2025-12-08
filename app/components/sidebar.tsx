@@ -36,7 +36,7 @@ export default function Sidebar({ variant = "glass" }: SidebarProps = {}) {
   const baseClassName =
     variant === "flush"
       ? "hidden min-h-[720px] w-16 sm:w-[64px] flex-col items-center justify-between bg-transparent px-2 sm:px-4 py-6 sm:py-8 text-sm text-white/60 lg:flex"
-      : "fixed left-0 top-0 h-screen w-16 sm:w-20 flex-col items-center justify-between border-r border-white/5 bg-[#0A0D12] p-4 sm:p-6 text-sm text-slate-400 shadow-[0_20px_60px_rgba(0,0,0,0.6)] lg:flex z-50";
+      : "fixed left-0 top-0 h-screen w-16 md:w-20 flex-col items-center justify-between border-r border-white/5 bg-[#0A0D12] p-4 md:p-6 text-sm text-slate-400 shadow-[0_20px_60px_rgba(0,0,0,0.6)] md:flex z-50";
 
   const navButtonClasses =
     variant === "flush"

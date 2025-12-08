@@ -7,6 +7,7 @@ import ConsistencyModal from "./components/consistency-modal";
 import Sidebar from "./components/sidebar";
 import Header from "./components/header";
 import { Calendar, RotateCcw } from "lucide-react";
+import React from "react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -186,8 +187,10 @@ export default function Home() {
 
   return (
     <div className={`${inter.className} min-h-screen bg-[#040E16] text-white`}>
-      <Sidebar />
-      <div className="ml-16 sm:ml-20 lg:ml-20 w-[calc(100%-4rem)] sm:w-[calc(100%-5rem)]">
+      <div className="hidden md:block">
+        <Sidebar />
+      </div>
+      <div className="w-full md:ml-20 md:w-[calc(100%-5rem)]">
         <Header breadcrumbTitle="Cyber Command"/>
         <div className="px-4 sm:px-6 py-4">
           {/* Tab Navigation */}
@@ -224,12 +227,18 @@ export default function Home() {
                 {/* Consistency Chain Card */}
                 <div className="rounded-[14px] border border-white/5 bg-[#040E16] p-4 sm:p-6 w-full sm:w-1/2">
                   <div className="flex items-start justify-between mb-5">
-                    <div className="border border-[#E2E8FF0D] rounded-lg bg-[#211B1A80] w-[108px] h-[31px] flex items-center justify-center">
-                      <p className="text-[10px] font-semibold text-[#E18682]">
-                        Consistency chain
-                      </p>
-                    </div>
-                    <button className="rounded-xl border border-[#E2E8FF0D] w-[35px] h-[31px] flex items-center justify-center hover:bg-white/5">
+                    <button
+                      type="button"
+                      className="border border-[#E2E8FF0D] rounded-lg bg-[#211B1A80] w-[108px] h-[31px] flex items-center justify-center text-[10px] font-semibold text-[#E18682] transition hover:bg-[#2a2221]"
+                      onClick={() => setIsModalOpen(true)}
+                    >
+                      Consistency chain
+                    </button>
+                    <button
+                      type="button"
+                      className="rounded-xl border border-[#E2E8FF0D] w-[35px] h-[31px] flex items-center justify-center hover:bg-white/5"
+                      onClick={() => setIsModalOpen(true)}
+                    >
                       <Image
                         src="/elements2.png"
                         alt="sync"
@@ -349,11 +358,11 @@ export default function Home() {
           <div className="h-px flex-1 bg-[#E2E8FF0D] mx-2 sm:mx-4" />
 
           {/* Main Grid Section */}
-          <section className="mt-5 grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-26 ml-2 sm:ml-5 mr-2 sm:mr-5">
+          <section className="mt-5 grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 lg:gap-8 px-2 sm:px-4 lg:px-5">
             {/* Left Column */}
-            <div className="space-y-2 w-[716px] h-[880px]">
+            <div className="space-y-4 sm:space-y-6 w-full">
               {/* Cluster Skill Matrix */}
-              <div className="rounded-lg border border-[#E2E8FF0A] bg-[#030b17] py-6 bg-linear-to-br from-[#040E16] via-[#040E16] to-[#174F7C] w-[716px] h-[446px]">
+              <div className="rounded-lg border border-[#E2E8FF0A] bg-[#030b17] py-6 bg-linear-to-br from-[#040E16] via-[#040E16] to-[#174F7C] w-full min-h-[300px] sm:min-h-[400px]">
                 <div className="flex flex-wrap items-center justify-between gap-4">
                   <div>
                     <p className="text-[10px] font-medium border border-[#E2E8FF0D] ml-5 bg-[#0D171F] rounded-lg w-[109px] h-[31px] flex items-center justify-center text-[#B3B3B3]">
@@ -381,7 +390,7 @@ export default function Home() {
               </div>
 
               {/* Education Progress */}
-              <div className="rounded-lg border border-[#E2E8FF0A] p-6 text-[#fdeeb0] w-[716px] h-[294px]">
+              <div className="rounded-lg border border-[#E2E8FF0A] p-6 text-[#fdeeb0] w-full min-h-[250px] sm:min-h-[280px]">
                 <div className="flex flex-wrap items-center justify-between gap-4">
                   <div>
                     <p className="text-[10px] font-medium bg-[#21201A80] text-[#E1D082] border border-[#E2E8FF0D] rounded-lg w-[113px] h-[31px] flex items-center justify-center">
@@ -416,7 +425,7 @@ export default function Home() {
               </div>
 
               {/* Skill Chain */}
-              <div className="rounded-lg border border-[#E2E8FF0A] bg-[#060c16] p-6 w-[716px] h-[122px]">
+              <div className="rounded-lg border border-[#E2E8FF0A] bg-[#060c16] p-6 w-full min-h-[100px]">
                 <div className="flex flex-col gap-2 lg:flex-row lg:items-center">
                   <div>
                     <Image
@@ -444,8 +453,8 @@ export default function Home() {
             </div>
 
             {/* Right Column - Skill Progression */}
-            <div className="space-y-6 mr-4">
-              <div className="rounded-[14px] border border-[#FFFFFF14] bg-[#040E16] p-6 w-[635px] h-[880px]">
+            <div className="space-y-6 w-full">
+              <div className="rounded-[14px] border border-[#FFFFFF14] bg-[#040E16] p-6 w-full min-h-[600px] sm:min-h-[700px] lg:min-h-[880px]">
                 <div className="flex items-center justify-center w-[133px] h-[31px] text-[#8282E10D] border border-[#E2E8FF0D] rounded-lg bg-[#8282E10D]">
                   <p className="text-[10px] font-medium text-[#8282E1]">
                     Career skill progression
