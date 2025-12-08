@@ -177,13 +177,13 @@ export default function Dashboard() {
   ];
 
   const careerSkills = [
-    { name: 'Network Penetration Tester', progress: 80, color: 'bg-[#E2E8FF1A]' },
-    { name: 'Red Teamer', progress: 40, color: 'bg-red-500' },
-    { name: 'Exploit Developer', progress: 35, color: 'bg-pink-500' },
-    { name: 'Application Security Eng...', progress: 95, color: 'bg-green-500' },
-    { name: 'Cybersecurity Analyst I', progress: 95, color: 'bg-blue-500' },
-    { name: 'Specialized Domain (Ghost, IOT, Mobile, SCADA/ICS)', progress: 75, color: 'bg-red-600' },
-    { name: 'Vulnerability Researcher', progress: 85, color: 'bg-cyan-500' }
+    { name: 'Network Penetration Tester', progress: 80, color: 'bg-linear-to-br from-[#01070D] to-[#F5F5F5]' },
+    { name: 'Red Teamer', progress: 40, color: 'bg-linear-to-br from-[#B81A1A] to-[#800B0B]' },
+    { name: 'Exploit Developer', progress: 35, color: 'bg-linear-to-br from-[#F0863A] to-[#8A4D21]' },
+    { name: 'Application Security Eng...', progress: 95, color: 'bg-linear-to-br from-[#05131E] to-[#176A16]' },
+    { name: 'Cybersecurity Analyst I', progress: 95, color: 'bg-linear-to-br from-[#05131E] to-[#1C60AC]' },
+    { name: 'Specialized Domain (Ghost, IOT, Mobile, SCADA/ICS)', progress: 75, color: 'bg-linear-to-br from-[#C89961] to-[#A3227B]' },
+    { name: 'Vulnerability Researcher', progress: 85, color: 'bg-linear-to-br from-[#3D6CEB] to-[#2AE0DB]' }
   ];
   //  const studyDta = Array.from({ length: 31 }, (_, i) => ({
   //   day: 9 + i,
@@ -211,7 +211,7 @@ export default function Dashboard() {
             {tabs.map((tab, index) => (
               <button
                 key={tab}
-                className={`rounded-[10px] px-3 sm:px-4 py-2 transition text-xs whitespace-nowrap ${
+                className={`rounded-[10px] px-3 sm:px-4 py-2 cursor-pointer transition text-xs whitespace-nowrap ${
                   index === 0
                     ? "bg-[#040E16] text-[#E2E8FF] border border-[#E2E8FF0D] font-semibold"
                     : "text-[#E2E8FF99] hover:text-[#E2E8FF]"
@@ -475,7 +475,7 @@ export default function Dashboard() {
                         </div>
                       </div>
                       {/* Career Skills Wheel */}
-                      <div className="bg-slate-900/50 backdrop-blur-sm border border-slate-800 rounded-xl p-6 w-[605px] h-[878px]">
+                      <div className="bg-slate-900/50 backdrop-blur-sm border border-slate-800 rounded-xl p-6 w-[600px] h-[878px]">
                           <div className="">
                             <div className="flex items-center justify-center w-[133px] h-[31px] text-[#8282E10D] border border-[#E2E8FF0D] rounded-lg bg-[#8282E10D]">
                               <p className="text-[10px] font-medium text-[#8282E1]">
@@ -483,7 +483,8 @@ export default function Dashboard() {
                               </p>
                             </div>
                             <div className="relative mt-6 flex min-h-[360px] items-center justify-center tooltip">
-                              <div className="relative flex h-64 w-64 items-center justify-center rounded-full bg-[conic-gradient(#1CB948_0deg,#2D47C8_50deg,#C32DC8CC_100deg,#30FFFFB2_150deg,#30FFFFB2_200deg,#C82D2F_250deg,#9D9D9D_300deg,#FF7E05CC_360deg)]">
+                              <div className="relative flex h-64 w-64 items-center justify-center rounded-full bg-[conic-gradient(#1CB948_0deg,#2D47C8_50deg,#C32DC8CC_100deg,#30FFFFB2_150deg,#30FFFFB2_200deg,#C82D2F_250deg,#9D9D9D_300deg,#FF7E05CC_360deg)]"
+                              title="Vulnerability Researcher">
                                 <div className="absolute inset-6 rounded-full bg-[#040817]" />
                                 
                                 <div className="relative z-10 text-center">
@@ -541,7 +542,7 @@ export default function Dashboard() {
 
         {/* Career Progression */}
 
-         <section className="mt-2 space-y-6 ml-5 mr-5 mb-12">
+         <section className="mt-2 space-y-6 ml-5 mr-3 mb-12">
                     <div className="rounded-[14px] border w-full h-[349px] border-[#E2E8FF0A] bg-[#051022] p-6 shadow-[0_20px_60px_rgba(3,10,22,0.45)]">
                       <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
                         <div className="flex items-center gap-2">
@@ -558,7 +559,7 @@ export default function Dashboard() {
                             day: 9 + i,
                             hours: 0 
                           })))} 
-                          className="flex items-center gap-2 rounded-lg border border-[#151F30] bg-[#0A1525] px-4 py-2 text-[10px] font-semibold text-[#E2E8FF] shadow-[0_5px_25px_rgba(6,15,30,0.6)] hover:bg-[#0A1525]/80"
+                          className="flex items-center gap-2 rounded-lg border border-[#151F30] bg-[#0A1525] px-4 py-2 text-[10px] font-semibold text-[#E2E8FF] cursor-pointer shadow-[0_5px_25px_rgba(6,15,30,0.6)] hover:bg-[#0A1525]/80"
                         >
                           <RotateCcw className="h-3.5 w-3.5 text-[#8FB9FF]" />
                           Reset

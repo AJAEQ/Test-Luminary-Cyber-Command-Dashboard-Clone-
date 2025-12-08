@@ -195,7 +195,7 @@ export default function Home() {
             {tabs.map((tab, index) => (
               <button
                 key={tab}
-                className={`rounded-[10px] px-3 sm:px-4 py-2 transition text-xs whitespace-nowrap ${
+                className={`rounded-[10px] cursor-pointer px-3 sm:px-4 py-2 transition text-xs whitespace-nowrap ${
                   index === 0
                     ? "bg-[#040E16] text-[#E2E8FF] border border-[#E2E8FF0D] font-semibold"
                     : "text-[#E2E8FF99] hover:text-[#E2E8FF]"
@@ -452,7 +452,8 @@ export default function Home() {
                   </p>
                 </div>
                 <div className="relative mt-6 flex min-h-[360px] items-center justify-center">
-                  <div className="relative flex h-64 w-64 items-center justify-center rounded-full bg-[conic-gradient(#1CB948_0deg,#2D47C8_50deg,#C32DC8CC_100deg,#30FFFFB2_150deg,#30FFFFB2_200deg,#C82D2F_250deg,#9D9D9D_300deg,#FF7E05CC_360deg)]">
+                  <div className="relative flex h-64 w-64 items-center justify-center rounded-full bg-[conic-gradient(#1CB948_0deg,#2D47C8_50deg,#C32DC8CC_100deg,#30FFFFB2_150deg,#30FFFFB2_200deg,#C82D2F_250deg,#9D9D9D_300deg,#FF7E05CC_360deg)]"
+                  title="No data available">
                     <div className="absolute inset-6 rounded-full bg-[#040817]" />
                     <div className="relative z-10 text-center">
                       <Image
@@ -510,7 +511,7 @@ export default function Home() {
                     <span>{new Date().toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}</span>
                   </div>
                 </div>
-                <button className="flex items-center gap-2 rounded-lg border border-[#151F30] bg-[#0A1525] px-4 py-2 text-[10px] font-semibold text-[#E2E8FF] shadow-[0_5px_25px_rgba(6,15,30,0.6)] hover:bg-[#0A1525]/80">
+                <button className="flex items-center cursor-pointer gap-2 rounded-lg border border-[#151F30] bg-[#0A1525] px-4 py-2 text-[10px] font-semibold text-[#E2E8FF] shadow-[0_5px_25px_rgba(6,15,30,0.6)] hover:bg-[#0A1525]/80">
                   <RotateCcw className="h-3.5 w-3.5 text-[#8FB9FF]" />
                   Reset
                 </button>

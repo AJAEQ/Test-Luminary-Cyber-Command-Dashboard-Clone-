@@ -43,7 +43,7 @@ return(
           <Image src="/sm3.png" alt="" width={0} height={0} className="w-4 h-4 sm:w-[18px] sm:h-[18px] text-gray-400 cursor-pointer hover:text-cyan-400" />
           <button className="text-[#DF303399] text-xs sm:text-[14px] font-semibold flex items-center gap-1 sm:gap-2 hover:text-red-400 border-[#E2E8FF0D] border-2 rounded-xl px-2 sm:px-5 py-2 sm:py-3 whitespace-nowrap">
     <Image src="/sw.png" alt="" width={0} height={0} className="w-4 h-4 sm:w-[18px] sm:h-[18px] text-[#DF303399] cursor-pointer hover:text-cyan-400" />
-            <span className="hidden sm:inline">Connect to VPN</span>
+            <span className="hidden sm:inline cursor-pointer">Connect to VPN</span>
           </button>
         </div>
       </header>
