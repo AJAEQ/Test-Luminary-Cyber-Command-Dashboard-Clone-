@@ -31,8 +31,7 @@ const SkillMatrix = () => {
       .length ?? 0;
   const courseLength = isEnrolled?.courses.length;
 
-  console.log(completedCount);
-  console.log(courseLength);
+ 
   const educationMapping = educationList.map((education, index) => {
     const Icon = education.icon;
     return (

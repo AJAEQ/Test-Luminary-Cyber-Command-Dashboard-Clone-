@@ -18,12 +18,11 @@ export function SelectDemo() {
   const eduInfo = useEducation();
 
   const { data, fetchData } = fetchDetail;
-  const { handleSelectedEducation, selectedEducation } = eduInfo;
+  const { handleSelectedEducation } = eduInfo;
   React.useEffect(() => {
     fetchData(datas);
-  }, []);
+  }, [fetchData]);
 
-  console.log(selectedEducation);
   const educationTypeMapping = data?.educationTypes.map((education, index) => {
     return (
       <SelectItem
