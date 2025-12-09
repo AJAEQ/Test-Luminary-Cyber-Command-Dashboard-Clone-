@@ -19,7 +19,7 @@ return(
           </div>
         </div>
         <div className="flex items-center gap-4 sm:gap-6 w-full sm:w-auto justify-end">
-          <div className="relative hidden sm:block">
+          <div className="relative hidden md:block">
             <input 
               type="text" 
               placeholder="Search luminary" 

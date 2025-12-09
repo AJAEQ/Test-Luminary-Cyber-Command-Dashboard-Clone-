@@ -179,15 +179,6 @@ export default function Dashboard() {
     { name: 'Specialized Domain (Ghost, IOT, Mobile, SCADA/ICS)', progress: 75, color: 'bg-linear-to-br from-[#C89961] to-[#A3227B]' },
     { name: 'Vulnerability Researcher', progress: 85, color: 'bg-linear-to-br from-[#3D6CEB] to-[#2AE0DB]' }
   ];
-  //  const studyDta = Array.from({ length: 31 }, (_, i) => ({
-  //   day: 9 + i,
-  //   hours: i === 19 ? 6 : Math.random() * 2 + 0.5
-  // }));
-
-  // const studyAxisLabels = Array.from({ length: 25 }, (_, i) => {
-  //   const dayNum = 9 + i;
-  //   return dayNum > 30 ? (dayNum - 30).toString() : dayNum.toString();
-  // });
 
   return (
     <div className={`${inter.className} min-h-screen bg-[#040E16] text-white overflow-x-hidden`}>
@@ -195,10 +186,22 @@ export default function Dashboard() {
         <Sidebar />
       </div>
       <div className="w-full md:ml-20 md:w-[calc(100%-5rem)]">
-        <div className="max-w-7xl mx-auto">
-          <Header breadcrumbTitle="Cyber Command" />
-          <div className="px-2 sm:px-6 py-3 sm:py-4">
-
+        <Header breadcrumbTitle="Cyber Command" />
+        <div className="px-2 sm:px-6 py-3 sm:py-4">
+          {(loading || error) && (
+            <div className="mb-4 px-2 sm:px-5">
+              {loading && (
+                <p className="text-xs sm:text-sm text-[#E2E8FFB2]">
+                  Loading dashboard insights…
+                </p>
+              )}
+              {error && (
+                <p className="mt-1 text-[11px] sm:text-xs text-[#F5B5B5]">
+                  {}
+                </p>
+              )}
+            </div>
+          )}
 
           {/* Tab Navigation */}
           <nav className="flex flex-nowrap sm:flex-wrap gap-1 sm:gap-2 text-[10px] sm:text-xs ml-0 sm:ml-4 overflow-x-auto pb-2 pr-2 sm:pr-4">
@@ -316,7 +319,7 @@ export default function Dashboard() {
             </div>
           </section>
 
-         {/* Analytics Tabs */}
+          {/* Analytics Tabs */}
           <div className="flex flex-wrap gap-2 text-xs px-2 sm:px-5 mt-8 sm:mt-10 border-[#E2E8FF0D]">
             {analyticsOptions.map((tab, index) => (
               <button
@@ -515,8 +518,6 @@ export default function Dashboard() {
               </div>
             </div>
           </section>
-
-        </div>
         </div>
       </div>
     </div>
