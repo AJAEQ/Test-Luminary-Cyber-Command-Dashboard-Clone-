@@ -473,7 +473,7 @@ export default function Home() {
               {/* Skill Chain */}
               <div className="rounded-lg border border-[#E2E8FF0A] bg-[#060c16] p-3 sm:p-6 w-full min-h-[90px]">
                 <div className="flex flex-col gap-2 lg:flex-row lg:items-center">
-                  <div>
+                  <div className="">
                     <Image
                       src="/frame.png"
                       alt=""
@@ -512,7 +512,7 @@ export default function Home() {
                     title="No data available"
                   >
                     <div className="absolute inset-6 rounded-full bg-[#040817]" />
-                    <div className="relative z-10 text-center">
+                    <div className="relative z-10 text-center hidden md:block">
                       <Image
                         src="/Ellipse.png"
                         alt="Ellipse"
