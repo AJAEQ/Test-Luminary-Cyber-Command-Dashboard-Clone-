@@ -60,7 +60,9 @@ interface DashboardData {
 
 export default function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [dashboardData, setDashboardData] = useState<DashboardData | null>(null);
+  const [dashboardData, setDashboardData] = useState<DashboardData | null>(
+    null
+  );
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [selectedTab, setSelectedTab] = useState("Analytics");
@@ -72,11 +74,11 @@ export default function Home() {
         setLoading(true);
         // Replace with your actual API endpoint
         const response = await fetch("/api/dashboard");
-        
+
         if (!response.ok) {
           throw new Error("Failed to fetch dashboard data");
         }
-        
+
         const data = await response.json();
         setDashboardData(data);
         setError(null);
@@ -97,9 +99,7 @@ export default function Home() {
   const getMockData = (): DashboardData => ({
     clusterName: "N/A",
     clusterId: "N/A",
-    discoveryStats: [
-      { label: "", value: "N/A", percentage: 0 },
-    ],
+    discoveryStats: [{ label: "", value: "N/A", percentage: 0 }],
     consistencyChain: [
       { label: "Week 1", value: "0%" },
       { label: "Week 2", value: "0%" },
@@ -117,13 +117,41 @@ export default function Home() {
       { label: "Completed exercises", value: "0 / 9" },
     ],
     skillProgression: [
-      { label: "N/A", percentage: 0, gradient: "linear-gradient(to bottom right, #01070D, #F5F5F5)" },
-      { label: "N/A", percentage: 0, gradient: "linear-gradient(to bottom right, #B81A1A, #800B0B)" },
-      { label: "N/A", percentage: 0, gradient: "linear-gradient(to bottom right, #F0863A, #8A4D21)" },
-      { label: "N/A", percentage: 0, gradient: "linear-gradient(to bottom right, #05131E, #176A16)" },
-      { label: "N/A", percentage: 0, gradient: "linear-gradient(to bottom right, #05131E, #1C60AC)" },
-      { label: "N/A", percentage: 0, gradient: "linear-gradient(to bottom right, #C89961, #A3227B)" },
-      { label: "N/A", percentage: 0, gradient: "linear-gradient(to bottom right, #3D6CEB, #2AE0DB)" },
+      {
+        label: "N/A",
+        percentage: 0,
+        gradient: "linear-gradient(to bottom right, #01070D, #F5F5F5)",
+      },
+      {
+        label: "N/A",
+        percentage: 0,
+        gradient: "linear-gradient(to bottom right, #B81A1A, #800B0B)",
+      },
+      {
+        label: "N/A",
+        percentage: 0,
+        gradient: "linear-gradient(to bottom right, #F0863A, #8A4D21)",
+      },
+      {
+        label: "N/A",
+        percentage: 0,
+        gradient: "linear-gradient(to bottom right, #05131E, #176A16)",
+      },
+      {
+        label: "N/A",
+        percentage: 0,
+        gradient: "linear-gradient(to bottom right, #05131E, #1C60AC)",
+      },
+      {
+        label: "N/A",
+        percentage: 0,
+        gradient: "linear-gradient(to bottom right, #C89961, #A3227B)",
+      },
+      {
+        label: "N/A",
+        percentage: 0,
+        gradient: "linear-gradient(to bottom right, #3D6CEB, #2AE0DB)",
+      },
     ],
     studyTimeData: Array.from({ length: 25 }, (_, i) => ({
       date: `${9 + i}`,
@@ -160,7 +188,9 @@ export default function Home() {
 
   if (loading) {
     return (
-      <div className={`${inter.className} min-h-screen bg-[#040E16] text-white flex items-center justify-center`}>
+      <div
+        className={`${inter.className} min-h-screen bg-[#040E16] text-white flex items-center justify-center`}
+      >
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-cyan-500 mx-auto mb-4"></div>
           <p className="text-gray-400">Loading dashboard...</p>
@@ -171,9 +201,13 @@ export default function Home() {
 
   if (!dashboardData) {
     return (
-      <div className={`${inter.className} min-h-screen bg-[#040E16] text-white flex items-center justify-center`}>
+      <div
+        className={`${inter.className} min-h-screen bg-[#040E16] text-white flex items-center justify-center`}
+      >
         <div className="text-center">
-          <p className="text-red-400 mb-4">{error || "Failed to load dashboard"}</p>
+          <p className="text-red-400 mb-4">
+            {error || "Failed to load dashboard"}
+          </p>
           <button
             onClick={() => window.location.reload()}
             className="px-4 py-2 bg-cyan-600 rounded-lg text-white hover:bg-cyan-700"
@@ -186,7 +220,9 @@ export default function Home() {
   }
 
   return (
-    <div className={`${inter.className} min-h-screen bg-[#040E16] text-white overflow-x-hidden`}>
+    <div
+      className={`${inter.className} min-h-screen bg-[#040E16] text-white overflow-x-hidden`}
+    >
       <div className="hidden md:block">
         <Sidebar />
       </div>
@@ -251,13 +287,17 @@ export default function Home() {
 
                   <div>
                     <div className="mb-5">
-                      <p className="text-[12px] text-[#E2E8FF80]">Cluster name</p>
+                      <p className="text-[12px] text-[#E2E8FF80]">
+                        Cluster name
+                      </p>
                       <p className="text-[14px] text-[#E2E8FF]">
                         {dashboardData.clusterName}
                       </p>
                     </div>
                     <div>
-                      <p className="text-xs text-[#E2E8FF80] mb-2">Cluster ID</p>
+                      <p className="text-xs text-[#E2E8FF80] mb-2">
+                        Cluster ID
+                      </p>
                       <p className="border border-[#E2E8FF0D] rounded-sm bg-[#211B1A80] w-[39px] h-[12px] flex items-center justify-center text-[10px] text-[#E0E4E7]">
                         {dashboardData.clusterId}
                       </p>
@@ -295,7 +335,10 @@ export default function Home() {
                     </div>
                     <div>
                       {dashboardData.consistencyChain.map((wk, index) => (
-                        <div key={`week-${index}`} className="flex items-center justify-between">
+                        <div
+                          key={`week-${index}`}
+                          className="flex items-center justify-between"
+                        >
                           <div className="flex-col mb-4">
                             <div className="text-[10px] text-[#E2E8FF] flex items-center justify-center mb-1">
                               {wk.label}
@@ -344,7 +387,8 @@ export default function Home() {
                   key={tab}
                   onClick={() => setSelectedTab(tab)}
                   className={`rounded-xl w-auto px-2 sm:px-3 h-[32px] sm:h-[34px] transition text-[10px] sm:text-xs mb-2 mr-2 sm:mr-6 ${
-                    selectedTab === tab || (index === 0 && selectedTab === "Analytics")
+                    selectedTab === tab ||
+                    (index === 0 && selectedTab === "Analytics")
                       ? "bg-linear-to-br from-[#040E16] via-[#040E16] to-[#174F7C] text-[#E2E8FF] border border-[#E2E8FF0D] text-semibold"
                       : "bg-transparent text-[#E2E8FF99] hover:text-[#E2E8FF]"
                   }`}
@@ -414,7 +458,9 @@ export default function Home() {
                         />
                       </div>
                       <div className="min-w-0">
-                        <p className="text-[8px] sm:text-xs text-[#A7A7A7] truncate">{metric.label}</p>
+                        <p className="text-[8px] sm:text-xs text-[#A7A7A7] truncate">
+                          {metric.label}
+                        </p>
                         <p className="mt-1 text-[8px] sm:text-[10px] font-semibold border-2 border-[#E2E8FF0D] w-[42px] px-1.5 rounded-md h-[18px] sm:h-[21px] flex items-center justify-center bg-[#101A21]">
                           {metric.value}
                         </p>
@@ -444,7 +490,8 @@ export default function Home() {
                       {dashboardData.skillChainData.name}
                     </p>
                     <div className="border border-[#E2E8FF0D] text-[8px] sm:text-[10px] rounded-md w-[41px] px-1.5 h-[18px] sm:h-[21px] flex items-center justify-center bg-[#101A21]">
-                      {dashboardData.skillChainData.completed}/{dashboardData.skillChainData.total}
+                      {dashboardData.skillChainData.completed}/
+                      {dashboardData.skillChainData.total}
                     </div>
                   </div>
                 </div>
@@ -460,8 +507,10 @@ export default function Home() {
                   </p>
                 </div>
                 <div className="relative mt-4 sm:mt-6 flex min-h-[280px] sm:min-h-[360px] items-center justify-center">
-                  <div className="relative flex h-48 sm:h-64 w-48 sm:w-64 items-center justify-center rounded-full bg-[conic-gradient(#1CB948_0deg,#2D47C8_50deg,#C32DC8CC_100deg,#30FFFFB2_150deg,#30FFFFB2_200deg,#C82D2F_250deg,#9D9D9D_300deg,#FF7E05CC_360deg)]"
-                  title="No data available">
+                  <div
+                    className="relative flex h-48 sm:h-64 w-48 sm:w-64 items-center justify-center rounded-full bg-[conic-gradient(#1CB948_0deg,#2D47C8_50deg,#C32DC8CC_100deg,#30FFFFB2_150deg,#30FFFFB2_200deg,#C82D2F_250deg,#9D9D9D_300deg,#FF7E05CC_360deg)]"
+                    title="No data available"
+                  >
                     <div className="absolute inset-6 rounded-full bg-[#040817]" />
                     <div className="relative z-10 text-center">
                       <Image
@@ -477,7 +526,9 @@ export default function Home() {
                         <span className="text-[#E2E8FF99] mr-1">N/A</span>
                         <span className="text-[#C82D2F]">0%</span>
                       </p>
-                      <p className="text-[#E2E8FF99] text-sm">No available data</p>
+                      <p className="text-[#E2E8FF99] text-sm">
+                        No available data
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -485,7 +536,10 @@ export default function Home() {
                 {/* Legend */}
                 <ul className="mt-6 sm:mt-12 space-y-2 sm:space-y-4 text-[8px] sm:text-xs text-[#E2E8FFB2] flex flex-col items-center justify-center">
                   {dashboardData.skillProgression.map((item, index) => (
-                    <li key={`skill-${index}`} className="w-full sm:w-[266px] px-2 sm:px-0">
+                    <li
+                      key={`skill-${index}`}
+                      className="w-full sm:w-[266px] px-2 sm:px-0"
+                    >
                       <div className="flex items-center w-full gap-2">
                         <div className="flex items-center gap-1 sm:gap-3 flex-1 min-w-0">
                           <span className="truncate">{item.label}</span>
@@ -516,7 +570,13 @@ export default function Home() {
                   </p>
                   <div className="text-[8px] sm:text-[10px] text-[#E2E8FF] border border-[#182233] bg-[#0B1625] rounded-lg w-auto px-2 py-1.5 sm:w-[138px] sm:h-[31px] flex items-center justify-center gap-1 sm:gap-2">
                     <Calendar className="w-3.5 h-3.5 text-[#E2E8FF99]" />
-                    <span>{new Date().toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}</span>
+                    <span>
+                      {new Date().toLocaleDateString("en-US", {
+                        month: "short",
+                        day: "numeric",
+                        year: "numeric",
+                      })}
+                    </span>
                   </div>
                 </div>
                 <button className="flex items-center cursor-pointer gap-1 sm:gap-2 rounded-lg border border-[#151F30] bg-[#0A1525] px-2 sm:px-4 py-1.5 sm:py-2 text-[8px] sm:text-[10px] font-semibold text-[#E2E8FF] shadow-[0_5px_25px_rgba(6,15,30,0.6)] hover:bg-[#0A1525]/80 whitespace-nowrap">

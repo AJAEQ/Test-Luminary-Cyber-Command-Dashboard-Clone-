@@ -47,7 +47,9 @@ interface UseDashboardDataReturn {
  * Custom hook for fetching dashboard data
  * Easily integrate your backend API by changing the endpoint
  */
-export function useDashboardData(endpoint: string = "/api/dashboard"): UseDashboardDataReturn {
+export function useDashboardData(
+  endpoint: string = "/api/dashboard"
+): UseDashboardDataReturn {
   const [data, setData] = useState<DashboardData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -55,9 +57,7 @@ export function useDashboardData(endpoint: string = "/api/dashboard"): UseDashbo
   const getMockData = (): DashboardData => ({
     clusterName: "N/A",
     clusterId: "N/A",
-    discoveryStats: [
-      { label: "", value: "N/A", percentage: 0 },
-    ],
+    discoveryStats: [{ label: "", value: "N/A", percentage: 0 }],
     consistencyChain: [
       { label: "Week 1", value: "0%" },
       { label: "Week 2", value: "0%" },
@@ -75,13 +75,41 @@ export function useDashboardData(endpoint: string = "/api/dashboard"): UseDashbo
       { label: "Completed exercises", value: "0 / 9" },
     ],
     skillProgression: [
-      { label: "N/A", percentage: 0, gradient: "linear-gradient(to bottom right, #01070D, #F5F5F5)" },
-      { label: "N/A", percentage: 0, gradient: "linear-gradient(to bottom right, #B81A1A, #800B0B)" },
-      { label: "N/A", percentage: 0, gradient: "linear-gradient(to bottom right, #F0863A, #8A4D21)" },
-      { label: "N/A", percentage: 0, gradient: "linear-gradient(to bottom right, #05131E, #176A16)" },
-      { label: "N/A", percentage: 0, gradient: "linear-gradient(to bottom right, #05131E, #1C60AC)" },
-      { label: "N/A", percentage: 0, gradient: "linear-gradient(to bottom right, #C89961, #A3227B)" },
-      { label: "N/A", percentage: 0, gradient: "linear-gradient(to bottom right, #3D6CEB, #2AE0DB)" },
+      {
+        label: "N/A",
+        percentage: 0,
+        gradient: "linear-gradient(to bottom right, #01070D, #F5F5F5)",
+      },
+      {
+        label: "N/A",
+        percentage: 0,
+        gradient: "linear-gradient(to bottom right, #B81A1A, #800B0B)",
+      },
+      {
+        label: "N/A",
+        percentage: 0,
+        gradient: "linear-gradient(to bottom right, #F0863A, #8A4D21)",
+      },
+      {
+        label: "N/A",
+        percentage: 0,
+        gradient: "linear-gradient(to bottom right, #05131E, #176A16)",
+      },
+      {
+        label: "N/A",
+        percentage: 0,
+        gradient: "linear-gradient(to bottom right, #05131E, #1C60AC)",
+      },
+      {
+        label: "N/A",
+        percentage: 0,
+        gradient: "linear-gradient(to bottom right, #C89961, #A3227B)",
+      },
+      {
+        label: "N/A",
+        percentage: 0,
+        gradient: "linear-gradient(to bottom right, #3D6CEB, #2AE0DB)",
+      },
     ],
     studyTimeData: Array.from({ length: 25 }, (_, i) => ({
       date: `${9 + i}`,
@@ -99,17 +127,18 @@ export function useDashboardData(endpoint: string = "/api/dashboard"): UseDashbo
       try {
         setLoading(true);
         setError(null);
-        
+
         const response = await fetch(endpoint);
-        
+
         if (!response.ok) {
           throw new Error("Failed to fetch dashboard data");
         }
-        
+
         const result = await response.json();
         setData(result);
       } catch (err) {
-        const errorMessage = err instanceof Error ? err.message : "An error occurred";
+        const errorMessage =
+          err instanceof Error ? err.message : "An error occurred";
         setError(errorMessage);
         // Use mock data as fallback
         setData(getMockData());
@@ -125,17 +154,18 @@ export function useDashboardData(endpoint: string = "/api/dashboard"): UseDashbo
     try {
       setLoading(true);
       setError(null);
-      
+
       const response = await fetch(endpoint);
-      
+
       if (!response.ok) {
         throw new Error("Failed to fetch dashboard data");
       }
-      
+
       const result = await response.json();
       setData(result);
     } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : "An error occurred";
+      const errorMessage =
+        err instanceof Error ? err.message : "An error occurred";
       setError(errorMessage);
       // Use mock data as fallback
       setData(getMockData());

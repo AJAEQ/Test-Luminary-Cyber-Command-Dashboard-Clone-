@@ -4,25 +4,48 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
-type NavIcon = string | { image: string; alt?: string; width?: number; height?: number; route?: string };
+type NavIcon =
+  | string
+  | {
+      image: string;
+      alt?: string;
+      width?: number;
+      height?: number;
+      route?: string;
+    };
 
 const navIcons: NavIcon[] = [
-  { image: "/Component1.png", alt: "Dashboard", width: 34.48, height: 36, route: "/" },
-  { image: "/Component2.png", alt: "Reporting", width: 20, height: 20, route: "/cyber" },
+  {
+    image: "/Component1.png",
+    alt: "Dashboard",
+    width: 34.48,
+    height: 36,
+    route: "/",
+  },
+  {
+    image: "/Component2.png",
+    alt: "Reporting",
+    width: 20,
+    height: 20,
+    route: "/cyber",
+  },
 ];
 
-type NIcon = string | { image: string; alt?: string; width?: number; height?: number};
- 
-const nIcons: NIcon[] =[
- { image: "/Component3.png", alt: "Automations", width: 13.33, height: 13.33 },
+type NIcon =
+  | string
+  | { image: string; alt?: string; width?: number; height?: number };
+
+const nIcons: NIcon[] = [
+  { image: "/Component3.png", alt: "Automations", width: 13.33, height: 13.33 },
   { image: "/Component4.png", alt: "Signals", width: 13.33, height: 13.67 },
   { image: "/Component5.png", alt: "Monitoring", width: 13.33, height: 13.33 },
   { image: "/Component6.png", alt: "Integrations", width: 12, height: 13.33 },
   { image: "/Component7.png", alt: "Settings", width: 14.67, height: 14.67 },
-
 ];
 
-type ExtraBlock = string | { image: string; alt?: string; width?: number; height?: number};
+type ExtraBlock =
+  | string
+  | { image: string; alt?: string; width?: number; height?: number };
 
 const extraBlocks: ExtraBlock[] = [
   { image: "/Icon1.png", alt: "Dashboard", width: 13.33, height: 13.33 },
@@ -45,30 +68,35 @@ export default function Sidebar({ variant = "glass" }: SidebarProps = {}) {
       ? " text-lg text-white/70 hover:bg-white/15"
       : " text-lg text-white/60 transition hover:bg-white/15";
 
-
   return (
     <aside className={baseClassName}>
       <div className="flex flex-col items-center gap-4 sm:gap-6 ">
-          <button
-            onClick={() => router.push('/')}
-            className="hover:opacity-80 transition"
-          >
-            <Image
-              src="/logo.png"
-              alt="Luminary logo"
-              width={35}
-              height={36}
-              className="h-8 sm:h-9 w-8 sm:w-9 cursor-pointer"
-            />
-          </button>
-        
+        <button
+          onClick={() => router.push("/")}
+          className="hover:opacity-80 transition"
+        >
+          <Image
+            src="/logo.png"
+            alt="Luminary logo"
+            width={35}
+            height={36}
+            className="h-8 sm:h-9 w-8 sm:w-9 cursor-pointer"
+          />
+        </button>
+
         <nav className="flex flex-col gap-2 sm:gap-2">
           {navIcons.map((icon, index) => {
-            const key = typeof icon === "string" ? `${icon}-${index}` : `${icon.image}-${index}`;
+            const key =
+              typeof icon === "string"
+                ? `${icon}-${index}`
+                : `${icon.image}-${index}`;
 
             if (typeof icon === "string") {
               return (
-                <span key={key} className={`flex h-10 w-10 mb-4 items-center justify-center ${navButtonClasses}`}>
+                <span
+                  key={key}
+                  className={`flex h-10 w-10 mb-4 items-center justify-center ${navButtonClasses}`}
+                >
                   {icon}
                 </span>
               );
@@ -108,21 +136,21 @@ export default function Sidebar({ variant = "glass" }: SidebarProps = {}) {
           })}
 
           <div className="flex flex-col items-center gap-4 sm:gap-9 cursor-pointer">
-        {nIcons.map((nav, index) =>
-          typeof nav === "string" ? (
-            <span key={`extra-text-${index}`}>{nav}</span>
-          ) : (
-            <Image
-              key={`extra-${nav.image}`}
-              src={nav.image}
-              alt={nav.alt ?? "Extra block"}
-              width={nav.width ?? 20}
-              height={nav.height ?? 20}
-              className="w-4 h-4 sm:w-4 sm:h-4"
-            />
-          ),
-        )}
-      </div>
+            {nIcons.map((nav, index) =>
+              typeof nav === "string" ? (
+                <span key={`extra-text-${index}`}>{nav}</span>
+              ) : (
+                <Image
+                  key={`extra-${nav.image}`}
+                  src={nav.image}
+                  alt={nav.alt ?? "Extra block"}
+                  width={nav.width ?? 20}
+                  height={nav.height ?? 20}
+                  className="w-4 h-4 sm:w-4 sm:h-4"
+                />
+              )
+            )}
+          </div>
         </nav>
       </div>
       <div className="flex flex-col items-center gap-4 sm:gap-6 cursor-pointer">
@@ -138,11 +166,9 @@ export default function Sidebar({ variant = "glass" }: SidebarProps = {}) {
               height={block.height ?? 20}
               className="w-4 h-4 sm:w-4 sm:h-4"
             />
-          ),
+          )
         )}
       </div>
-
-      
     </aside>
   );
 }

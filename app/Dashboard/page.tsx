@@ -1,7 +1,6 @@
-
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { Inter } from "next/font/google";
 import Sidebar from "../components/sidebar";
@@ -59,14 +58,18 @@ const inter = Inter({ subsets: ["latin"] });
 
 export default function Dashboard() {
   const [selectedTab, setSelectedTab] = useState("Analytics");
-  const [dashboardData, setDashboardData] = useState<DashboardData | null>(null);
+  const [dashboardData, setDashboardData] = useState<DashboardData | null>(
+    null
+  );
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [studyData, setStudyData] = useState<Array<{ day: number; hours: number }>>(
+  const [studyData, setStudyData] = useState<
+    Array<{ day: number; hours: number }>
+  >(
     Array.from({ length: 25 }, (_, i) => ({
       day: 9 + i,
       hours: i === 19 ? 6 : Math.random() * 2 + 0.5,
-    })),
+    }))
   );
 
   useEffect(() => {
@@ -96,9 +99,7 @@ export default function Dashboard() {
   const getMockData = (): DashboardData => ({
     clusterName: "N/A",
     clusterId: "N/A",
-    discoveryStats: [
-      { label: "", value: "N/A", percentage: 0 },
-    ],
+    discoveryStats: [{ label: "", value: "N/A", percentage: 0 }],
     consistencyChain: [
       { label: "Week 1", value: "0%" },
       { label: "Week 2", value: "0%" },
@@ -116,13 +117,41 @@ export default function Dashboard() {
       { label: "Completed exercises", value: "0 / 9", image: "/stretch.png" },
     ],
     skillProgression: [
-      { label: "N/A", percentage: 0, gradient: "linear-gradient(to bottom right, #01070D, #F5F5F5)" },
-      { label: "N/A", percentage: 0, gradient: "linear-gradient(to bottom right, #B81A1A, #800B0B)" },
-      { label: "N/A", percentage: 0, gradient: "linear-gradient(to bottom right, #F0863A, #8A4D21)" },
-      { label: "N/A", percentage: 0, gradient: "linear-gradient(to bottom right, #05131E, #176A16)" },
-      { label: "N/A", percentage: 0, gradient: "linear-gradient(to bottom right, #05131E, #1C60AC)" },
-      { label: "N/A", percentage: 0, gradient: "linear-gradient(to bottom right, #C89961, #A3227B)" },
-      { label: "N/A", percentage: 0, gradient: "linear-gradient(to bottom right, #3D6CEB, #2AE0DB)" },
+      {
+        label: "N/A",
+        percentage: 0,
+        gradient: "linear-gradient(to bottom right, #01070D, #F5F5F5)",
+      },
+      {
+        label: "N/A",
+        percentage: 0,
+        gradient: "linear-gradient(to bottom right, #B81A1A, #800B0B)",
+      },
+      {
+        label: "N/A",
+        percentage: 0,
+        gradient: "linear-gradient(to bottom right, #F0863A, #8A4D21)",
+      },
+      {
+        label: "N/A",
+        percentage: 0,
+        gradient: "linear-gradient(to bottom right, #05131E, #176A16)",
+      },
+      {
+        label: "N/A",
+        percentage: 0,
+        gradient: "linear-gradient(to bottom right, #05131E, #1C60AC)",
+      },
+      {
+        label: "N/A",
+        percentage: 0,
+        gradient: "linear-gradient(to bottom right, #C89961, #A3227B)",
+      },
+      {
+        label: "N/A",
+        percentage: 0,
+        gradient: "linear-gradient(to bottom right, #3D6CEB, #2AE0DB)",
+      },
     ],
     studyTimeData: Array.from({ length: 25 }, (_, i) => ({
       date: `${9 + i}`,
@@ -135,13 +164,12 @@ export default function Dashboard() {
     },
   });
 
-
   const weekProgress = [
-    { week: 'Week 1', status: 'Accomplished', progress: 100 },
-    { week: 'Week 2', status: 'Accomplished', progress: 100 },
-    { week: 'Week 3', status: 'Unaccomplished', progress: 50 },
-    { week: 'Week 4', status: 'Unaccomplished', progress: 50 },
-  ]
+    { week: "Week 1", status: "Accomplished", progress: 100 },
+    { week: "Week 2", status: "Accomplished", progress: 100 },
+    { week: "Week 3", status: "Unaccomplished", progress: 50 },
+    { week: "Week 4", status: "Unaccomplished", progress: 50 },
+  ];
   const tabs = [
     "Cyber Command",
     "Overview",
@@ -152,14 +180,14 @@ export default function Dashboard() {
   ];
 
   const skillMetrics = [
-    { skill: 'Windows Administration', progress: 50 },
-    { skill: 'Linux Administration', progress: 100 },
-    { skill: 'Cryptography', progress: 25 },
-    { skill: 'System Optimization', progress: 80 },
-    { skill: 'Defense in Depth', progress: 60 },
-    { skill: 'Client-Side Attack', progress: 20 },
-    { skill: 'Active Directory', progress: 60 },
-    { skill: 'Server-Side Attack', progress: 30 }
+    { skill: "Windows Administration", progress: 50 },
+    { skill: "Linux Administration", progress: 100 },
+    { skill: "Cryptography", progress: 25 },
+    { skill: "System Optimization", progress: 80 },
+    { skill: "Defense in Depth", progress: 60 },
+    { skill: "Client-Side Attack", progress: 20 },
+    { skill: "Active Directory", progress: 60 },
+    { skill: "Server-Side Attack", progress: 30 },
   ];
 
   const analyticsOptions = [
@@ -171,17 +199,47 @@ export default function Dashboard() {
   ];
 
   const careerSkills = [
-    { name: 'Network Penetration Tester', progress: 80, color: 'bg-linear-to-br from-[#01070D] to-[#F5F5F5]' },
-    { name: 'Red Teamer', progress: 40, color: 'bg-linear-to-br from-[#B81A1A] to-[#800B0B]' },
-    { name: 'Exploit Developer', progress: 35, color: 'bg-linear-to-br from-[#F0863A] to-[#8A4D21]' },
-    { name: 'Application Security Eng...', progress: 95, color: 'bg-linear-to-br from-[#05131E] to-[#176A16]' },
-    { name: 'Cybersecurity Analyst I', progress: 95, color: 'bg-linear-to-br from-[#05131E] to-[#1C60AC]' },
-    { name: 'Specialized Domain (Ghost, IOT, Mobile, SCADA/ICS)', progress: 75, color: 'bg-linear-to-br from-[#C89961] to-[#A3227B]' },
-    { name: 'Vulnerability Researcher', progress: 85, color: 'bg-linear-to-br from-[#3D6CEB] to-[#2AE0DB]' }
+    {
+      name: "Network Penetration Tester",
+      progress: 80,
+      color: "bg-linear-to-br from-[#01070D] to-[#F5F5F5]",
+    },
+    {
+      name: "Red Teamer",
+      progress: 40,
+      color: "bg-linear-to-br from-[#B81A1A] to-[#800B0B]",
+    },
+    {
+      name: "Exploit Developer",
+      progress: 35,
+      color: "bg-linear-to-br from-[#F0863A] to-[#8A4D21]",
+    },
+    {
+      name: "Application Security Eng...",
+      progress: 95,
+      color: "bg-linear-to-br from-[#05131E] to-[#176A16]",
+    },
+    {
+      name: "Cybersecurity Analyst I",
+      progress: 95,
+      color: "bg-linear-to-br from-[#05131E] to-[#1C60AC]",
+    },
+    {
+      name: "Specialized Domain (Ghost, IOT, Mobile, SCADA/ICS)",
+      progress: 75,
+      color: "bg-linear-to-br from-[#C89961] to-[#A3227B]",
+    },
+    {
+      name: "Vulnerability Researcher",
+      progress: 85,
+      color: "bg-linear-to-br from-[#3D6CEB] to-[#2AE0DB]",
+    },
   ];
 
   return (
-    <div className={`${inter.className} min-h-screen bg-[#040E16] text-white overflow-x-hidden`}>
+    <div
+      className={`${inter.className} min-h-screen bg-[#040E16] text-white overflow-x-hidden`}
+    >
       <div className="hidden md:block">
         <Sidebar />
       </div>
@@ -196,9 +254,7 @@ export default function Dashboard() {
                 </p>
               )}
               {error && (
-                <p className="mt-1 text-[11px] sm:text-xs text-[#F5B5B5]">
-                  {}
-                </p>
+                <p className="mt-1 text-[11px] sm:text-xs text-[#F5B5B5]">{}</p>
               )}
             </div>
           )}
@@ -223,7 +279,13 @@ export default function Dashboard() {
           <section className="mt-6 sm:mt-8 px-2 sm:px-5">
             <div className="flex flex-col lg:flex-row w-full gap-3 sm:gap-4">
               <div className="w-full lg:w-1/2">
-                <Image src="/Card.png" alt="upgrade" width={0} height={0} className="w-full h-auto rounded-xl" />
+                <Image
+                  src="/Card.png"
+                  alt="upgrade"
+                  width={0}
+                  height={0}
+                  className="w-full h-auto rounded-xl"
+                />
               </div>
 
               <div className="w-full lg:w-1/2 flex flex-col sm:flex-row gap-3 sm:gap-4">
@@ -242,11 +304,17 @@ export default function Dashboard() {
                   </div>
                   <div className="space-y-5">
                     <div>
-                      <p className="text-[12px] text-[#E2E8FF80]">Cluster name</p>
-                      <p className="text-[14px] text-[#E2E8FF]">Security essentials</p>
+                      <p className="text-[12px] text-[#E2E8FF80]">
+                        Cluster name
+                      </p>
+                      <p className="text-[14px] text-[#E2E8FF]">
+                        Security essentials
+                      </p>
                     </div>
                     <div>
-                      <p className="text-xs text-[#E2E8FF80] mb-2">Cluster ID</p>
+                      <p className="text-xs text-[#E2E8FF80] mb-2">
+                        Cluster ID
+                      </p>
                       <p className="border border-[#E2E8FF0D] rounded-sm bg-[#211B1A80] w-[62px] h-[21px] flex items-center justify-center text-[10px] text-[#E0E4E7]">
                         SES-100
                       </p>
@@ -254,14 +322,25 @@ export default function Dashboard() {
                   </div>
                   <div className="mt-3 flex flex-wrap items-center gap-2">
                     <div className="flex-1 min-w-[140px] h-[5px] rounded-full bg-white/5">
-                      <div className="h-full rounded-full bg-cyan-500" style={{ width: "40%" }} />
+                      <div
+                        className="h-full rounded-full bg-cyan-500"
+                        style={{ width: "40%" }}
+                      />
                     </div>
                     <div className="text-xs text-slate-500">15wks</div>
                   </div>
                   <div className="mt-4 flex items-center justify-between">
-                    <span className="text-xs text-slate-500">Consistency chain</span>
+                    <span className="text-xs text-slate-500">
+                      Consistency chain
+                    </span>
                     <div className="flex flex-col items-center text-[#E2E8FFA6] text-[8px]">
-                      <Image src="/Collision.png" alt="" width={18} height={18} className="mb-1" />
+                      <Image
+                        src="/Collision.png"
+                        alt=""
+                        width={18}
+                        height={18}
+                        className="mb-1"
+                      />
                       Ongoing
                     </div>
                   </div>
@@ -269,7 +348,9 @@ export default function Dashboard() {
                     {weekProgress.map((week, i) => (
                       <div key={week.week} className="flex items-center gap-3">
                         <div className="flex flex-col min-w-[90px]">
-                          <span className="text-[10px] text-[#E2E8FF]">{week.week}</span>
+                          <span className="text-[10px] text-[#E2E8FF]">
+                            {week.week}
+                          </span>
                           <div
                             className={`flex items-center gap-2 rounded-full px-2 h-[18px] text-[8px] ${
                               week.status === "Accomplished"
@@ -278,7 +359,11 @@ export default function Dashboard() {
                             }`}
                           >
                             <Image
-                              src={week.status === "Accomplished" ? "/Arrow1.png" : "/Arrow2.png"}
+                              src={
+                                week.status === "Accomplished"
+                                  ? "/Arrow1.png"
+                                  : "/Arrow2.png"
+                              }
                               alt={week.status}
                               width={8}
                               height={8}
@@ -305,7 +390,8 @@ export default function Dashboard() {
                     Join cyberspace
                   </p>
                   <p className="mt-8 mb-8 text-sm sm:text-base font-['Inter'] text-center text-[#E2E8FF80] leading-relaxed">
-                    &quot;Join a team, learn from top minds, and grow with the cyberspace squad. Choose an existing cyberspace that aligns
+                    &quot;Join a team, learn from top minds, and grow with the
+                    cyberspace squad. Choose an existing cyberspace that aligns
                     with your goals or build your dream team.&quot;
                   </p>
 
@@ -326,7 +412,8 @@ export default function Dashboard() {
                 key={tab}
                 onClick={() => setSelectedTab(tab)}
                 className={`rounded-xl w-auto px-2 sm:px-3 h-[32px] sm:h-[34px] transition text-[10px] sm:text-xs mb-2 mr-2 sm:mr-4 ${
-                  selectedTab === tab || (index === 0 && selectedTab === "Analytics")
+                  selectedTab === tab ||
+                  (index === 0 && selectedTab === "Analytics")
                     ? "bg-linear-to-br from-[#040E16] via-[#040E16] to-[#174F7C] text-[#E2E8FF] border border-[#E2E8FF0D] font-semibold"
                     : "bg-transparent text-[#E2E8FF99] hover:text-[#E2E8FF]"
                 }`}
@@ -347,7 +434,9 @@ export default function Dashboard() {
                   <p className="text-[9px] sm:text-[10px] font-medium border border-[#E2E8FF0D] bg-[#0D171F] rounded-lg w-auto px-3 h-[28px] sm:h-[31px] flex items-center justify-center text-[#B3B3B3]">
                     Cluster skill matrix
                   </p>
-                  <p className="text-[9px] sm:text-[10px] text-[#E2E8FF80]">Security essentials</p>
+                  <p className="text-[9px] sm:text-[10px] text-[#E2E8FF80]">
+                    Security essentials
+                  </p>
                 </div>
 
                 <div className="mt-6 flex flex-col gap-6 md:flex-row">
@@ -356,7 +445,9 @@ export default function Dashboard() {
                     { title: "Security essentials", metrics: skillMetrics },
                   ].map(({ title, metrics }) => (
                     <div key={title} className="flex-1 space-y-3">
-                      <h3 className="text-xs sm:text-sm text-cyan-400">{title}</h3>
+                      <h3 className="text-xs sm:text-sm text-cyan-400">
+                        {title}
+                      </h3>
                       {metrics.map((item, index) => (
                         <div key={`${title}-${index}`} className="relative">
                           <div className="h-7 sm:h-8 bg-slate-900/60 rounded w-full overflow-hidden">
@@ -386,12 +477,22 @@ export default function Dashboard() {
                 </div>
                 <div className="mt-4 sm:mt-6 grid gap-3 sm:gap-4 grid-cols-2 sm:grid-cols-2">
                   {dashboardData?.executeMetrics?.map((metric) => (
-                    <div key={metric.label} className="px-2 sm:px-4 py-3 sm:py-5 text-white flex gap-3">
+                    <div
+                      key={metric.label}
+                      className="px-2 sm:px-4 py-3 sm:py-5 text-white flex gap-3"
+                    >
                       <div className="border rounded-full border-[#E2E8FF0D] w-[40px] sm:w-[50px] h-[40px] sm:h-[50px] flex items-center justify-center bg-[#101A21] shrink-0">
-                        <Image src={metric.image} alt={metric.label} width={20} height={20} />
+                        <Image
+                          src={metric.image}
+                          alt={metric.label}
+                          width={20}
+                          height={20}
+                        />
                       </div>
                       <div className="min-w-0">
-                        <p className="text-[8px] sm:text-xs text-[#A7A7A7] truncate">{metric.label}</p>
+                        <p className="text-[8px] sm:text-xs text-[#A7A7A7] truncate">
+                          {metric.label}
+                        </p>
                         <p className="mt-1 text-[8px] sm:text-[10px] font-semibold border-2 border-[#E2E8FF0D] w-[42px] rounded-md h-[18px] sm:h-[21px] flex items-center justify-center bg-[#101A21]">
                           {metric.value}
                         </p>
@@ -404,14 +505,23 @@ export default function Dashboard() {
               {/* Skill Chain */}
               <div className="rounded-lg border border-[#E2E8FF0A] bg-[#060c16] p-3 sm:p-6 w-full">
                 <div className="flex flex-col gap-3 sm:gap-4 lg:flex-row lg:items-center">
-                  <Image src="/frame5.png" alt="skill chain" width={50} height={50} className="w-[40px] sm:w-[50px] h-[40px] sm:h-[50px]" />
+                  <Image
+                    src="/frame5.png"
+                    alt="skill chain"
+                    width={50}
+                    height={50}
+                    className="w-[40px] sm:w-[50px] h-[40px] sm:h-[50px]"
+                  />
                   <div className="min-w-0">
-                    <p className="text-[8px] sm:text-xs font-normal text-[#E2E8FF80]">Skill chain</p>
+                    <p className="text-[8px] sm:text-xs font-normal text-[#E2E8FF80]">
+                      Skill chain
+                    </p>
                     <p className="text-sm sm:text-base font-medium text-[#E2E8FF] mb-1 sm:mb-2 mt-0.5 sm:mt-1 truncate">
                       {dashboardData?.skillChainData?.name || "Loading..."}
                     </p>
                     <div className="border border-[#E2E8FF0D] text-[8px] sm:text-[10px] rounded-md w-[41px] sm:w-[42px] h-[18px] sm:h-[21px] flex items-center justify-center bg-[#101A21]">
-                      {dashboardData?.skillChainData?.completed || 0}/{dashboardData?.skillChainData?.total || 0}
+                      {dashboardData?.skillChainData?.completed || 0}/
+                      {dashboardData?.skillChainData?.total || 0}
                     </div>
                   </div>
                 </div>
@@ -430,18 +540,32 @@ export default function Dashboard() {
                   <div className="relative flex h-48 sm:h-64 w-48 sm:w-64 items-center justify-center rounded-full bg-[conic-gradient(#1CB948_0deg,#2D47C8_50deg,#C32DC8CC_100deg,#30FFFFB2_150deg,#30FFFFB2_200deg,#C82D2F_250deg,#9D9D9D_300deg,#FF7E05CC_360deg)]">
                     <div className="absolute inset-6 rounded-full bg-[#040817]" />
                     <div className="relative z-10 text-center">
-                      <Image src="/Vector1.png" alt="vector" width={103} height={125} className="mx-auto" />
+                      <Image
+                        src="/Vector1.png"
+                        alt="vector"
+                        width={103}
+                        height={125}
+                        className="mx-auto"
+                      />
                       <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2">
-                        <Image src="/Ellipse.png" alt="Ellipse" width={6} height={6} />
+                        <Image
+                          src="/Ellipse.png"
+                          alt="Ellipse"
+                          width={6}
+                          height={6}
+                        />
                       </div>
                     </div>
                     <div className="absolute -right-0 lg:-right-24 top-1/2 w-[200px] lg:w-[240px] min-h-[90px] -translate-y-1/2 rounded-2xl border border-white/10 bg-[#0D1C28] px-3 sm:px-4 py-3 text-[10px] sm:text-xs text-white shadow-lg">
                       <p className="text-xs sm:text-sm font-semibold">
-                        <span className="text-[#E2E8FF99] mr-1">Vulnerability Researcher</span>
+                        <span className="text-[#E2E8FF99] mr-1">
+                          Vulnerability Researcher
+                        </span>
                         <span className="text-[#30FFFF]">85%</span>
                       </p>
                       <p className="text-[#E2E8FF99] text-[10px] sm:text-[12px] mt-1">
-                        Hunt for flaws in software, hardware, or systems, often discovering zero-days and developing exploits.
+                        Hunt for flaws in software, hardware, or systems, often
+                        discovering zero-days and developing exploits.
                       </p>
                     </div>
                   </div>
@@ -452,11 +576,18 @@ export default function Dashboard() {
                   {careerSkills.map((skill, i) => (
                     <li key={`career-skill-${i}`} className="w-full">
                       <div className="flex flex-wrap items-center gap-2 sm:gap-3">
-                        <span className="flex-1 min-w-[120px] truncate">{skill.name}</span>
+                        <span className="flex-1 min-w-[120px] truncate">
+                          {skill.name}
+                        </span>
                         <div className="flex-1 h-[7px] sm:h-[9px] bg-slate-800/50 rounded-full overflow-hidden">
-                          <div className={`h-full ${skill.color} rounded`} style={{ width: `${skill.progress}%` }} />
+                          <div
+                            className={`h-full ${skill.color} rounded`}
+                            style={{ width: `${skill.progress}%` }}
+                          />
                         </div>
-                        <span className="text-white/70 text-right w-10 sm:w-12">{skill.progress}%</span>
+                        <span className="text-white/70 text-right w-10 sm:w-12">
+                          {skill.progress}%
+                        </span>
                       </div>
                     </li>
                   ))}
@@ -475,7 +606,13 @@ export default function Dashboard() {
                   </p>
                   <div className="text-[8px] sm:text-[10px] text-[#E2E8FF] border border-[#182233] bg-[#0B1625] rounded-lg w-auto px-2 py-1.5 sm:px-4 sm:py-2 flex items-center justify-center gap-1 sm:gap-2">
                     <Calendar className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-[#E2E8FF99]" />
-                    <span>{new Date().toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}</span>
+                    <span>
+                      {new Date().toLocaleDateString("en-US", {
+                        month: "short",
+                        day: "numeric",
+                        year: "numeric",
+                      })}
+                    </span>
                   </div>
                 </div>
                 <button
@@ -484,7 +621,7 @@ export default function Dashboard() {
                       Array.from({ length: 25 }, (_, i) => ({
                         day: 9 + i,
                         hours: 0,
-                      })),
+                      }))
                     )
                   }
                   className="flex items-center gap-1 sm:gap-2 rounded-lg border border-[#151F30] bg-[#0A1525] px-2 sm:px-4 py-1.5 sm:py-2 text-[8px] sm:text-[10px] font-semibold text-[#E2E8FF] cursor-pointer shadow-[0_5px_25px_rgba(6,15,30,0.6)] hover:bg-[#0A1525]/80 whitespace-nowrap"
@@ -501,7 +638,10 @@ export default function Dashboard() {
                   <div className="relative h-40 sm:h-44 w-full overflow-x-auto">
                     <div className="absolute inset-0 flex items-stretch min-w-[600px] sm:min-w-0">
                       {studyData.map((label, index) => (
-                        <span key={`grid-${label.day}-${index}`} className="flex-1 border-l border-white/5 opacity-30 first:border-l last:border-r" />
+                        <span
+                          key={`grid-${label.day}-${index}`}
+                          className="flex-1 border-l border-white/5 opacity-30 first:border-l last:border-r"
+                        />
                       ))}
                     </div>
                     <div className="absolute inset-x-0 bottom-14 h-px bg-linear-to-r from-transparent via-[#3BC3FF] to-transparent" />
@@ -509,7 +649,10 @@ export default function Dashboard() {
                   </div>
                   <div className="mt-6 flex items-center justify-between text-[10px] text-[#8EA3C0] overflow-x-auto">
                     {studyData.map((label, index) => (
-                      <span key={`axis-label-${label.day}-${index}`} className="min-w-[14px] text-center">
+                      <span
+                        key={`axis-label-${label.day}-${index}`}
+                        className="min-w-[14px] text-center"
+                      >
                         {label.day}
                       </span>
                     ))}
