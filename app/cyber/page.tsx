@@ -88,7 +88,7 @@ export default function CyberSecurityDashboard() {
           <h1 className="text-sm font-semibold">Cyber command</h1>
         </div>
 
-        <div className="relative overflow-hidden grid grid-cols-1 lg:grid-cols-2 gap-6 pt-10 bg-linear-to-br from-[#5CC8F1] via-[#10243A] to-[#061222] rounded-2xl">
+        <div className="relative overflow-hidden grid grid-cols-1 lg:grid-cols-2 gap-6 pt-10 bg-linear-to-br from-[#5CC8F1] via-[#10243A] to-[#061222] ">
 
           <div
             aria-hidden
@@ -108,7 +108,7 @@ export default function CyberSecurityDashboard() {
                   className="object-cover object-top opacity-90"
                   sizes="(max-width: 1024px) 100vw, 50vw"
                 />
-                 <div className="absolute inset-0 top-1/3">
+                 <div className="absolute inset-0 top-1/4">
                   <Image
                     src="/half.png"
                     alt="Neon Circuit Overlay"
@@ -118,28 +118,28 @@ export default function CyberSecurityDashboard() {
                   />
                 </div>
               </div>
-            <div className="relative z-40 px-6 sm:px-8 py-6 flex flex-col items-center text-center">
+            <div className="relative z-40 px-4 sm:px-8 py-6 flex flex-col items-center text-center">
               <h2
-                className="text-[40px] sm:text-[52px] lg:text-[71.24px] font-bold bg-linear-to-br from-[#A4E1F8] via-[#5CB4C8] to-[#0C5062] text-transparent bg-clip-text"
+                className="text-[32px] sm:text-[48px] lg:text-[71.24px] font-bold bg-linear-to-br from-[#A4E1F8] via-[#5CB4C8] to-[#0C5062] text-transparent bg-clip-text"
                 style={{ fontFamily: 'nasdaqer', letterSpacing: '-1.94px' }}
               >
                 SECURITY
               </h2>
-              <div className='flex flex-col sm:flex-row items-center sm:gap-7 gap-2 sm:-mt-4'>
+              <div className='flex flex-col sm:flex-row px-4 sm:px-23 items-center sm:gap-7 gap-2 sm:-mt-4 w-full'>
                 <div
-                  className='text-[28px] sm:text-[37.74px] font-nasdaqer font-bold bg-linear-to-br from-[#A4E1F8] via-[#5CB4C8] to-[#0C5062] text-transparent bg-clip-text'
+                  className='text-[24px] sm:text-[34px] lg:text-[37.74px] font-nasdaqer font-bold bg-linear-to-br from-[#A4E1F8] via-[#5CB4C8] to-[#0C5062] text-transparent bg-clip-text'
                   style={{ letterSpacing: '-1.03px' }}
                 >
                   ESSENTIALS
                 </div>
-              <div className="flex items-center gap-1 font-bold text-[16px] sm:text-[18.87px]">
+              <div className="flex items-center gap-1 font-bold text-[15px] sm:text-[18.87px]">
               <span className='text-[#FFAC33]'>SES</span> <span className='text-[#C18D40]'>100</span>
               </div>
               </div>
             </div>
           </div>
           {/* Padlock Image - Top Right Corner */}
-                <div className="absolute bottom-6 right-4 sm:bottom-10 sm:right-6 w-32 h-32 sm:w-[200px] sm:h-[200px] opacity-70 pointer-events-none">
+                <div className="absolute bottom-6 right-4 sm:bottom-75 sm:-right-4 w-32 h-32 sm:w-[200px] sm:h-[200px] opacity-70 pointer-events-none">
                   <Image
                     src="/full.png"
                     alt="Security Padlock"
@@ -163,13 +163,13 @@ export default function CyberSecurityDashboard() {
               <div className="font-neofolia text-17px">LUMINARY</div>
             </div>
           
-          <div className="space-y-4 w-full max-w-[550px] pt-10">
+          <div className="space-y-4 w-full max-w-[550px] pt-10 mx-auto">
             {courses.map((course) => (
               <div
                 key={course.id}
                 className=" bg-linear-to-br from-cyan-500/60 via-cyan-500/15 to-transparent p-px transition-all"
               >
-                <div className="bg-linear-to-br from-[#060E1B] to-[#061222] border border-white/5 p-4 flex items-center gap-4">
+                <div className="bg-linear-to-br from-[#060E1B] to-[#061222] border border-white/5 p-4 flex flex-col sm:flex-row items-start sm:items-center gap-4">
                   <div className={`w-16 h-16 -mt-1.5 bg-linear-to-br ${course.color ?? ''} rounded-lg flex items-center justify-center text-2xl shrink-0`}>
                     {course.image ? (
                       <Image
@@ -184,15 +184,17 @@ export default function CyberSecurityDashboard() {
                     )}
                   </div>
                   
-                  <div className="flex-1 min-w-0">
-                    <h3 className="font-bold text-[14.67px] text-[#62D2F9] mb-1">{course.title}</h3>
+                  <div className="flex-1 min-w-0 w-full">
+                    <h3 className="font-bold text-[13px] sm:text-[14.67px] text-[#62D2F9] mb-1">
+                      {course.title}
+                    </h3>
                     <p className="text-[8.25px] text-gray-500 uppercase tracking-wider">{course.subtitle}</p>
                   </div>
                   
-                  <div className="flex items-center gap-4">
-                    <span className="text-[10.98px] text-[#62D2F9]">{course.progress}</span>
+                  <div className="flex w-full sm:w-auto items-center justify-between sm:justify-end gap-3 sm:gap-4">
+                    <span className="text-[10px] sm:text-[10.98px] text-[#62D2F9] whitespace-nowrap">{course.progress}</span>
                     <button 
-                      className={`w-[120px] sm:w-[138.05px] h-[31.38px] rounded-lg text-[10.98px] font-bold uppercase tracking-wider ${
+                      className={`w-full sm:w-[138.05px] h-[34px] sm:h-[31.38px] rounded-lg text-[10px] sm:text-[10.98px] font-bold uppercase tracking-wider ${
                         course.status === 'COMPLETED' 
                           ? 'bg-linear-to-br from-[#62D2F9] via-[#174F7C] to-[#000000] text-[#62D2F9]' 
                           : course.status === 'START'

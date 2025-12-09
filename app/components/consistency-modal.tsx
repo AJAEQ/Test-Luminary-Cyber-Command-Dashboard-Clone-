@@ -103,10 +103,10 @@ export default function ConsistencyModal({ open, onClose }: ConsistencyModalProp
         className="relative w-full max-w-[731px] max-h-[90vh] overflow-y-auto rounded-[30px] border border-[#FFFFFF14] bg-[#040b14] p-6 sm:p-8 text-white shadow-[0_30px_90px_rgba(0,0,0,0.6)]"
         onClick={(event) => event.stopPropagation()}
       >
-        <div className="flex items-start justify-between gap-6">
+        <div className="flex items-start justify-between gap-4 sm:gap-6">
           <div>
-            <h3 className="text-[20px] text-[#E2E8FF] font-semibold">Consistency chain</h3>
-            <p className="mt-1 text-[16px] text-[#E2E8FF80]">Setup your consistency chain</p>
+            <h3 className="text-[16px] sm:text-[20px] text-[#E2E8FF] font-semibold">Consistency chain</h3>
+            <p className="mt-1 text-sm sm:text-[16px] text-[#E2E8FF80]">Setup your consistency chain</p>
           </div>
           <button
             aria-label="Close modal"
@@ -119,9 +119,9 @@ export default function ConsistencyModal({ open, onClose }: ConsistencyModalProp
 
         <div className="mt-6 space-y-4">
           <div className="rounded-[14px] bg-[#071325] p-4 sm:p-5">
-            <p className="text-[16px] text-[#E2E8FFCC] font-semibold">Enroll in a cluster</p>
+            <p className="text-sm sm:text-[16px] text-[#E2E8FFCC] font-semibold">Enroll in a cluster</p>
             <button
-              className="mt-2 text-[16px] font-medium text-[#12CCFC] underline decoration-dotted underline-offset-4"
+              className="mt-2 text-sm sm:text-[16px] font-medium text-[#12CCFC] underline decoration-dotted underline-offset-4"
               onClick={handleEnrollClick}
             >
               Enroll to setup consistency chain
@@ -130,8 +130,8 @@ export default function ConsistencyModal({ open, onClose }: ConsistencyModalProp
 
           <div className="space-y-6 rounded-[14px] bg-[#050f1f] p-4 border border-[#E2E8FF1A] sm:p-5">
             <div>
-              <p className="text-[16px] font-semibold text-[#E2E8FFCC]">Education type</p>
-              <p className="text-[16px] text-[#E2E8FF99]">
+              <p className="text-sm sm:text-[16px] font-semibold text-[#E2E8FFCC]">Education type</p>
+              <p className="text-xs sm:text-[16px] text-[#E2E8FF99]">
                 Select the education type and number you can complete weekly
               </p>
               <div
@@ -151,10 +151,10 @@ export default function ConsistencyModal({ open, onClose }: ConsistencyModalProp
                     onClick={() => setEducationDropdownOpen((prev) => !prev)}
                     onKeyDown={handleEducationKeyDown}
                   >
-                    <span className="text-[10px] text-[#E2E8FF] uppercase tracking-[0.2em]">
+                    <span className="text-[9px] sm:text-[10px] text-[#E2E8FF] uppercase tracking-[0.2em]">
                       Education type
                     </span>
-                    <div className="mt-2 flex items-center justify-between text-[14px] text-[#E2E8FF] font-semibold">
+                    <div className="mt-2 flex items-center justify-between text-[12px] sm:text-[14px] text-[#E2E8FF] font-semibold">
                       {selectedEducationType}
                       <ChevronDown
                         aria-hidden="true"
@@ -190,17 +190,17 @@ export default function ConsistencyModal({ open, onClose }: ConsistencyModalProp
                   )}
                 </div>
 
-                <div className="flex items-center ml-0 sm:ml-5 gap-5">
+                <div className="flex items-center ml-0 sm:ml-5 gap-4 sm:gap-5">
                   <button
-                    className="flex h-10 w-10 items-center justify-center rounded-full border border-white/15 text-xl text-white/60 disabled:cursor-not-allowed disabled:opacity-40"
+                    className="flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-full border border-white/15 text-lg sm:text-xl text-white/60 disabled:cursor-not-allowed disabled:opacity-40"
                     disabled={!isEnrolled || weeklyTarget <= 1}
                     onClick={() => adjustWeeklyTarget(-1)}
                   >
                     −
                   </button>
-                  <span className="text-lg font-semibold text-white">{weeklyTarget}</span>
+                  <span className="text-base sm:text-lg font-semibold text-white">{weeklyTarget}</span>
                   <button
-                    className="flex h-10 w-10 items-center justify-center rounded-full border border-white/15 text-xl text-white disabled:cursor-not-allowed disabled:opacity-40"
+                    className="flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-full border border-white/15 text-lg sm:text-xl text-white disabled:cursor-not-allowed disabled:opacity-40"
                     disabled={!isEnrolled}
                     onClick={() => adjustWeeklyTarget(1)}
                   >
@@ -212,8 +212,8 @@ export default function ConsistencyModal({ open, onClose }: ConsistencyModalProp
 
             <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
               <div>
-                <p className="text-[16px] font-semibold text-[#E2E8FFCC]">Select date</p>
-                <p className="text-[16px] text-[#E2E8FF99]">Pick a date you want to start</p>
+                <p className="text-sm sm:text-[16px] font-semibold text-[#E2E8FFCC]">Select date</p>
+                <p className="text-xs sm:text-[16px] text-[#E2E8FF99]">Pick a date you want to start</p>
               </div>
               <div className="flex xs:flex-row items-start xs:items-center gap-3 w-full sm:w-auto">
                 <label className="flex w-full flex-col gap-4 rounded-2xl border border-[#E2E8FF1A] px-4 py-3 text-sm text-white/80 xs:flex-row xs:items-center xs:justify-between xs:gap-3">
@@ -221,17 +221,17 @@ export default function ConsistencyModal({ open, onClose }: ConsistencyModalProp
                     type="button"
                     onClick={handleOpenDatePicker}
                     disabled={!isEnrolled}
-                    className="flex items-center gap-2 rounded-lg px-1 py-0.5 text-left text-[#B3B3B3] text-base transition hover:text-white focus-visible:ring-2 focus-visible:ring-[#12CCFC] disabled:cursor-not-allowed disabled:opacity-40 whitespace-nowrap"
+                    className="flex items-center gap-2 rounded-lg px-1 py-0.5 text-left text-[#B3B3B3] text-sm sm:text-base transition hover:text-white focus-visible:ring-2 focus-visible:ring-[#12CCFC] disabled:cursor-not-allowed disabled:opacity-40 whitespace-nowrap"
                   >
                     <CalendarIcon className="w-[15px] h-[15px]" />
-                    <span className="text-[#B3B3B3] text-[10px]">{startDate ? formattedDate : "--- --,2025"}</span>
+                    <span className="text-[#B3B3B3] text-[10px] sm:text-xs">{startDate ? formattedDate : "--- --,2025"}</span>
                   </button>
                   
                 </label>
               </div>
             </div>
 
-            <p className="text-[16px] font-medium text-[#E2E8FF99]">
+            <p className="text-sm sm:text-[16px] font-medium text-[#E2E8FF99]">
               Estimated time of completion: <span className="font-medium text-[#E2E8FF]">10 weeks</span>
             </p>
           </div>

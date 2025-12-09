@@ -191,14 +191,14 @@ export default function Home() {
         <Sidebar />
       </div>
       <div className="w-full md:ml-20 md:w-[calc(100%-5rem)]">
-        <Header breadcrumbTitle="Cyber Command"/>
+        <Header breadcrumbTitle="Cyber Command" />
         <div className="px-2 sm:px-6 py-3 sm:py-4">
           {/* Tab Navigation */}
-          <nav className="flex flex-wrap gap-1 sm:gap-2 text-xs ml-0 sm:ml-4">
+          <nav className="flex flex-nowrap sm:flex-wrap gap-1 sm:gap-2 text-[10px] sm:text-xs ml-0 sm:ml-4  pb-2 pr-2 sm:pr-4">
             {tabs.map((tab, index) => (
               <button
                 key={tab}
-                className={`rounded-[10px] cursor-pointer px-3 sm:px-4 py-2 transition text-xs whitespace-nowrap ${
+                className={`rounded-[10px] px-3 sm:px-4 py-2 cursor-pointer transition whitespace-nowrap ${
                   index === 0
                     ? "bg-[#040E16] text-[#E2E8FF] border border-[#E2E8FF0D] font-semibold"
                     : "text-[#E2E8FF99] hover:text-[#E2E8FF]"
