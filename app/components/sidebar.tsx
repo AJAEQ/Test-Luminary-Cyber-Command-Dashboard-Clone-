@@ -1,12 +1,14 @@
+"use client";
+
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 
-type NavIcon = string | { image: string; alt?: string; width?: number; height?: number };
+type NavIcon = string | { image: string; alt?: string; width?: number; height?: number; route?: string };
 
 const navIcons: NavIcon[] = [
-  { image: "/Component1.png", alt: "Dashboard", width: 34.48, height: 36 },
-  { image: "/Component2.png", alt: "Reporting", width: 20, height: 20 },
-  
+  { image: "/Component1.png", alt: "Dashboard", width: 34.48, height: 36, route: "/" },
+  { image: "/Component2.png", alt: "Reporting", width: 20, height: 20, route: "/cyber" },
 ];
 
 type NIcon = string | { image: string; alt?: string; width?: number; height?: number};
@@ -61,24 +63,49 @@ export default function Sidebar({ variant = "glass" }: SidebarProps = {}) {
           </button>
         
         <nav className="flex flex-col gap-2 sm:gap-2">
-          {navIcons.map((icon, index) => (
-            <button
-              key={typeof icon === "string" ? `${icon}-${index}` : `${icon.image}-${index}`}
-              className={`flex h-10 w-10 mb-4 items-center justify-center transition ${navButtonClasses}`}
-            >
-              {typeof icon === "string" ? (
-                icon
-              ) : (
-                <Image
-                  src={icon.image}
-                  alt={icon.alt ?? "Navigation icon"}
-                  width={icon.width ?? 20}
-                  height={icon.height ?? 20}
-                  className="w-4 h-4 sm:w-12 sm:h-12 cursor-pointer"
-                />
-              )}
-            </button>
-          ))}
+          {navIcons.map((icon, index) => {
+            const key = typeof icon === "string" ? `${icon}-${index}` : `${icon.image}-${index}`;
+
+            if (typeof icon === "string") {
+              return (
+                <span key={key} className={`flex h-10 w-10 mb-4 items-center justify-center ${navButtonClasses}`}>
+                  {icon}
+                </span>
+              );
+            }
+
+            const content = (
+              <Image
+                src={icon.image}
+                alt={icon.alt ?? "Navigation icon"}
+                width={icon.width ?? 20}
+                height={icon.height ?? 20}
+                className="w-4 h-4 sm:w-12 sm:h-12 cursor-pointer"
+              />
+            );
+
+            if (icon.route) {
+              return (
+                <Link
+                  key={key}
+                  href={icon.route}
+                  className={`flex h-10 w-10 mb-4 items-center justify-center transition ${navButtonClasses}`}
+                >
+                  {content}
+                </Link>
+              );
+            }
+
+            return (
+              <button
+                key={key}
+                type="button"
+                className={`flex h-10 w-10 mb-4 items-center justify-center transition ${navButtonClasses}`}
+              >
+                {content}
+              </button>
+            );
+          })}
 
           <div className="flex flex-col items-center gap-4 sm:gap-9 cursor-pointer">
         {nIcons.map((nav, index) =>

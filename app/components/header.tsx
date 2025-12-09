@@ -10,15 +10,15 @@ export default function Header({ breadcrumbTitle }: HeaderProps){
 
 return(
 <div className='w-full'>
-      <header className="px-3 sm:px-6 py-3 sm:py-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-0">
-        <div className="flex items-center gap-4 w-full sm:w-auto">
+      <header className="px-3 sm:px-6 py-3 sm:py-4 flex flex-row items-start sm:items-center justify-between gap-3 sm:gap-0">
+        <div className="flex items-center gap-4 w-full sm:w-auto mt-2 sm:mt-2">
           <div className="flex pl-5 items-center gap-2 text-xs text-gray-400 truncate">
             <span className="hidden sm:inline">Education</span>
             <span className="hidden sm:inline">›</span>
             <span className="text-[#E2E8FF] truncate">{breadcrumbTitle}</span>
           </div>
         </div>
-        <div className="flex items-center gap-2 sm:gap-6 w-full sm:w-auto justify-end">
+        <div className="flex items-center gap-4 sm:gap-6 w-full sm:w-auto justify-end">
           <div className="relative hidden sm:block">
             <input 
               type="text" 

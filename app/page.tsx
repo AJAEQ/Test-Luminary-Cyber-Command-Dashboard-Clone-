@@ -186,7 +186,7 @@ export default function Home() {
   }
 
   return (
-    <div className={`${inter.className} min-h-screen bg-[#040E16] text-white`}>
+    <div className={`${inter.className} min-h-screen bg-[#040E16] text-white overflow-x-hidden`}>
       <div className="hidden md:block">
         <Sidebar />
       </div>
@@ -415,7 +415,7 @@ export default function Home() {
                       </div>
                       <div className="min-w-0">
                         <p className="text-[8px] sm:text-xs text-[#A7A7A7] truncate">{metric.label}</p>
-                        <p className="mt-1 text-[8px] sm:text-[10px] font-semibold border-2 border-[#E2E8FF0D] w-auto px-1.5 rounded-md h-[18px] sm:h-[21px] flex items-center justify-center bg-[#101A21]">
+                        <p className="mt-1 text-[8px] sm:text-[10px] font-semibold border-2 border-[#E2E8FF0D] w-[42px] px-1.5 rounded-md h-[18px] sm:h-[21px] flex items-center justify-center bg-[#101A21]">
                           {metric.value}
                         </p>
                       </div>
@@ -443,7 +443,7 @@ export default function Home() {
                     <p className="text-sm sm:text-md font-medium text-[#E2E8FF] mb-1 sm:mb-2 mt-0.5 sm:mt-1 truncate">
                       {dashboardData.skillChainData.name}
                     </p>
-                    <div className="border border-[#E2E8FF0D] text-[8px] sm:text-[10px] rounded-md w-auto px-1.5 h-[18px] sm:h-[21px] flex items-center justify-center bg-[#101A21]">
+                    <div className="border border-[#E2E8FF0D] text-[8px] sm:text-[10px] rounded-md w-[41px] px-1.5 h-[18px] sm:h-[21px] flex items-center justify-center bg-[#101A21]">
                       {dashboardData.skillChainData.completed}/{dashboardData.skillChainData.total}
                     </div>
                   </div>
@@ -454,7 +454,7 @@ export default function Home() {
             {/* Right Column - Skill Progression */}
             <div className="space-y-4 sm:space-y-6 w-full">
               <div className="rounded-[14px] border border-[#FFFFFF14] bg-[#040E16] p-3 sm:p-6 w-full min-h-[500px] sm:min-h-[700px] lg:min-h-[880px]">
-                <div className="flex items-center justify-center w-auto px-2 h-[28px] sm:h-[31px] text-[#8282E10D] border border-[#E2E8FF0D] rounded-lg bg-[#8282E10D]">
+                <div className="flex items-center justify-center w-[133px] px-2 h-[28px] sm:h-[31px] text-[#8282E10D] border border-[#E2E8FF0D] rounded-lg bg-[#8282E10D]">
                   <p className="text-[8px] sm:text-[10px] font-medium text-[#8282E1] whitespace-nowrap">
                     Career skill progression
                   </p>
