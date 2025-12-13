@@ -290,8 +290,8 @@ export default function Dashboard() {
                 <Image
                   src="/Card.png"
                   alt="upgrade"
-                  width={0}
-                  height={0}
+                  width={632}
+                  height={451}
                   className="w-full h-auto rounded-xl"
                 />
               </div>
