@@ -221,12 +221,12 @@ export default function Home() {
 
   return (
     <div
-      className={`${inter.className} min-h-screen bg-[#040E16] text-white overflow-x-hidden`}
+      className={`${inter.className} min-h-screen w-full bg-[#040E16] text-white overflow-x-hidden flex flex-col`}
     >
       <div className="hidden md:block">
         <Sidebar />
       </div>
-      <div className="w-full md:ml-20 md:w-[calc(100%-5rem)]">
+      <div className="flex-1 w-full md:pl-20">
         <Header breadcrumbTitle="Cyber Command" />
         <div className="px-2 sm:px-6 py-3 sm:py-4">
           {/* Tab Navigation */}
