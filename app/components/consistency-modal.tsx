@@ -1,8 +1,13 @@
 "use client";
 
-import { Calendar as CalendarIcon, ChevronDown } from "lucide-react";
+import {
+  Calendar as CalendarIcon,
+  ChevronDown,
+  ChevronLeft,
+  ChevronRight,
+} from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 type ConsistencyModalProps = {
   open: boolean;
@@ -27,9 +32,11 @@ export default function ConsistencyModal({
   const [educationDropdownOpen, setEducationDropdownOpen] = useState(false);
   const [weeklyTarget, setWeeklyTarget] = useState(1);
   const [startDate, setStartDate] = useState("");
+  const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
+  const [visibleMonth, setVisibleMonth] = useState(new Date());
   const educationDropdownRef = useRef<HTMLDivElement>(null);
   const educationButtonRef = useRef<HTMLButtonElement>(null);
-  const dateInputRef = useRef<HTMLInputElement>(null);
+  const datePickerRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
 
   const handleEnrollClick = () => {
@@ -54,9 +61,47 @@ export default function ConsistencyModal({
   };
 
   const formattedDate = startDate
-    ? dateFormatter.format(new Date(startDate))
+    ? dateFormatter.format(new Date(`${startDate}T00:00:00`))
     : "— —, 2025";
   const isConfirmDisabled = !isEnrolled || !startDate || weeklyTarget <= 0;
+  const weekdayLabels = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
+
+  const formatDateKey = (date: Date) => {
+    const year = date.getFullYear();
+    const month = `${date.getMonth() + 1}`.padStart(2, "0");
+    const day = `${date.getDate()}`.padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  };
+
+  const todayKey = formatDateKey(new Date());
+
+  const calendarDays = useMemo(() => {
+    const monthStart = new Date(
+      visibleMonth.getFullYear(),
+      visibleMonth.getMonth(),
+      1
+    );
+    const monthEnd = new Date(
+      visibleMonth.getFullYear(),
+      visibleMonth.getMonth() + 1,
+      0
+    );
+    const leadingEmpty = monthStart.getDay();
+    const totalCells =
+      Math.ceil((leadingEmpty + monthEnd.getDate()) / 7) * 7;
+
+    return Array.from({ length: totalCells }, (_, index) => {
+      const dayNumber = index - leadingEmpty + 1;
+      if (dayNumber < 1 || dayNumber > monthEnd.getDate()) {
+        return null;
+      }
+      return new Date(
+        visibleMonth.getFullYear(),
+        visibleMonth.getMonth(),
+        dayNumber
+      );
+    });
+  }, [visibleMonth]);
 
   useEffect(() => {
     if (!educationDropdownOpen) return;
@@ -73,6 +118,22 @@ export default function ConsistencyModal({
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [educationDropdownOpen]);
+
+  useEffect(() => {
+    if (!isDatePickerOpen) return;
+
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        datePickerRef.current &&
+        !datePickerRef.current.contains(event.target as Node)
+      ) {
+        setIsDatePickerOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [isDatePickerOpen]);
 
   const handleEducationKeyDown = (
     event: React.KeyboardEvent<HTMLButtonElement>
@@ -92,15 +153,32 @@ export default function ConsistencyModal({
   };
 
   const handleOpenDatePicker = () => {
-    if (!isEnrolled || !dateInputRef.current) return;
+    if (!isEnrolled) return;
 
-    if (typeof dateInputRef.current.showPicker === "function") {
-      dateInputRef.current.showPicker();
-      return;
-    }
+    setIsDatePickerOpen((prev) => {
+      if (!prev) {
+        setVisibleMonth(
+          startDate ? new Date(`${startDate}T00:00:00`) : new Date()
+        );
+      }
+      return !prev;
+    });
+  };
 
-    dateInputRef.current.focus();
-    dateInputRef.current.click();
+  const handleMonthChange = (direction: "prev" | "next") => {
+    setVisibleMonth((prev) => {
+      const updated = new Date(prev);
+      updated.setMonth(
+        prev.getMonth() + (direction === "next" ? 1 : -1)
+      );
+      return updated;
+    });
+  };
+
+  const handleDaySelect = (date: Date) => {
+    const selectedKey = formatDateKey(date);
+    setStartDate(selectedKey);
+    setIsDatePickerOpen(false);
   };
 
   if (!open) return null;
@@ -248,19 +326,88 @@ export default function ConsistencyModal({
                 </p>
               </div>
               <div className="flex xs:flex-row items-start xs:items-center gap-3 w-full sm:w-auto">
-                <label className="flex w-full flex-col gap-4 rounded-2xl border border-[#E2E8FF1A] px-4 py-3 text-sm text-white/80 xs:flex-row xs:items-center xs:justify-between xs:gap-3">
-                  <button
-                    type="button"
-                    onClick={handleOpenDatePicker}
-                    disabled={!isEnrolled}
-                    className="flex items-center gap-2 rounded-lg px-1 py-0.5 text-left text-[#B3B3B3] text-sm sm:text-base transition hover:text-white focus-visible:ring-2 focus-visible:ring-[#12CCFC] disabled:cursor-not-allowed disabled:opacity-40 whitespace-nowrap"
-                  >
-                    <CalendarIcon className="w-[15px] h-[15px]" />
-                    <span className="text-[#B3B3B3] text-[10px] sm:text-xs">
-                      {startDate ? formattedDate : "--- --,2025"}
-                    </span>
-                  </button>
-                </label>
+                <div className="relative w-full sm:w-auto">
+                  <label className="flex w-full flex-col gap-4 rounded-2xl border border-[#E2E8FF1A] px-4 py-3 text-sm text-white/80 xs:flex-row xs:items-center xs:justify-between xs:gap-3">
+                    <button
+                      type="button"
+                      onClick={handleOpenDatePicker}
+                      disabled={!isEnrolled}
+                      className="flex items-center gap-2 rounded-lg px-1 py-0.5 text-left text-[#B3B3B3] text-sm sm:text-base transition hover:text-white focus-visible:ring-2 focus-visible:ring-[#12CCFC] disabled:cursor-not-allowed disabled:opacity-40 whitespace-nowrap"
+                    >
+                      <CalendarIcon className="w-[15px] h-[15px]" />
+                      <span className="text-[#B3B3B3] text-[10px] sm:text-xs">
+                        {startDate ? formattedDate : "--- --,2025"}
+                      </span>
+                    </button>
+                  </label>
+
+                  {isDatePickerOpen && (
+                    <div
+                      ref={datePickerRef}
+                      className="absolute right-0 z-20 mt-3 w-72 rounded-2xl border border-[#E2E8FF1A] bg-[#050f1f] p-4 shadow-2xl"
+                    >
+                      <div className="flex items-center justify-between text-sm font-semibold text-white/80">
+                        <button
+                          type="button"
+                          onClick={() => handleMonthChange("prev")}
+                          className="rounded-full border border-white/10 p-1 text-white/70 transition hover:bg-white/10"
+                          aria-label="Previous month"
+                        >
+                          <ChevronLeft className="h-4 w-4" />
+                        </button>
+                        <span className="text-white">
+                          {visibleMonth.toLocaleString("en-US", {
+                            month: "long",
+                            year: "numeric",
+                          })}
+                        </span>
+                        <button
+                          type="button"
+                          onClick={() => handleMonthChange("next")}
+                          className="rounded-full border border-white/10 p-1 text-white/70 transition hover:bg-white/10"
+                          aria-label="Next month"
+                        >
+                          <ChevronRight className="h-4 w-4" />
+                        </button>
+                      </div>
+
+                      <div className="mt-4 grid grid-cols-7 gap-1 text-center text-[11px] uppercase tracking-wide text-white/40">
+                        {weekdayLabels.map((weekday) => (
+                          <span key={weekday}>{weekday}</span>
+                        ))}
+                      </div>
+
+                      <div className="mt-2 grid grid-cols-7 gap-1 text-sm">
+                        {calendarDays.map((date, index) => {
+                          if (!date) {
+                            return <span key={`empty-${index}`} />;
+                          }
+
+                          const dateKey = formatDateKey(date);
+                          const isSelected = dateKey === startDate;
+                          const isToday = dateKey === todayKey;
+
+                          return (
+                            <button
+                              key={dateKey}
+                              type="button"
+                              onClick={() => handleDaySelect(date)}
+                              className={`h-8 w-8 rounded-full text-center transition ${
+                                isSelected
+                                  ? "bg-[#12CCFC] text-[#040b14]"
+                                  : isToday
+                                  ? "border border-[#12CCFC] text-white"
+                                  : "text-white/80 hover:bg-white/10"
+                              }`}
+                            >
+                              {date.getDate()}
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
 
