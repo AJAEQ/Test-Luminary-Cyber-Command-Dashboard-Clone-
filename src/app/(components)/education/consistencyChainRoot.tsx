@@ -5,9 +5,12 @@ import FooterGraph from "./footerGraph";
 const ConsistencyChainRoot = () => {
   return (
     <div>
-      <ConsistencyChain />
-      <ConsistencyBtn />
-      <SkillMatrix />
+      <div className="flex flex-col md:gap-[20px] gap-[0px]">
+        <ConsistencyChain />
+        <ConsistencyBtn />
+        <SkillMatrix />
+      </div>
+
       <FooterGraph />
     </div>
   );

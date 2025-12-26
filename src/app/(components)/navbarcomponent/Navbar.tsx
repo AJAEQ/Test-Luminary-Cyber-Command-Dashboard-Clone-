@@ -1,22 +1,43 @@
 "use client";
 import { RxCaretRight } from "react-icons/rx";
-import { TbArrowBigUpLines } from "react-icons/tb";
-import { IoMdNotifications } from "react-icons/io";
-import { IoIosPeople } from "react-icons/io";
-import { MdDashboard, MdDashboardCustomize } from "react-icons/md";
-import { SiQuantconnect } from "react-icons/si";
-import { FaSearch, FaTimes } from "react-icons/fa";
+
+import { MdDashboard } from "react-icons/md";
+import Image from "next/image";
 import useModal from "@/app/_zustand/hooks/useModal";
 import { GiHamburgerMenu } from "react-icons/gi";
+import SeconDashBoard from "@/svg/secondDashBoard";
+import Notification from "@/svg/Notification";
+import { sidebarType } from "@/app/_type/type";
+import Contact from "@/svg/ContactTwo";
+import Vpn from "@/svg/Vpn";
+import Up from "@/svg/Up";
+import { FaTimes } from "react-icons/fa";
 const NavBar = () => {
   const modal = useModal();
   const { isNavOpen, handleIsNavOpen, handleIsNavClose, handleDashboardOpen } =
     modal;
   // <GiHamburgerMenu />
+
+  const navIcon: sidebarType[] = [
+    {
+      icon: <Up />,
+    },
+    {
+      icon: <Contact />,
+    },
+    {
+      icon: <Notification />,
+    },
+    {
+      icon: <SeconDashBoard />,
+    },
+  ];
+
+  const navMapping = navIcon.map((icon, index) => {
+    return <li key={index}>{icon.icon}</li>;
+  });
   return (
-    <header
-      className={`flex  w-full justify-between  items-center md:p-5 p-1  `}
-    >
+    <header className={`flex w-full justify-between items-center  p-0  `}>
       <div
         className=" text-[#22B8E8] text-2xl md:hidden block"
         onClick={handleDashboardOpen}
@@ -37,9 +58,9 @@ const NavBar = () => {
         <GiHamburgerMenu />
       </div>
       <div
-        className={`md:flex md:flex-row flex-col justify-between md:items-center md:gap-5 
+        className={`md:flex md:flex-row flex-col md:justify-between md:items-center md:gap-5 gap-[30px]
     md:bg-transparent bg-[#0a1420] absolute md:static top-0 z-10 
-    md:w-auto w-full p-5
+    md:w-auto w-full 
     ${isNavOpen ? "block" : "hidden"}
   `}
       >
@@ -49,34 +70,24 @@ const NavBar = () => {
         >
           <FaTimes />
         </div>
-        <div className="search border-[0.5px] border-[#E2E8FF1A] rounded-[10px] flex gap-3 items-center p-3 md:my-0 my-5">
-          <div className="text-[#E2E8FF1A] text-xl">
-            <FaSearch />
+        <div className="search border-[0.5px] border-[#E2E8FF1A] rounded-[10px] flex gap-3 items-center md:w-[313px] md:[40px] p-1">
+          <div className="relative w-[20px] h-[20px]">
+            <Image src="/images/search.png" alt="image" fill />
           </div>
           <input
             type="text"
             placeholder="search luminary"
-            className="placeholder:text-[#E2E8FF1A]"
+            className="placeholder:text-[#E2E8FF1A] placeholder:text-[10px] outline-none text-white"
           />
         </div>
-        <div className="text-white flex md:flex-row flex-col justify-between items-center md:gap-10 gap-16">
-          <div className="text-2xl">
-            <TbArrowBigUpLines />
-          </div>
-          <div className="text-2xl">
-            <IoIosPeople />
-          </div>
-          <div className="text-2xl">
-            <IoMdNotifications />
-          </div>
-          <div className="text-2xl">
-            <MdDashboardCustomize />
-          </div>
-          <button className=" rounded w-[169px] h-[40px] border-1 border-[#E2E8FF0D] text-red-600 text-center text-sm flex items-center justify-center gap-2 font-semibold">
-            <SiQuantconnect />
-            <h3>Connect to VPN</h3>
-          </button>
-        </div>
+
+        <ul className="flex md:flex-row flex-col items-center md:gap-[20px] gap-[40px]">
+          {navMapping}
+        </ul>
+        <button className=" rounded md:w-[169px] w-full h-[40px] md:my-0 my-3  border-1 border-[#E2E8FF0D] text-red-600 text-center text-sm flex items-center justify-center gap-2 font-600">
+          <Vpn />
+          <p>Connect to VPN</p>
+        </button>
       </div>
     </header>
   );

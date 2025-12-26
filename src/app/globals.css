@@ -1,3 +1,6 @@
+@import url("https://fonts.cdnfonts.com/css/neofolia");
+@import url("https://fonts.cdnfonts.com/css/nasdaqer");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
 @import "tailwindcss";
 @import "tw-animate-css";
 
@@ -6,5 +9,29 @@
 body {
   /* width: 1440px; */
   /* height: 2007px; */
-  background-color: #0a1420;
+  background-color: #040e16;
+  /* box-sizing: border-box; */
+}
+
+.course-list,
+.course-progress {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(128, 128, 128, 0.6) transparent;
+}
+
+/* Chrome, Edge, Safari */
+.course-list::-webkit-scrollbar ,
+.course-progress::-webkit-scrollbar {
+  width: 8px;
+}
+
+.course-list::-webkit-scrollbar-track ,
+.course-progresst::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.course-list::-webkit-scrollbar-thumb {
+  background-color: rgba(128, 128, 128, 0.6);
+  border-radius: 999px;
+  min-height: 20px; /* make thumb at least 20px high */
 }

@@ -1,7 +1,8 @@
 import React from "react";
+import { JSX } from "react";
 
 export interface sidebarType {
-  icon: React.ElementType;
+  icon: JSX.Element | string;
 }
 export interface educationType {
   icon: React.ElementType;
@@ -15,7 +16,7 @@ export interface modalType {
   isNavOpen: boolean;
   handleIsNavOpen: () => void;
   handleIsNavClose: () => void;
-   isDashboardOpen: boolean;
+  isDashboardOpen: boolean;
   handleDashboardOpen: () => void;
   handleDashboardClose: () => void;
 }

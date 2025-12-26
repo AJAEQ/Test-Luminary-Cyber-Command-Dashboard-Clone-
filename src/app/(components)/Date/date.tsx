@@ -24,13 +24,13 @@ export function Calendar22() {
           <Button
             variant="outline"
             id="date"
-            className="w-[102px] justify-between font-normal text-white text-[10px] py-[8px] px-[10px] bg-[#0D171F] border-1 border-[#0D171F] text-center"
+            className="w-[102px] justify-center font-normal text-white text-[10px] py-[8px] px-[10px] bg-[#0D171F] border border-[#21B9E800]  text-center"
           >
             {date ? date.toLocaleDateString() : "Select date"}
           </Button>
         </PopoverTrigger>
         <PopoverContent
-          className="w-auto overflow-hidden p-0 bg-white"
+          className="w-auto overflow-hidden p-0  text-white border border-gray-300 "
           align="start"
         >
           <Calendar
@@ -42,6 +42,7 @@ export function Calendar22() {
               handleSelectedDate(date as unknown as Date);
               setOpen(false);
             }}
+       
           />
         </PopoverContent>
       </Popover>
