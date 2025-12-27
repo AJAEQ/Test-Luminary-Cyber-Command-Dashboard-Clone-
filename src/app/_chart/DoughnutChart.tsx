@@ -1,19 +1,26 @@
 "use client";
 import React from "react";
 import { Doughnut } from "react-chartjs-2";
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+import {
+  Chart as ChartJS,
+  ArcElement,
+  Tooltip,
+  Legend,
+  ScriptableContext,
+  ChartData,
+} from "chart.js";
 import Image from "next/image";
 import useEducation from "../_zustand/hooks/useEducation";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 const DoughnutChart = () => {
-  const data = {
+  const data: ChartData<"doughnut"> = {
     labels: ["Section"],
     datasets: [
       {
         data: [100], // Single segment = full circle
-        backgroundColor: (context: any) => {
+        backgroundColor: (context: ScriptableContext<"doughnut">) => {
           const chart = context.chart;
           const { ctx, chartArea } = chart;
 
@@ -39,7 +46,6 @@ const DoughnutChart = () => {
           return gradient;
         },
         borderWidth: 0,
-        cutout: "85%",
       },
     ],
   };
@@ -47,6 +53,8 @@ const DoughnutChart = () => {
   const options = {
     responsive: true,
     maintainAspectRatio: true,
+    cutout: "85%",
+
     plugins: {
       legend: {
         display: false,
@@ -69,8 +77,6 @@ const DoughnutChart = () => {
 
   const eduInfo = useEducation();
   const { isEnrolled } = eduInfo;
-
-
 
   const colors = datas.map((d) => d.color);
 
@@ -155,32 +161,32 @@ const DoughnutChart = () => {
           ))}
         </div>
       ) : (
-      <div className="flex flex-col  md:w-auto w-full gap-2">
-        {list.map((item, index) => (
-          <div
-            key={index}
-            className="flex items-center justify-between w-full"
-          >
-            <div className="flex items-center gap-2 w-[80%] ">
-              <div className="text-gray-300  text-[12px] ">
-                {item.label}
+        <div className="flex flex-col  md:w-auto w-full gap-2">
+          {list.map((item, index) => (
+            <div
+              key={index}
+              className="flex items-center justify-between w-full"
+            >
+              <div className="flex items-center gap-2 w-[80%] ">
+                <div className="text-gray-300  text-[12px] ">{item.label}</div>
+
+                <div
+                  className=" h-[10px] rounded-full"
+                  style={{
+                    backgroundColor: item.color,
+                    width: item.percentage + "%",
+                  }}
+                  key={index}
+                ></div>
               </div>
 
-              <div
-                className=" h-[10px] rounded-full"
-                style={{
-                  backgroundColor: item.color,
-                  width: item.percentage + "%",
-                }}
-                key={index}
-              ></div>
+              <div className="text-cyan-400 text-[8px] w-[10%]">
+                {item.percentage}%
+              </div>
             </div>
-
-            <div className="text-cyan-400 text-[8px] w-[10%]">{item.percentage}%</div>
-          </div>
-        ))}
-      </div>
-       )} 
+          ))}
+        </div>
+      )}
     </div>
   );
 };
