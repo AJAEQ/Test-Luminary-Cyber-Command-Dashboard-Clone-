@@ -58,19 +58,21 @@ const NavBar = () => {
         <GiHamburgerMenu />
       </div>
       <div
-        className={`md:flex md:flex-row flex-col md:justify-between md:items-center md:gap-5 gap-[30px]
-    md:bg-transparent bg-[#0a1420] absolute md:static top-0 z-10 
+        className={`md:flex md:flex-row flex-col md:justify-between items-center md:gap-5 
+    md:bg-transparent bg-[#0a1420] absolute md:static top-0 z-10 md:p-0 p-4 
     md:w-auto w-full 
     ${isNavOpen ? "block" : "hidden"}
   `}
       >
         <div
-          className=" text-white text-3xl md:hidden block"
+          className=" text-white text-3xl md:hidden block py-5  "
           onClick={handleIsNavClose}
         >
-          <FaTimes />
+          <div className="flex justify-end">
+            <FaTimes />
+          </div>
         </div>
-        <div className="search border-[0.5px] border-[#E2E8FF1A] rounded-[10px] flex gap-3 items-center md:w-[313px] md:[40px] p-1">
+        <div className="search border-[0.5px] border-[#E2E8FF1A] rounded-[10px] flex gap-3 items-center md:w-[313px] w-[400px]  p-1 mx-auto">
           <div className="relative w-[20px] h-[20px]">
             <Image src="/images/search.png" alt="image" fill />
           </div>
@@ -81,10 +83,10 @@ const NavBar = () => {
           />
         </div>
 
-        <ul className="flex md:flex-row flex-col items-center md:gap-[20px] gap-[40px]">
+        <ul className="flex md:flex-row flex-col items-center md:gap-[20px] gap-[60px] my-4">
           {navMapping}
         </ul>
-        <button className=" rounded md:w-[169px] w-full h-[40px] md:my-0 my-3  border-1 border-[#E2E8FF0D] text-red-600 text-center text-sm flex items-center justify-center gap-2 font-600">
+        <button className=" rounded md:w-[169px] w-[400px] h-[40px] md:my-0 my-3  border-1 border-[#E2E8FF0D] text-red-600 text-center text-sm flex items-center justify-center gap-2 font-600 mx-auto">
           <Vpn />
           <p>Connect to VPN</p>
         </button>
