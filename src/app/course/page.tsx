@@ -25,11 +25,12 @@ const CoursePage = () => {
     startDate,
     clickedBtnIndexClicked,
     handleIsEnroll,
-    registerEnrollButtons,
+    isWithdraw,
+    // registerEnrollButtons,
   } = eduInfo;
   useEffect(() => {
     fetchData(datas);
-  }, []);
+  }, [fetchData]);
 
   const date = startDate?.toISOString().split("T")[0];
 
@@ -212,7 +213,12 @@ const CoursePage = () => {
           </div>
           <div className="flex items-center gap-5 ">
             <div className="relative md:w-[21px] md:h-[21.39px] w-[40px] h-[31px]">
-              <Image src="/images/cycle.png" fill alt="cycle"  className="object-center object-cover"/>
+              <Image
+                src="/images/cycle.png"
+                fill
+                alt="cycle"
+                className="object-center object-cover"
+              />
             </div>
 
             <div className="flex items-center gap-2 md:w-[184px] md:h-[44.5px] w-full border-[1.06px] border-[#FFFFFF0D] bg-gradient to-b from-[#040E1699] to-[#174F7C99] md:py-[11.66px] md:px-[46.62px] py-2 px-2 text-[25px] text-[#FFAC33]">
@@ -227,23 +233,29 @@ const CoursePage = () => {
             </div>
           </div>
           <div
-            className="isEnroll bg-gradient-to-b from-[#F6743E] to-[#D42525] font-600  leading-[19.07px] text-[12.72px] tracking-[0%]  text-[#E2E8FF] text-center px-5 py-2 rounded cursor-pointer w-full md:w-[200px]"
+            className={`isEnroll ${
+              isWithdraw === "ENROLL"
+                ? "bg-[#D1D1D1] text-[#6A2936]"
+                : "bg-gradient-to-b from-[#F6743E] to-[#D42525] text-[#E2E8FF]"
+            }  font-600  leading-[19.07px] text-[12.72px] tracking-[0%]   text-center px-5 py-2 rounded cursor-pointer w-full md:w-[200px]`}
             onClick={() => handleIsEnroll(education)}
           >
-            ENROLL
+            {isWithdraw}
           </div>
         </div>
       </div>
     );
   });
 
-  useEffect(() => {
-    if (!educationFilter) return;
-    const els = Array.from(
-      document.querySelectorAll(".isEnroll")
-    ) as HTMLDivElement[];
-    registerEnrollButtons(els);
-  }, []);
+  // useEffect(() => {
+  //   if (!educationFilter) return;
+  //   const els = Array.from(
+  //     document.querySelectorAll(".isEnroll")
+  //   ) as HTMLDivElement[];
+  //   console.log(els);
+
+  //   registerEnrollButtons(els);
+  // }, []);
   return (
     <div className="w-full md:px-0 ">
       <div className="flex items-center gap-5 text-white p-4" onClick={goBack}>

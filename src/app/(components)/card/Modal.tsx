@@ -118,7 +118,7 @@ export function CardDemo() {
 
         <div className="flex justify-end">
           <Button
-            className="w-[174px] h-[40px] rounded-[5px] py-[11px] px-[44px] bg-[#B3B3B30D] text-[#B3B3B399] font-600  leading-[120%] text-xs tracking-0 text-center  "
+            className="w-[174px] h-[40px] rounded-[5px] py-[11px] px-[44px] bg-[#B3B3B30D] text-[#B3B3B399] font-600  leading-[120%] text-xs tracking-0 text-center cursor-pointer "
             onClick={handleSubmit}
           >
             CONFIRM

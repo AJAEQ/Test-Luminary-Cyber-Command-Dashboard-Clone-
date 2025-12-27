@@ -10,7 +10,9 @@ interface EducationWeekCountType {
   startDate: Date | null;
   clickedBtnIndexClicked: string;
   isEnrolled: EducationType | null;
-  isEnrollContent: HTMLDivElement[];
+  isWithdraw: string;
+
+  // isEnrollContent: HTMLDivElement[];
   isStartClick: boolean | null;
   EducationObj: {
     weekCount: number | null;
@@ -23,7 +25,7 @@ interface EducationWeekCountType {
   handleSelectedDate: (date: Date) => void;
   handleEducationObj: (router: AppRouterInstance) => void;
   handleStartDate: (id: string) => void;
-  registerEnrollButtons: (elements: HTMLDivElement[]) => void;
+  // registerEnrollButtons: (elements: HTMLDivElement[]) => void;
   handleIsEnroll: (course: EducationType) => void;
 }
 
@@ -64,6 +66,11 @@ const useEducation = create<EducationWeekCountType>((set, get) => {
           selectedCompleteDate: null,
         };
 
+  const initialIsWithdraw =
+    isClient && localStorage.getItem("isWithdraw")
+      ? JSON.parse(localStorage.getItem("isWithdraw")!)
+      : "ENROLL";
+
   return {
     weekCount: initialWeekCount,
     selectedEducation: initialSelectedEducation,
@@ -74,6 +81,7 @@ const useEducation = create<EducationWeekCountType>((set, get) => {
     isEnrollContent: [],
     isStartClick: null,
     EducationObj: initialEducationObj,
+    isWithdraw: initialIsWithdraw,
 
     handleIncre: () => {
       const newCount = Math.min(10, get().weekCount + 1);
@@ -132,7 +140,7 @@ const useEducation = create<EducationWeekCountType>((set, get) => {
     handleStartDate: (id) => {
       const state = get();
 
-      if (!state.isEnrolled) {
+      if (state.isWithdraw === "ENROLL" && !state.isEnrolled) {
         toast.error("Please, Enroll first");
         setTimeout(() => {
           set({ isStartClick: false });
@@ -154,14 +162,30 @@ const useEducation = create<EducationWeekCountType>((set, get) => {
       toast.success("Started successfully!");
     },
 
-    registerEnrollButtons: (elements) => {
-      set({ isEnrollContent: elements });
-    },
+    // registerEnrollButtons: (elements) => {
+    //   set({ isEnrollContent: elements });
+    // },
 
     handleIsEnroll: (course) => {
-      set({ isEnrolled: course });
-      localStorage.setItem("isEnrolled", JSON.stringify(course));
-      toast.success(`You have successfully enrolled for ${course.title}`);
+      const current = get().isWithdraw;
+      const next = current === "ENROLL" ? "WITHDRAW" : "ENROLL";
+
+      set({
+        isEnrolled: next === "WITHDRAW" ? course : null,
+        isWithdraw: next,
+      });
+
+      localStorage.setItem(
+        "isEnrolled",
+        next === "WITHDRAW" ? JSON.stringify(course) : ""
+      );
+      localStorage.setItem("isWithdraw", JSON.stringify(next));
+
+      toast.success(
+        `You have successfully ${
+          next === "WITHDRAW" ? "enrolled for" : "withdrawn from"
+        } ${course.title}`
+      );
     },
   };
 });

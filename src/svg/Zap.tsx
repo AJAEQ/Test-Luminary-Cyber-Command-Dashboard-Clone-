@@ -91,7 +91,7 @@ const Zap = () => {
             values="0 0 0 0 0.243137 0 0 0 0 0.427451 0 0 0 0 0.92549 0 0 0 1 0"
           />
           <feBlend
-            mode="plus-lighter"
+            mode="lighten"
             in2="shape"
             result="effect1_innerShadow_541_134"
           />
@@ -126,7 +126,7 @@ const Zap = () => {
             values="0 0 0 0 0.243137 0 0 0 0 0.427451 0 0 0 0 0.92549 0 0 0 1 0"
           />
           <feBlend
-            mode="plus-lighter"
+            mode="lighten"
             in2="shape"
             result="effect1_innerShadow_541_134"
           />
